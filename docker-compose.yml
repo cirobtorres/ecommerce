@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    restart: always
+    volumes:
+      - ./frontend:/app
+      - /frontend/app/node_modules
+    ports:
+      - 3000:3000
+
+  backend:
+    build:
+      context: ./backend
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend/djangoapp:/djangoapp
+      - ./data/web/static:/data/web/static/
+      - ./data/web/media:/data/web/media/
+    env_file:
+      - ./backend/dotenv/.env
+    depends_on:
+      - database
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    env_file:
+      - ./backend/dotenv/.env
+    depends_on:
+      - database
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+
+  database:
+    image: postgres:16.0-alpine3.18
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+    env_file:
+      - ./backend/dotenv/.env
