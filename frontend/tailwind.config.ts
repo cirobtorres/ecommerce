@@ -14,17 +14,19 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
-        'theme-01': '#171e26',
-        'theme-02': '#2c3a4a',
-        'theme-03': '#36495f',
-        'border-01': '#1f3038',
-        'border-02': '#475c68',
+        'theme-01-light-gray': '#e9eaed',
+        'theme-02-light-gray': '#a8afb8',
+        'theme-03-medium-gray': '#6a7481',
+        'theme-04-medium-gray': '#353a41',
+        'theme-05-dark-gray': '#25282d',
+        'theme-06-light-blue': '#1dbaed',
+        'theme-07-dark-blue': '#0d3e80',
+        'theme-08-light-green': '#37a73b',
       },
       boxShadow: {
         'bright': 'inset 0 0 100px 100px rgba(255, 255, 255, 0.2)',
       },
     },
   },
-  plugins: [require('flowbite/plugin')],
 }
 export default config

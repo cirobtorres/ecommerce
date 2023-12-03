@@ -1,19 +1,95 @@
-export default function Field({ type, id, label }: FieldProps) {
-    // This component is intended to be nested inside a flex container
-    return (
-        <div className={`flex-1 relative`}>
-            <input type={type} id={id} required className={`
-                w-full p-2 rounded outline-none focus:ring-0 border peer
-                bg-theme-01 border-border-02 focus:border-green-500
-            `} placeholder="" />
-            <label htmlFor={id} className={`
-                absolute text-sm top-2 px-2 z-10 origin-[0] -translate-y-4 scale-75 pointer-events-none transform duration-300 start-1
-                text-border-02 bg-theme-01 peer-focus:text-green-500
-                peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2
-                peer-focus:px-2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto
-            `}>{label}</label>
-        </div>
-    )
+'use client';
+
+import { useEffect, useState } from "react";
+
+import { xMark, warning } from "@/icons";
+
+type FieldProps = {
+	type: 'text' | 'date' | 'email' | 'password';
+	id: string;
+	label: string;
+	required?: boolean;
+	onChange: (event: any) => void;
+	errorFunction?: (value: string) => any[];
+}
+
+export default function Field(props: FieldProps) {
+	const [isEmpty, setIsEmpty] = useState(false);
+	const [value, setValue] = useState('' as string);
+	const [error, setError] = useState([] as string[]);
+	
+	function handleOnChange(event: any) {
+		setValue(event.target.value);
+		props.onChange(value);
+		if (props.errorFunction) {
+			setError(props.errorFunction(event.target.value));
+		}
+	};
+
+	function handleOnBlur(event: any) {
+		if (event.target.value === '') {
+			setIsEmpty(true);
+		} else {
+			setIsEmpty(false);
+		}
+	};
+
+	function handleOnFocus(event: any) {
+		setIsEmpty(false);
+	};
+	
+	// useEffect(() => {
+	// 	console.log(error);
+	// }, [error]);
+	
+	return (
+		// This component is intended to be nested inside a flex container
+		<div className={`flex flex-col w-full h-full`}>
+			<div className={`relative`}>
+				<input
+					type={props.type}
+					id={props.id}
+					onChange={handleOnChange}
+					required={props.required}
+					onBlur={handleOnBlur}
+					onFocus={handleOnFocus}
+					placeholder=""
+					className={`
+						w-full p-3 rounded outline-none focus:ring-0 border peer
+						text-theme-04-medium-gray ${isEmpty ? 'border-red-500' : 'border-theme-02-light-gray'}
+						bg-theme-01-light-gray focus:border-theme-08-light-green
+					`}
+				/>
+					<label htmlFor={props.id} className={`
+						absolute text-base top-2 px-2 z-10 scale-75 origin-[0] pointer-events-none transform duration-300 start-2 -translate-y-[1.1rem] 
+						peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2
+						peer-focus:px-2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[1.1rem]
+						rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto
+						${isEmpty ? 'text-red-500' : 'text-theme-03-medium-gray'} bg-theme-01-light-gray peer-focus:text-theme-08-light-green
+					`}>
+						{props.label}
+					</label>
+			</div>
+			{props.required && isEmpty && (
+				<span className={`flex flex-row gap-1 text-sm text-left p-1 text-red-500`}>
+					{warning(20, 20)} Campo obrigatório
+				</span>
+			)}
+			{error.length > 0 && value && (<div className={'my-2 grid grid-cols-2 gap-1 text-base'}>
+				{error && error.map((errorText, index) => (
+					Number(errorText[1]) === 0 ? (
+						<span key={index} className={`
+							flex justify-center items-center text-sm text-theme-08-light-green bg-green-100 rounded border`
+						}>{errorText[0]}</span>
+					) : (
+						<span key={index} className={`
+							flex justify-center items-center text-sm text-red-500 bg-red-200 rounded border
+						`}>{xMark(20, 20)} {errorText[0]}</span>
+					)
+				))}
+			</div>)}
+		</div>
+	)
 }
 
 /*

@@ -3,7 +3,7 @@ import ProductCard from '@/components/ProductCard'
 
 export default function Home (): JSX.Element {
   return (
-    <main className={'h-[100vh] flex justify-center items-center gap-4 p-4'}>{/* Essas classes são temporárias */}
+    <main className={'flex justify-center items-center gap-4 p-4 h-full'}>{/* Essas classes são temporárias */}
       <ProductCard 
         title='Válvula de serviço para lavadora Consul CWE11B' 
         image='/images/valvula-de-servico.jpg'
@@ -25,7 +25,7 @@ export default function Home (): JSX.Element {
         installmentValue={16.66}
       />
       <ProductCard
-        title='Pressostato 4 níveis para lavadora Brastemp BWL11A'
+        title='Pressostato 4 níveis para lavadora facility flash wash Brastemp BWL11ABBNA 110V-220V'
         image='/images/pressostato-4-niveis.jpg'
         units={19}
         fullPrice={130}

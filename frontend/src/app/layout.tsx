@@ -19,8 +19,10 @@ export default function RootLayout ({
 }): JSX.Element {
   return (
     <html lang='pt'>
-      <body className={`${poppins.className} bg-gray-200`}>
+      <body className={`${poppins.className} flex flex-col h-screen`}>
+        <header className={`h-20 bg-theme-07-dark-blue`}></header>
         {children}
+        <footer className={`h-20 bg-theme-04-medium-gray`}></footer>
       </body>
     </html>
   )

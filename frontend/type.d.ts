@@ -1,11 +1,5 @@
 type AuthContextProps = {}
 
-type FieldProps = {
-    type: 'text' | 'email' | 'password'
-    id: string
-    label: string
-}
-
 type ProductCardProps = {
     title: string;
     image: string;
