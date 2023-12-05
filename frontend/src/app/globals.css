@@ -33,9 +33,9 @@ input:-webkit-autofill:active{
     box-sizing: border-box;
 }
 
-body {
+/* body {
     background-color: var(--theme-01-light-gray);
-}
+} */
 
 h2 {
     font-size: 2rem;

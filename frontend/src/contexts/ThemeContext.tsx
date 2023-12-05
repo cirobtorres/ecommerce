@@ -1,34 +1,40 @@
-"use client";
+'use client';
 
 import { useEffect, useState, createContext } from 'react';
 
+type ThemeContextProps = {
+  theme: string | null;
+  alternateTheme: () => void;
+};
+
 const ThemeContext = createContext<ThemeContextProps>({
-    theme: null,
-    alternateTheme: () => { },
+  theme: '',
+  alternateTheme: () => {},
 });
 
 export function ThemeProvider(props: any) {
-    const [theme, setTheme] = useState<"light" | "dark" | null>("light");
+  const [theme, setTheme] = useState<string | null>('');
 
-    function alternateTheme() {
-        const newTheme = theme === "light" ? "light" : "dark";
-        setTheme(newTheme);
-        localStorage.setItem("theme", newTheme);
-    }
+  function alternateTheme() {
+    const newTheme = theme === '' ? 'dark' : '';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
 
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        setTheme(savedTheme as "light" | "dark");
-    }, [])
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme);
+  }, [])
 
-    return (
-        <ThemeContext.Provider value={{
-            theme,
-            alternateTheme,
-        }}>
-            {props.children}
-        </ThemeContext.Provider>
-    );
+  return (
+    <ThemeContext.Provider 
+      value={{
+        theme,
+        alternateTheme,
+    }}>
+      {props.children}
+    </ThemeContext.Provider>
+  );
 }
 
 export default ThemeContext;

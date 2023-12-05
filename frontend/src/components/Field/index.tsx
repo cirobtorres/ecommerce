@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { xMark, warning } from "@/icons";
+import useTheme from "@/hooks/useTheme";
 
 type FieldProps = {
 	type: 'text' | 'date' | 'email' | 'password';
@@ -17,6 +18,8 @@ export default function Field(props: FieldProps) {
 	const [isEmpty, setIsEmpty] = useState(false);
 	const [value, setValue] = useState('' as string);
 	const [error, setError] = useState([] as string[]);
+
+	const { theme } = useTheme();
 	
 	function handleOnChange(event: any) {
 		setValue(event.target.value);
@@ -38,10 +41,6 @@ export default function Field(props: FieldProps) {
 		setIsEmpty(false);
 	};
 	
-	// useEffect(() => {
-	// 	console.log(error);
-	// }, [error]);
-	
 	return (
 		// This component is intended to be nested inside a flex container
 		<div className={`flex flex-col w-full h-full`}>
@@ -55,17 +54,19 @@ export default function Field(props: FieldProps) {
 					onFocus={handleOnFocus}
 					placeholder=""
 					className={`
-						w-full p-3 rounded outline-none focus:ring-0 border peer
-						text-theme-04-medium-gray ${isEmpty ? 'border-red-500' : 'border-theme-02-light-gray'}
-						bg-theme-01-light-gray focus:border-theme-08-light-green
+						w-full p-3 rounded outline-none focus:ring-0 border peer 
+						text-theme-04-medium-gray dark:text-theme-01-light-gray bg-theme-01-light-gray dark:bg-slate-800 
+						${isEmpty ? 'border-red-500' : theme === 'dark' ? 'dark:border-theme-04-medium-gray' : 'border-theme-02-light-gray'}
+						${isEmpty ? 'focus:border-red-500' : theme === 'dark' ? 'dark:focus:border-theme-08-light-green' : 'focus:border-theme-08-light-green'}
 					`}
 				/>
 					<label htmlFor={props.id} className={`
 						absolute text-base top-2 px-2 z-10 scale-75 origin-[0] pointer-events-none transform duration-300 start-2 -translate-y-[1.1rem] 
 						peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2
 						peer-focus:px-2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[1.1rem]
-						rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto
-						${isEmpty ? 'text-red-500' : 'text-theme-03-medium-gray'} bg-theme-01-light-gray peer-focus:text-theme-08-light-green
+						rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto 
+						${isEmpty ? 'text-red-500' : 'text-theme-03-medium-gray'} bg-theme-01-light-gray dark:bg-slate-800 
+						${isEmpty ? 'peer-focus:text-red-500' : 'peer-focus:text-theme-08-light-green'}
 					`}>
 						{props.label}
 					</label>

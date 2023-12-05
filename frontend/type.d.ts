@@ -10,8 +10,3 @@ type ProductCardProps = {
     installmentNumber: number;
     installmentValue: number;
 };
-
-type ThemeContextProps = {
-    theme: "light" | "dark" | null,
-    alternateTheme: () => void,
-};

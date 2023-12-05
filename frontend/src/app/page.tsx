@@ -3,7 +3,7 @@ import ProductCard from '@/components/ProductCard'
 
 export default function Home (): JSX.Element {
   return (
-    <main className={'flex justify-center items-center gap-4 p-4 h-full'}>{/* Essas classes são temporárias */}
+    <div className={'flex justify-center items-center gap-4 p-4 h-full'}>{/* Essas classes são temporárias */}
       <ProductCard 
         title='Válvula de serviço para lavadora Consul CWE11B' 
         image='/images/valvula-de-servico.jpg'
@@ -44,6 +44,6 @@ export default function Home (): JSX.Element {
         installmentNumber={4}
         installmentValue={18.75}
       />
-    </main>
+    </div>
   )
 }

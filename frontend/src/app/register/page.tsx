@@ -7,7 +7,7 @@ import { validatePassword } from '@/functions/validatePassword';
 import Field from '@/components/Field';
 import { facebook, google, spotify } from '@/icons';
 
-export default function Register (): JSX.Element {
+export default function Register () {
 	const [fullName, setFullName] = useState('');
 	const [cpf, setCpf] = useState('');
 	const [birth, setBirth] = useState('');
@@ -25,18 +25,24 @@ export default function Register (): JSX.Element {
 	};
 
   return (
-		<main className={'flex flex-col justify-center mx-auto text-center w-full max-w-2xl min-w-[480px] h-full'}>
-			<h2 className={'mb-8 uppercase text-theme-07-dark-blue'}>Criar Conta</h2>
+		<div className={`flex flex-col max-w-3xl h-full justify-center text-center mx-auto`}>
+			<h2 className={'mb-8 uppercase text-theme-07-dark-blue dark:text-theme-01-light-gray'}>Criar Conta</h2>
 			<div className={'flex flex-row justify-center gap-1'}>
-				<button className={'flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-white bg-[#0165E1]'}>Cadastrar com {facebook(20, 20, '#fff')} Facebook</button>
-				<button className={'flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-white bg-[#db4437]'}>Cadastrar com {google(20, 20, '#fff')} Google</button>
-				<button className={'flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-white bg-[#1db954]'}>Cadastrar com {spotify(20, 20, '#fff')} Spotify</button>
+				<button className={`flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-theme-01-light-gray bg-[#0165E1]`}>
+					Cadastrar com {facebook(20, 20, '#fff')} Facebook
+				</button>
+				<button className={`flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-theme-01-light-gray bg-[#db4437]`}>
+					Cadastrar com {google(20, 20, '#fff')} Google
+				</button>
+				<button className={`flex flex-row gap-1 text-xs items-center justify-center p-4 flex-1 rounded text-theme-01-light-gray bg-[#1db954]`}>
+					Cadastrar com {spotify(20, 20, '#fff')} Spotify
+				</button>
 			</div>
 			<div className={'relative'}>
-				<hr className={'my-4 border-theme-02-light-gray'} />
+				<hr className={'my-4 border-theme-02-light-gray dark:border-theme-04-medium-gray'} />
 				<span className={`
-					absolute flex justify-center items-center top-0 h-full left-1/2 
-					-translate-x-1/2 text-theme-02-light-gray bg-theme-01-light-gray w-12
+					absolute flex justify-center items-center top-0 h-full left-1/2 w-12
+					-translate-x-1/2 text-theme-02-light-gray bg-theme-01-light-gray dark:bg-slate-800 dark:text-theme-03-medium-gray
 				`}>ou</span>
 			</div>
 			<form>
@@ -57,12 +63,16 @@ export default function Register (): JSX.Element {
 				</div>
 				<div className={`flex flex-col text-left gap-4 my-4`}>
 					<div className={`inline-flex gap-2 items-center`}>
-						<input id='newsletter_checkbox' type='checkbox' className={`h-4 w-4 cursor-pointer`} />
-						<label htmlFor='newsletter_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp</label>
+						<input id='newsletter_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} />
+						<label htmlFor='newsletter_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
+							Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp
+						</label>
 					</div>
 					<div className={`inline-flex gap-2 items-center`}>
-						<input id='privacy_policies_checkbox' type='checkbox' className={`h-4 w-4 cursor-pointer`} />
-						<label htmlFor='privacy_policies_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>Aceito os termos de uso e a política de privacidade</label>
+						<input id='privacy_policies_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} />
+						<label htmlFor='privacy_policies_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
+							Aceito os termos de uso e a política de privacidade
+						</label>
 					</div>
 				</div>
 				<button className={'m-2 p-4 w-80 text-white bg-theme-07-dark-blue rounded hover:shadow-bright'} onClick={handleSubmit}>Confirmar</button>
@@ -70,6 +80,6 @@ export default function Register (): JSX.Element {
 			<span className={`text-theme-03-medium-gray`}>
 				Já possui cadastro? <Link href="/login" className={'text-theme-07-dark-blue underline font-bold'}>Entrar</Link>
 			</span>
-		</main>
+		</div>
   )
 }

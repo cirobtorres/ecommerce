@@ -34,7 +34,7 @@ export default function ProductCard(props: ProductCardProps) {
             </div>
           </div>
           <div className={`relative my-2 h-40 max-w-[var(--product-card-max-width)] overflow-hidden`}>
-            <Image src={props.image} alt={props.title} fill className={`object-cover duration-1000 ease-in-out group-hover:scale-105`} />
+            <Image src={props.image} alt={props.title} fill sizes='100%' priority className={`object-cover duration-1000 ease-in-out group-hover:scale-105`} />
           </div>
           <span className={`flex justify-center items-center text-xs`}>{star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} (46)</span>
         </div>
