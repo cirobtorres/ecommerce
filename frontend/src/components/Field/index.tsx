@@ -56,8 +56,8 @@ export default function Field(props: FieldProps) {
 					className={`
 						w-full p-3 rounded outline-none focus:ring-0 border peer 
 						text-theme-04-medium-gray dark:text-theme-01-light-gray bg-theme-01-light-gray dark:bg-slate-800 
-						${isEmpty ? 'border-red-500' : theme === 'dark' ? 'dark:border-theme-04-medium-gray' : 'border-theme-02-light-gray'}
-						${isEmpty ? 'focus:border-red-500' : theme === 'dark' ? 'dark:focus:border-theme-08-light-green' : 'focus:border-theme-08-light-green'}
+						${isEmpty ? 'border-red-500' : 'dark:border-theme-04-medium-gray border-theme-02-light-gray'}
+						${isEmpty ? 'focus:border-red-500' : 'dark:focus:border-theme-08-light-green focus:border-theme-08-light-green'}
 					`}
 				/>
 					<label htmlFor={props.id} className={`
@@ -67,7 +67,7 @@ export default function Field(props: FieldProps) {
 						rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto 
 						${isEmpty ? 'text-red-500' : 'text-theme-03-medium-gray'} bg-theme-01-light-gray dark:bg-slate-800 
 						${isEmpty ? 'peer-focus:text-red-500' : 'peer-focus:text-theme-08-light-green'}
-					`}>
+					`}>{/* duration-300 delays the background recolor from light to dark mode and vice versa */}
 						{props.label}
 					</label>
 			</div>

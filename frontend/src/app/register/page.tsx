@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { validatePassword } from '@/functions/validatePassword';
 import Field from '@/components/Field';
 import { facebook, google, spotify } from '@/icons';
+import Checkbox from '@/components/Checkbox';
 
 export default function Register () {
 	const [fullName, setFullName] = useState('');
@@ -63,16 +64,18 @@ export default function Register () {
 				</div>
 				<div className={`flex flex-col text-left gap-4 my-4`}>
 					<div className={`inline-flex gap-2 items-center`}>
-						<input id='newsletter_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} />
-						<label htmlFor='newsletter_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
+						{/* <input id='newsletter_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} /> */}
+						{/* <label htmlFor='newsletter_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
 							Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp
-						</label>
+						</label> */}
+						<Checkbox label='Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp' />
 					</div>
 					<div className={`inline-flex gap-2 items-center`}>
-						<input id='privacy_policies_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} />
-						<label htmlFor='privacy_policies_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
+						{/* <input id='privacy_policies_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} /> */}
+						{/* <label htmlFor='privacy_policies_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
 							Aceito os termos de uso e a política de privacidade
-						</label>
+						</label> */}
+						<Checkbox label='Aceito os termos de uso e a política de privacidade' />
 					</div>
 				</div>
 				<button className={'m-2 p-4 w-80 text-white bg-theme-07-dark-blue rounded hover:shadow-bright'} onClick={handleSubmit}>Confirmar</button>

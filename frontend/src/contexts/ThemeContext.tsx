@@ -13,7 +13,7 @@ const ThemeContext = createContext<ThemeContextProps>({
 });
 
 export function ThemeProvider(props: any) {
-  const [theme, setTheme] = useState<string | null>('');
+  const [theme, setTheme] = useState<string | null>('dark');
 
   function alternateTheme() {
     const newTheme = theme === '' ? 'dark' : '';
