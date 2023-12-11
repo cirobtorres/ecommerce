@@ -1,28 +1,28 @@
-'use client';
-
 import Link from 'next/link';
 
 import useTheme from '@/hooks/useTheme';
 import { glass, heart, menuBars, shoppingCart, userProfile } from '@/icons';
+import { IoHeart, IoCartSharp } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaUser } from "react-icons/fa6";
 import ThemeSwitcher from '../ThemeSwitcher';
 import HamburgerButton from '../HamburgerButton';
-import { useState } from 'react';
+import SideBar from '../SideBar';
+import useSideBar from '@/hooks/useSideBar';
 
 export default function Header() {
-  const [sideMenu, setSideMenu] = useState(false);
+  const { isCollapsed, toggleSideBar } = useSideBar();
   const theme = useTheme();
-
-  function handleSideMenu() {
-    console.log(sideMenu);
-    setSideMenu(!sideMenu);
-  }
 
   return (
     <header className={`text-white bg-theme-07-dark-blue`}>
       <div className={`h-8 bg-theme-04-medium-gray`}></div>
       <div className={`grid grid-cols-12 h-16 max-w-7xl mx-auto gap-4`}>
         <div className={`flex flex-row items-center justify-center gap-4 col-span-8`}>
-          <HamburgerButton width={20} height={20} onClick={handleSideMenu} />
+          {/* <HamburgerButton width={24} height={24} onClick={toggleSideBar} /> */}
+          <GiHamburgerMenu size='2rem' onClick={toggleSideBar} className={`cursor-pointer`} />
+          {isCollapsed && <div className={`fixed bg-black top-0 left-0 w-full h-full opacity-50 z-[999]`} onClick={toggleSideBar} />}
+          <SideBar toggle={toggleSideBar} />
           <Link href='/'>
             <div>Logo</div>
           </Link>
@@ -35,14 +35,14 @@ export default function Header() {
         </div>
         <div className={`flex flex-row items-center col-span-4 gap-4 text-xs h-full`}>
           <div className={`flex flex-row items-center h-full gap-1 flex-2`}>
-            {userProfile(20, 20)}
+            <FaUser size='1.25rem' />
             <div className={`flex flex-col justify-center items-start h-full gap-1 flex-[2_2_0%]`}>
               <Link href='/login' className={`hover:underline`}>Entrar</Link>
               <Link href='/register' className={`hover:underline`}>Crie sua conta</Link>
             </div>
           </div>
-          <Link href='/' className={`flex items-center h-full gap-1 flex-1 justify-center px-2`} title='Favoritos'>{heart(20, 20)} Favoritos</Link>
-          <Link href='/' className={`flex items-center h-full gap-1 flex-1 justify-center px-2`} title='Carrinho'>{shoppingCart(20, 20)} Carrinho</Link>
+          <Link href='/' className={`flex items-center h-full gap-1 flex-1 justify-center px-2`} title='Favoritos'><IoHeart size='1.25rem' /> Favoritos</Link>
+          <Link href='/' className={`flex items-center h-full gap-1 flex-1 justify-center px-2`} title='Carrinho'><IoCartSharp size='1.25rem' /> Carrinho</Link>
           <ThemeSwitcher onClick={theme.alternateTheme} />
         </div>
       </div>

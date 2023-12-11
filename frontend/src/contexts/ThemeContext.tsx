@@ -12,7 +12,9 @@ const ThemeContext = createContext<ThemeContextProps>({
   alternateTheme: () => {},
 });
 
-export function ThemeProvider(props: any) {
+export function ThemeProvider(
+  { children }: { children: React.ReactNode }
+) {
   const [theme, setTheme] = useState<string | null>('dark');
 
   function alternateTheme() {
@@ -32,7 +34,7 @@ export function ThemeProvider(props: any) {
         theme,
         alternateTheme,
     }}>
-      {props.children}
+      {children}
     </ThemeContext.Provider>
   );
 }

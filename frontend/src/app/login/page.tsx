@@ -1,5 +1,6 @@
 'use client';
 
+import ConfirmationButton from "@/components/ConfirmationButton";
 import Field from "@/components/Field";
 import { facebook, google, spotify } from "@/icons";
 import Link from "next/link";
@@ -16,7 +17,7 @@ export default function Login(): JSX.Element  {
 				<form className={`flex flex-col gap-4 mb-4`}>
 					<Field type='text' id='login_input_field' label='Login' onChange={setLoginCredentials} />
 					<Field type='password' id='password_input_field' label='Senha' onChange={setPassword} />
-					<button type='submit' className={`p-3 bg-theme-07-dark-blue rounded`}>Entrar</button>
+					<ConfirmationButton text='Entrar' padding='p-3' width='w-full' onClick={() => {}} />
 				</form>
 				<Link href='' className={`dark:text-theme-01-light-gray`}>Esqueci minha senha</Link>
 			</div>

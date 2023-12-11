@@ -5,6 +5,7 @@ import './globals.css';
 import HomeLayout from '@/components/HomeLayout';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { AuthContextProvider } from '@/contexts/AuthContext';
+import { SideBarContextProvider } from '@/contexts/SideBarContext';
 
 const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '700'] });
@@ -23,15 +24,17 @@ export default function RootLayout ({
 }): JSX.Element {
   return (
     <html lang='pt'>
-      <ThemeProvider>
-        <AuthContextProvider>
-          <body className={`${poppins.className}`}>
-            <HomeLayout>
-              {children}
-            </HomeLayout>
-          </body>
-        </AuthContextProvider>
-      </ThemeProvider>
+      <SideBarContextProvider>
+        <ThemeProvider>
+          <AuthContextProvider>
+            <body className={`${poppins.className}`}>
+              <HomeLayout>
+                {children}
+              </HomeLayout>
+            </body>
+          </AuthContextProvider>
+        </ThemeProvider>
+      </SideBarContextProvider>
     </html>
   )
 }

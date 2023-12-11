@@ -7,6 +7,7 @@ import { validatePassword } from '@/functions/validatePassword';
 import Field from '@/components/Field';
 import { facebook, google, spotify } from '@/icons';
 import Checkbox from '@/components/Checkbox';
+import ConfirmationButton from '@/components/ConfirmationButton';
 
 export default function Register () {
 	const [fullName, setFullName] = useState('');
@@ -48,7 +49,10 @@ export default function Register () {
 			</div>
 			<form>
 				<div className={'flex flex-col gap-2'}>
-					<Field type='text' id='floating_name_label' label='Nome Completo' required onChange={setFullName} />
+					<div className={'flex flex-row gap-1'}>
+						<Field type='text' id='floating_name_label' label='Nome' required onChange={setFullName} />
+						<Field type='text' id='floating_name_label' label='Sobrenome' required onChange={setFullName} />
+					</div>
 					<div className={'flex flex-row gap-1'}>
 						<Field type='text' id='floating_cpf_label' label='CPF' required onChange={setCpf} />
 						<Field type='text' id='floating_birth_label' label='Data de Nascimento' required onChange={setBirth} />
@@ -62,25 +66,17 @@ export default function Register () {
 						<Field type='password' id='floating_pass_conf_label' label='Confirmar Senha' required onChange={setPasswordConfirmation} />
 					</div>
 				</div>
-				<div className={`flex flex-col text-left gap-4 my-4`}>
+				<div className={`flex flex-col text-left gap-1 my-4`}>
 					<div className={`inline-flex gap-2 items-center`}>
-						{/* <input id='newsletter_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} /> */}
-						{/* <label htmlFor='newsletter_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
-							Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp
-						</label> */}
-						<Checkbox label='Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp' />
+						<Checkbox label='Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp' checked={true} />
 					</div>
 					<div className={`inline-flex gap-2 items-center`}>
-						{/* <input id='privacy_policies_checkbox' type='checkbox' className={`appearance-none h-4 w-4 cursor-pointer bg-theme-07-dark-blue rounded-sm`} /> */}
-						{/* <label htmlFor='privacy_policies_checkbox' className={'text-theme-03-medium-gray cursor-pointer'}>
-							Aceito os termos de uso e a política de privacidade
-						</label> */}
-						<Checkbox label='Aceito os termos de uso e a política de privacidade' />
+						<Checkbox label='Aceito os termos de uso e a política de privacidade' checked={true} />
 					</div>
 				</div>
-				<button className={'m-2 p-4 w-80 text-white bg-theme-07-dark-blue rounded hover:shadow-bright'} onClick={handleSubmit}>Confirmar</button>
+				<ConfirmationButton text='Cadastrar' onClick={handleSubmit} />
 			</form>
-			<span className={`text-theme-03-medium-gray`}>
+			<span className={`text-theme-03-medium-gray my-4`}>
 				Já possui cadastro? <Link href="/login" className={'text-theme-07-dark-blue underline font-bold'}>Entrar</Link>
 			</span>
 		</div>
