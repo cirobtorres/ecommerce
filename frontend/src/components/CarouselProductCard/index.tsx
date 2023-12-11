@@ -1,3 +1,5 @@
 export default function CarouselProductCard() {
-  return <div></div>
+	return (
+		<div></div>
+	);
 }

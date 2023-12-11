@@ -1,3 +1,5 @@
 export default function CarouselBanner() {
-  return <div></div>
+	return (
+		<div></div>
+	);
 }

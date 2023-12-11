@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { xMark, warning } from "@/icons";
-import useTheme from "@/hooks/useTheme";
+// import useTheme from "@/hooks/useTheme";
 
 type FieldProps = {
-	type: 'text' | 'date' | 'email' | 'password';
+	type: "text" | "date" | "email" | "password";
 	id: string;
 	label: string;
 	required?: boolean;
@@ -16,10 +16,10 @@ type FieldProps = {
 
 export default function Field(props: FieldProps) {
 	const [isEmpty, setIsEmpty] = useState(false);
-	const [value, setValue] = useState('' as string);
+	const [value, setValue] = useState("" as string);
 	const [error, setError] = useState([] as string[]);
 
-	const { theme } = useTheme();
+	// const { theme } = useTheme();
 	
 	function handleOnChange(event: any) {
 		setValue(event.target.value);
@@ -27,24 +27,24 @@ export default function Field(props: FieldProps) {
 		if (props.errorFunction) {
 			setError(props.errorFunction(event.target.value));
 		}
-	};
+	}
 
 	function handleOnBlur(event: any) {
-		if (event.target.value === '') {
+		if (event.target.value === "") {
 			setIsEmpty(true);
 		} else {
 			setIsEmpty(false);
 		}
-	};
+	}
 
-	function handleOnFocus(event: any) {
+	function handleOnFocus() {
 		setIsEmpty(false);
-	};
+	}
 	
 	return (
 		// This component is intended to be nested inside a flex container
-		<div className={`flex flex-col w-full h-full`}>
-			<div className={`relative`}>
+		<div className={"flex flex-col w-full h-full"}>
+			<div className={"relative"}>
 				<input
 					type={props.type}
 					id={props.id}
@@ -56,27 +56,27 @@ export default function Field(props: FieldProps) {
 					className={`
 						w-full p-3 rounded outline-none focus:ring-0 border peer 
 						text-theme-04-medium-gray dark:text-theme-01-light-gray bg-theme-01-light-gray dark:bg-slate-800 
-						${isEmpty ? 'border-red-500' : 'dark:border-theme-04-medium-gray border-theme-02-light-gray'}
-						${isEmpty ? 'focus:border-red-500' : 'dark:focus:border-theme-08-light-green focus:border-theme-08-light-green'}
+						${isEmpty ? "border-red-500" : "dark:border-theme-04-medium-gray border-theme-02-light-gray"}
+						${isEmpty ? "focus:border-red-500" : "dark:focus:border-theme-08-light-green focus:border-theme-08-light-green"}
 					`}
 				/>
-					<label htmlFor={props.id} className={`
+				<label htmlFor={props.id} className={`
 						absolute text-base top-2 px-2 z-10 scale-75 origin-[0] pointer-events-none transform duration-300 start-2 -translate-y-[1.1rem] 
 						peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2
 						peer-focus:px-2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-[1.1rem]
 						rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto 
-						${isEmpty ? 'text-red-500' : 'text-theme-03-medium-gray'} bg-theme-01-light-gray dark:bg-slate-800 
-						${isEmpty ? 'peer-focus:text-red-500' : 'peer-focus:text-theme-08-light-green'}
+						${isEmpty ? "text-red-500" : "text-theme-03-medium-gray"} bg-theme-01-light-gray dark:bg-slate-800 
+						${isEmpty ? "peer-focus:text-red-500" : "peer-focus:text-theme-08-light-green"}
 					`}>{/* duration-300 delays the background recolor from light to dark mode and vice versa */}
-						{props.label}
-					</label>
+					{props.label}
+				</label>
 			</div>
 			{props.required && isEmpty && (
-				<span className={`flex flex-row gap-1 text-sm text-left p-1 text-red-500`}>
+				<span className={"flex flex-row gap-1 text-sm text-left p-1 text-red-500"}>
 					{warning(20, 20)} Campo obrigatório
 				</span>
 			)}
-			{error.length > 0 && value && (<div className={'my-2 grid grid-cols-2 gap-1 text-base'}>
+			{error.length > 0 && value && (<div className={"my-2 grid grid-cols-2 gap-1 text-base"}>
 				{error && error.map((errorText, index) => (
 					Number(errorText[1]) === 0 ? (
 						<span key={index} className={`
@@ -90,7 +90,7 @@ export default function Field(props: FieldProps) {
 				))}
 			</div>)}
 		</div>
-	)
+	);
 }
 
 /*

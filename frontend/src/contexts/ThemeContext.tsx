@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext } from "react";
 
 type ThemeContextProps = {
   theme: string | null;
@@ -8,35 +8,35 @@ type ThemeContextProps = {
 };
 
 const ThemeContext = createContext<ThemeContextProps>({
-  theme: '',
-  alternateTheme: () => {},
+	theme: "",
+	alternateTheme: () => {},
 });
 
 export function ThemeProvider(
-  { children }: { children: React.ReactNode }
+	{ children }: { children: React.ReactNode }
 ) {
-  const [theme, setTheme] = useState<string | null>('dark');
+	const [theme, setTheme] = useState<string | null>("dark");
 
-  function alternateTheme() {
-    const newTheme = theme === '' ? 'dark' : '';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-  }
+	function alternateTheme() {
+		const newTheme = theme === "" ? "dark" : "";
+		setTheme(newTheme);
+		localStorage.setItem("theme", newTheme);
+	}
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    setTheme(savedTheme);
-  }, [])
+	useEffect(() => {
+		const savedTheme = localStorage.getItem("theme");
+		setTheme(savedTheme);
+	}, []);
 
-  return (
-    <ThemeContext.Provider 
-      value={{
-        theme,
-        alternateTheme,
-    }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+	return (
+		<ThemeContext.Provider 
+			value={{
+				theme,
+				alternateTheme,
+			}}>
+			{children}
+		</ThemeContext.Provider>
+	);
 }
 
 export default ThemeContext;
