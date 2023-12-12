@@ -1,54 +1,35 @@
-import React from "react";
 import ProductCard from "@/components/ProductCard";
 import CarouselBanner from "@/components/CarouselBanner";
 import CarouselProductCard from "@/components/CarouselProductCard";
+import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md";
 
 export default function Home (): JSX.Element {
 	return (
 		<>
 			<CarouselBanner />
+			<section>
+				<div className="bg-theme-07-dark-blue my-8 py-4 px-6 rounded text-theme-04-medium-gray dark:text-theme-01-light-gray">
+					<h2 className="text-inherit">Ofertas</h2>
+				</div>
+				<div className="relative">
+					<button className="absolute top-1/2 -left-9 right-auto -translate-y-1/2 bg-white text-2xl flex justify-center items-center w-16 h-16 rounded-full z-10 hover:shadow-xl">
+						<MdOutlineArrowBackIos />
+					</button>
+					<div className="mx-auto grid grid-cols-5 max-w-[calc(var(--page-max-width)-var(--grid-product-card-gap)*5)] gap-[var(--grid-product-card-gap)]">
+						<ProductCard title="lorem ipsum dolor sit amet" image="https://placehold.co/241x160/png" units={10} fullPrice={99.99} discountPrice={89.99} discountRate={10} installmentNumber={3} />
+						<ProductCard title="lorem ipsum dolor sit amet" image="https://placehold.co/241x160/png" units={10} fullPrice={99.99} discountPrice={89.99} discountRate={10} installmentNumber={3} />
+						<ProductCard title="lorem ipsum dolor sit amet" image="https://placehold.co/241x160/png" units={10} fullPrice={99.99} discountPrice={89.99} discountRate={10} installmentNumber={3} />
+						<ProductCard title="lorem ipsum dolor sit amet" image="https://placehold.co/241x160/png" units={10} fullPrice={99.99} discountPrice={89.99} discountRate={10} installmentNumber={3} />
+						<ProductCard title="lorem ipsum dolor sit amet" image="https://placehold.co/241x160/png" units={10} fullPrice={99.99} discountPrice={89.99} discountRate={10} installmentNumber={3} />
+					</div>
+					<button className="absolute top-1/2 left-auto -right-9 -translate-y-1/2 bg-white text-2xl flex justify-center items-center w-16 h-16 rounded-full z-10 hover:shadow-xl">
+						<MdOutlineArrowForwardIos />
+					</button>
+				</div>
+			</section>
 			<CarouselProductCard />
-			<div className={"flex justify-center items-center gap-4 p-4 h-full"}>{/* Essas classes são temporárias */}
-				<ProductCard 
-					title='Válvula de serviço para lavadora Consul CWE11B' 
-					image='/images/valvula-de-servico.jpg'
-					units={8}
-					fullPrice={99.99}
-					discountPrice={89.99}
-					discountRate={10}
-					installmentNumber={3}
-					installmentValue={29.99}
-				/>
-				<ProductCard
-					title='Termostato para geladeira Consul CRM39A'
-					image='/images/termostato.jpg'
-					units={99}
-					fullPrice={224.99}
-					discountPrice={199.99}
-					discountRate={10}
-					installmentNumber={12}
-					installmentValue={16.66}
-				/>
-				<ProductCard
-					title='Pressostato 4 níveis para lavadora facility flash wash Brastemp BWL11ABBNA 110V-220V'
-					image='/images/pressostato-4-niveis.jpg'
-					units={19}
-					fullPrice={130}
-					discountPrice={110}
-					discountRate={15}
-					installmentNumber={6}
-					installmentValue={18.33}
-				/>
-				<ProductCard
-					title='Atuador do freio para lavadora Electrolux LAC16'
-					image='/images/atuador-do-freio.jpg'
-					units={11}
-					fullPrice={85}
-					discountPrice={75}
-					discountRate={12}
-					installmentNumber={4}
-					installmentValue={18.75}
-				/>
+			<div className="bg-theme-07-dark-blue my-8 py-4 px-6 rounded text-theme-04-medium-gray dark:text-theme-01-light-gray">
+				<h2 className="text-inherit">Departamentos</h2>
 			</div>
 		</>
 	);

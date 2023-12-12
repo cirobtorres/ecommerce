@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 :root {
-    --page-max-width: 100vw;
+    --page-max-width: 1440px;
+    --side-bar-width: 24rem;
+
+    --grid-product-card-gap: 1rem;
 
     --product-card-max-width: 280px;
     --product-card-min-width: 200px;
@@ -33,9 +36,10 @@ input:-webkit-autofill:active {
     box-sizing: border-box;
 }
 
-/* body {
-    background-color: var(--theme-01-light-gray);
-} */
+body {
+    border-collapse: collapse;
+    /* background-color: var(--theme-01-light-gray); */
+}
 
 h2 {
     font-size: 2rem;

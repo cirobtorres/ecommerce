@@ -18,7 +18,7 @@ export default function Header() {
 		<header className={"text-white bg-theme-07-dark-blue"}>
 			<div className={"h-8 bg-theme-04-medium-gray"}></div>
 			<SideBar toggle={toggleSideBar} />
-			<div className={"grid grid-cols-12 h-16 max-w-7xl mx-auto gap-4"}>
+			<div className={"grid grid-cols-12 h-16 max-w-[var(--page-max-width)] mx-auto gap-4"}>
 				<div className={"flex flex-row items-center justify-center gap-4 col-span-8"}>
 					<GiHamburgerMenu size='2rem' onClick={toggleSideBar} className={"cursor-pointer"} />
 					<Link href='/'>

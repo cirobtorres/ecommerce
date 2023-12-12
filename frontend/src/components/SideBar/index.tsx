@@ -72,7 +72,7 @@ export default function SideBar({ toggle }: SideBarProps) {
         left-0 top-0 h-screen opacity-100
         z-[1000] py-6 bg-stone-800 
         transition-all whitespace-nowrap 
-        ${isCollapsed ? "w-80" : "w-0"}
+        ${isCollapsed ? "w-[var(--side-bar-width)]" : "w-0"}
       `}>
 				<div className="relative">
 					<button onClick={toggle} className={`

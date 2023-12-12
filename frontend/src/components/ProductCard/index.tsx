@@ -33,8 +33,9 @@ export default function ProductCard(props: ProductCardProps) {
 							<span>{heart(20, 20)}</span>
 						</div>
 					</div>
-					<div className={"relative my-2 h-40 max-w-[var(--product-card-max-width)] overflow-hidden"}>
-						<Image src={props.image} alt={props.title} fill sizes='100%' priority className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} />
+					<div className={"relative my-2 h-40 max-w-[calc(var(--product-card-max-width)-16px)] overflow-hidden"}>
+						{/* <Image src={props.image} alt={props.title} fill sizes='100%' priority className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} /> */}
+						<img src={props.image} alt={props.title} sizes='100%' className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} />
 					</div>
 					<span className={"flex justify-center items-center text-xs"}>{star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} (46)</span>
 				</div>
@@ -47,7 +48,7 @@ export default function ProductCard(props: ProductCardProps) {
 								<span className={"text-xl font-bold"}>R$ {props.discountPrice.toFixed(2)}</span>
 								<span className={"flex items-center uppercase font-bold text-sm text-green-500"}>{props.discountRate}% off</span>
 							</div>
-							<span className={"text-sm text-theme-03-medium-gray"}>ou R$ {props.fullPrice.toFixed(2)} em {props.installmentNumber}x de R$ {props.installmentValue.toFixed(2)}</span>
+							<span className={"text-sm text-theme-03-medium-gray"}>ou R$ {props.fullPrice.toFixed(2)} em {props.installmentNumber}x de R$ {(props.fullPrice / props.installmentNumber).toFixed(2)}</span>
 						</div>
 					</div>
 				</div>

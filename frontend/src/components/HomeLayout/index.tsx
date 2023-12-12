@@ -10,9 +10,9 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
 
 	return (
 		<div className={`${theme}`}>
-			<div className={"flex flex-col justify-center h-screen bg-theme-01-light-gray dark:bg-slate-800"}>
+			<div className={"flex flex-col justify-center h-[svh] bg-theme-01-light-gray dark:bg-slate-800"}>
 				<Header />
-				<main className={"w-full h-full max-w-7xl min-w-[480px] mx-auto"}>
+				<main className={"w-full h-full max-w-[var(--page-max-width)] min-w-[480px] mx-auto"}>
 					{children}
 				</main>
 				<Footer />

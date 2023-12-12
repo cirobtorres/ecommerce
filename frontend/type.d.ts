@@ -8,5 +8,5 @@ type ProductCardProps = {
     discountPrice: number;
     discountRate: number;
     installmentNumber: number;
-    installmentValue: number;
+    // installmentValue: number;
 };
