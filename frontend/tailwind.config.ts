@@ -31,6 +31,7 @@ const config: Config = {
 	},
 	plugins: [
 		require("daisyui"),
+		// eslint-disable-next-line @typescript-eslint/no-var-requires
 		require("tailwind-scrollbar")({ nocompatible: true }),
 	],
 };

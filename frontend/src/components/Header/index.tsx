@@ -17,12 +17,10 @@ export default function Header() {
 	return (
 		<header className={"text-white bg-theme-07-dark-blue"}>
 			<div className={"h-8 bg-theme-04-medium-gray"}></div>
+			<SideBar toggle={toggleSideBar} />
 			<div className={"grid grid-cols-12 h-16 max-w-7xl mx-auto gap-4"}>
 				<div className={"flex flex-row items-center justify-center gap-4 col-span-8"}>
-					{/* <HamburgerButton width={24} height={24} onClick={toggleSideBar} /> */}
 					<GiHamburgerMenu size='2rem' onClick={toggleSideBar} className={"cursor-pointer"} />
-					{isCollapsed && <div className={"fixed bg-black top-0 left-0 w-full h-full opacity-50 z-[999]"} onClick={toggleSideBar} />}
-					<SideBar toggle={toggleSideBar} />
 					<Link href='/'>
 						<div>Logo</div>
 					</Link>
