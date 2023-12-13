@@ -6,10 +6,10 @@
     --page-max-width: 1440px;
     --side-bar-width: 24rem;
 
-    --grid-product-card-gap: 1rem;
+    --grid-product-card-gap: 10px;
 
     --product-card-max-width: 280px;
-    --product-card-min-width: 200px;
+    --product-card-min-width: 240px;
     --product-card-height: 450px;
 
     --theme-01-light-gray: #e9eaed;

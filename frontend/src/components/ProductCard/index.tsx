@@ -8,8 +8,9 @@ import styles from "./styles.module.css";
 
 export default function ProductCard(props: ProductCardProps) {
 	return (
-		<article className={`border border-theme-02-light-gray rounded h-[var(--product-card-height)] max-w-[var(--product-card-max-width)] 
-    min-w-[var(--product-card-min-width)] bg-white overflow-hidden duration-700 ease-in-out hover:shadow-xl hover:border-theme-04-medium-gray group`}>
+		<article className={`border border-theme-02-light-gray rounded h-[var(--product-card-height)] 
+		min-w-[280px]
+		bg-white overflow-hidden duration-700 ease-in-out hover:shadow-xl hover:border-theme-04-medium-gray group`}>
 			<Link href="/" className={"h-full flex flex-col"}>
 				<div className={"p-2"}>
 					<div className={"z-10 flex flex-row items-center justify-between"}>
@@ -34,8 +35,7 @@ export default function ProductCard(props: ProductCardProps) {
 						</div>
 					</div>
 					<div className={"relative my-2 h-40 max-w-[calc(var(--product-card-max-width)-16px)] overflow-hidden"}>
-						{/* <Image src={props.image} alt={props.title} fill sizes='100%' priority className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} /> */}
-						<img src={props.image} alt={props.title} sizes='100%' className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} />
+						<Image src={props.image} alt={props.title} fill sizes='100%' priority className={"object-cover duration-1000 ease-in-out group-hover:scale-105"} />
 					</div>
 					<span className={"flex justify-center items-center text-xs"}>{star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} {star(20, 20)} (46)</span>
 				</div>
