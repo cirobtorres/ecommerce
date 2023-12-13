@@ -36,8 +36,9 @@ export default function CardSlider() {
 					<button
 						onClick={handleLeftButton} 
 						className={`
-							absolute top-1/2 -left-9 right-auto -translate-y-1/2 bg-white text-2xl 
-							flex justify-center items-center w-16 h-16 rounded-full border border-theme-01-light-gray z-10 hover:shadow-xl
+							absolute top-1/2 -left-9 right-auto -translate-y-1/2 
+							flex justify-center items-center w-16 h-16 text-2xl rounded-full border 
+							bg-white border-theme-01-light-gray z-10 hover:shadow-xl
 						`}>
 						<MdOutlineArrowBackIos />
 					</button>
@@ -46,7 +47,6 @@ export default function CardSlider() {
 					<div 
 						style={{ transform: `translateX(${scrollPosition}px)` }} 
 						className={`
-							[transform:translateX(${scrollPosition}px)] 
 							flex gap-[var(--grid-product-card-gap)] 
 							scrollbar-none duration-500
 						`}>

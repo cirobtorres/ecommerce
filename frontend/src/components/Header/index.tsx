@@ -1,21 +1,19 @@
 import Link from "next/link";
 
 import useTheme from "@/hooks/useTheme";
-import { glass } from "@/icons";
 import { IoHeart, IoCartSharp } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaUser } from "react-icons/fa6";
+import { FaUser, FaMagnifyingGlass } from "react-icons/fa6";
 import ThemeSwitcher from "../ThemeSwitcher";
-// import HamburgerButton from "../HamburgerButton";
 import SideBar from "../SideBar";
 import useSideBar from "@/hooks/useSideBar";
 
 export default function Header() {
-	const { isCollapsed, toggleSideBar } = useSideBar();
+	const { toggleSideBar } = useSideBar();
 	const theme = useTheme();
 
 	return (
-		<header className={"text-white bg-theme-07-dark-blue"}>
+		<header className={"text-white bg-theme-03-medium-gray"}>
 			<div className={"h-8 bg-theme-04-medium-gray"}></div>
 			<SideBar toggle={toggleSideBar} />
 			<div className={"grid grid-cols-12 h-16 max-w-[var(--page-max-width)] mx-auto gap-4"}>
@@ -26,7 +24,9 @@ export default function Header() {
 					</Link>
 					<div className={"w-full bg-theme-01-light-gray h-full"}>
 						<form className={"relative flex flex-row w-full h-full"}>
-							<button className={"absolute top-1/2 left-4 -translate-y-1/2 text-theme-07-dark-blue"}>{glass(20, 20, 2.5)}</button>
+							<button className={"absolute top-1/2 left-4 -translate-y-1/2 text-theme-07-dark-blue"}>
+								<FaMagnifyingGlass />
+							</button>
 							<input type='text' placeholder='Search' className={"w-full h-full py-4 px-12 bg-transparent"} />
 						</form>
 					</div>
@@ -39,12 +39,16 @@ export default function Header() {
 							<Link href='/register' className={"hover:underline"}>Crie sua conta</Link>
 						</div>
 					</div>
-					<Link href='/' className={"flex items-center h-full gap-1 flex-1 justify-center px-2"} title='Favoritos'><IoHeart size='1.25rem' /> Favoritos</Link>
-					<Link href='/' className={"flex items-center h-full gap-1 flex-1 justify-center px-2"} title='Carrinho'><IoCartSharp size='1.25rem' /> Carrinho</Link>
+					<Link href='/' className={"flex items-center h-full gap-1 flex-1 justify-center px-2"} title='Favoritos'>
+						<IoHeart size='1.25rem' /> Favoritos
+					</Link>
+					<Link href='/' className={"flex items-center h-full gap-1 flex-1 justify-center px-2"} title='Carrinho'>
+						<IoCartSharp size='1.25rem' /> Carrinho
+					</Link>
 					<ThemeSwitcher onClick={theme.alternateTheme} />
 				</div>
 			</div>
-			<div className={"h-12 bg-theme-08-light-green"}>
+			<div className={"h-12 bg-theme-02-light-gray"}>
 				<ul className={"flex flex-row h-full gap-4 max-w-7xl mx-auto"}>
 					<li><Link href='/' className={"flex items-center h-full"} title='Departamentos'>Departamentos</Link></li>
 					<li><Link href='/' className={"flex items-center h-full"} title='Geladeiras'>Geladeiras</Link></li>
