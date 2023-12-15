@@ -30,6 +30,7 @@ export default function RootLayout ({
 						<body className={`${poppins.className}`}>
 							<HomeLayout>
 								{children}
+								<script src="https://unpkg.com/flowbite@2.2.0/dist/flowbite.js"></script>
 							</HomeLayout>
 						</body>
 					</AuthContextProvider>

@@ -1,116 +1,108 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-
-import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from "react-icons/md";
 
 const featuredProducts = [
 	{
-		src: "/images/featured-product-placeholder.png",
-		title: "Carousel title 1",
+		src: "/images/featured-product-placeholder-2560x1440.png",
+		alt: "Carousel title 1",
 	},
 	{
-		src: "/images/featured-product-placeholder.png",
-		title: "Carousel title 2",
+		src: "/images/featured-product-placeholder-2560x1440.png",
+		alt: "Carousel title 2",
 	},
 	{
-		src: "/images/featured-product-placeholder.png",
-		title: "Carousel title 3",
+		src: "/images/featured-product-placeholder-2560x1440.png",
+		alt: "Carousel title 3",
 	},
 ];
-
-let count = 0;
-let slideInterval: NodeJS.Timeout;
 	
 export default function Carousel() {
 
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const slideRef = useRef();
-
-	const removeAnimation = () => {
-		slideRef.current.classList.remove("fade-anim");
-	};
-
-	const startSlider = () => {
-		slideInterval = setInterval(() => {
-			handleOnNextClick();
-		}, 3000);
-	};
-
-	const pauseSlider = () => {
-		clearInterval(slideInterval);
-	};
-
-	useEffect(() => {
-		slideRef.current.addEventListener("animationend", removeAnimation);
-		slideRef.current.addEventListener("mouseenter", pauseSlider);
-		slideRef.current.addEventListener("mouseleave", startSlider);
-
-		startSlider();
-		return () => {
-			pauseSlider();
-		};
-		// eslint-disable-next-line
-	}, []);
-
-	const handleOnNextClick = () => {
-		count = (count + 1) % featuredProducts.length;
-		setCurrentIndex(count);
-		console.log(count);
-		slideRef.current.classList.add("fade-anim");
-	};
-	const handleOnPrevClick = () => {
-		const productsLength = featuredProducts.length;
-		count = (currentIndex + productsLength - 1) % productsLength;
-		setCurrentIndex(count);
-		console.log(count);
-		slideRef.current.classList.add("fade-anim");
-	};
-
 	return (
-		<div ref={slideRef} className="relative w-full h-96 overflow-hidden">
-			{featuredProducts.map((product, index) => (
-				<div 
-					key={index}
-					className={`absolute top-0 start-0 w-full h-full ease-in-out duration-700 ${index === currentIndex ? "translate-x-0" : index < currentIndex ? "-translate-x-full" : "translate-x-full"}`}
-				>
-					<Image 
-						src={product.src}
-						alt={product.title}
-						layout="fill"
-						objectFit="cover"
+		<div id="default-carousel" className="relative w-full" data-carousel="slide">
+			<div className="relative h-full overflow-hidden md:h-96">
+				{featuredProducts.map((item, index) => (
+					<div key={index} className="hidden duration-700 ease-in-out" data-carousel-item>
+						<img 
+							src={item.src} 
+							className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" 
+							alt={item.alt} 
+						/>
+					</div>
+				))}
+			</div>
+			<div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+				{featuredProducts.map((item, index) => (
+					<button 
+						key={index} 
+						type="button" 
+						className="w-3 h-3 rounded-full outline-none focus:outline-none dark:focus:ring-gray-800/70" 
+						aria-current={index === 0 ? "true" : "false"} 
+						aria-label={`Slide ${index + 1}`} 
+						data-carousel-slide-to={index}
 					/>
-				</div>
-			)
-			)}
-			<div className="absolute top-1/2 start-0 -translate-y-1/2 z-30 px-4">
-				<button 
-					type="button" 
-					onClick={handleOnPrevClick}
-					className="flex justify-center items-center w-8 h-20 rounded text-2xl bg-white hover:shadow-xl"
+				))}
+			</div>
+			<button
+				type="button"
+				className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+				data-carousel-prev
+			>
+				<span
+					className={`
+						inline-flex items-center justify-center w-10 h-10 rounded-full 
+						bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 
+						group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none
+					`}>
+					<svg
+						className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 6 10"
+					>
+						<path
+							stroke="currentColor"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M5 1 1 5l4 4"
+						/>
+					</svg>
+					<span className="sr-only">Previous</span>
+				</span>
+			</button>
+			<button
+				type="button"
+				className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+				data-carousel-next
+			>
+				<span
+					className={`
+						inline-flex items-center justify-center w-10 h-10 rounded-full 
+						bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 
+						group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none
+					`}
 				>
-					<MdOutlineArrowBackIos />
-				</button>
-			</div>
-			<div className="absolute top-1/2 end-0 -translate-y-1/2 z-30 px-4">
-				<button 
-					type="button" 
-					onClick={handleOnNextClick}
-					className="flex justify-center items-center w-8 h-20 rounded text-2xl bg-white hover:shadow-xl"
-				>
-					<MdOutlineArrowForwardIos />
-				</button>
-			</div>
-			<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
-				{featuredProducts.map((product, index) => (
-					<div 
-						key={index}
-						className={`w-3 h-3 rounded-full bg-white ${index === currentIndex ? "opacity-100" : "opacity-50"}`}
-					/>
-				)
-				)}
-			</div>
+					<svg
+						className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 6 10"
+					>
+						<path
+							stroke="currentColor"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="m1 9 4-4-4-4"
+						/>
+					</svg>
+					<span className="sr-only">Next</span>
+				</span>
+			</button>
 		</div>
 	);
 }
