@@ -58,11 +58,15 @@ export default function FieldInput({
         onFocus={handleOnFocus} // Clicking on input
         placeholder=""
         className={`
-						peer w-full rounded border bg-theme-01-light-gray p-3 text-theme-04-medium-gray 
-						outline-none focus:ring-0 
-						${isEmpty ? "border-red-500" : "border-theme-02-light-gray"}
-						${isEmpty ? "focus:border-red-500" : "focus:border-theme-08-light-green"}
-					`}
+          peer w-full rounded border bg-theme-01-light-gray p-3 text-theme-04-medium-gray 
+          outline-none focus:ring-0 
+          ${isEmpty ? "border-red-500" : "border-theme-02-light-gray"}
+          ${
+            isEmpty
+              ? "focus:border-red-500"
+              : "focus:border-theme-08-light-green"
+          }
+        `}
       />
       {children}
     </div>

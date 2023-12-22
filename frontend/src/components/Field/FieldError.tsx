@@ -6,11 +6,7 @@ export default function FieldError() {
   return (
     isRequired &&
     isEmpty && (
-      <span
-        className={
-          "ml-1 flex flex-row items-center gap-1 p-1 text-left text-sm text-red-500"
-        }
-      >
+      <span className="ml-1 flex flex-row items-center gap-1 p-1 text-left text-sm text-red-500">
         <IoIosWarning /> Campo obrigatório
       </span>
     )

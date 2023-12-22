@@ -13,17 +13,14 @@ export default function FieldHelp() {
           Number(errorText[1]) === 0 ? (
             <span
               key={index}
-              className={`
-							flex items-center justify-center rounded border bg-green-100 text-sm text-theme-08-light-green`}
+              className="flex items-center justify-center rounded border bg-green-100 text-sm text-theme-08-light-green"
             >
               <MdVerified size="1rem" /> {errorText[0]}
             </span>
           ) : (
             <span
               key={index}
-              className={`
-							flex items-center justify-center rounded border bg-red-200 text-sm text-red-500
-						`}
+              className="flex items-center justify-center rounded border bg-red-200 text-sm text-red-500"
             >
               <IoIosClose size="1.25rem" /> {errorText[0]}
             </span>
