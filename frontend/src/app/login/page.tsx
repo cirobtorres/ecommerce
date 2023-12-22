@@ -31,7 +31,7 @@ export default function Login(): JSX.Element {
             <Field.Content.Input
               type="text"
               id="login_input_field"
-              setValue={setLoginCredentials}
+              onChange={setLoginCredentials}
               isRequired
             >
               <Field.Content.Label label="Login" />
@@ -41,7 +41,7 @@ export default function Login(): JSX.Element {
             <Field.Content.Input
               type="password"
               id="password_input_field"
-              setValue={setPassword}
+              onChange={setPassword}
               isRequired
             >
               <Field.Content.Label label="Senha" />

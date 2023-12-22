@@ -76,7 +76,7 @@ export default function SideBar({ toggle }: SideBarProps) {
         className={`
         fixed left-0 top-0 z-[1000]
         flex h-screen flex-col overflow-hidden
-        whitespace-nowrap bg-stone-800 py-6 
+        whitespace-nowrap bg-theme-01-light-gray py-6 
         opacity-100 transition-all 
         ${isCollapsed ? "w-[var(--side-bar-width)]" : "w-0"}
       `}
@@ -95,7 +95,7 @@ export default function SideBar({ toggle }: SideBarProps) {
           <div className={"mx-6 flex w-fit flex-row items-center gap-4"}>
             <div
               className={
-                "relative h-8 w-8 overflow-hidden rounded-full border-2 bg-white"
+                "relative h-8 w-8 overflow-hidden rounded-full border-2 border-theme-05-dark-gray bg-theme-01-light-gray"
               }
             >
               <Link href="/">
@@ -110,7 +110,9 @@ export default function SideBar({ toggle }: SideBarProps) {
               </Link>
             </div>
             <Link href="/">
-              <span className={"hover:underline"}>Olá Fulano</span>
+              <span className={"text-theme-05-dark-gray hover:underline"}>
+                Olá Fulano
+              </span>
             </Link>
           </div>
         </div>
@@ -128,7 +130,7 @@ export default function SideBar({ toggle }: SideBarProps) {
                   key={index}
                   className={`
                     flex items-center gap-2 rounded-md 
-                    text-sm text-white hover:bg-stone-700 
+                    text-sm text-theme-05-dark-gray hover:bg-theme-07-dark-blue hover:text-theme-01-light-gray 
                   `}
                 >
                   <Link

@@ -7,7 +7,7 @@ type FieldProps = {
   children?: React.ReactNode;
   type?: "text" | "date" | "email" | "password";
   id: string;
-  setValue: (value: string) => void;
+  onChange: (value: string) => void;
   isRequired?: boolean;
   errorFunction?: (value: string) => any[];
 };
@@ -17,21 +17,22 @@ export default function FieldInput({
   type = "text",
   id,
   isRequired = false,
-  setValue,
+  onChange: onChangeValue,
   errorFunction,
 }: FieldProps) {
-  const { isEmpty, setIsEmpty, handleValue, handleError, saveVariables } =
+  const { isEmpty, setId, setValue, setError, setIsEmpty, setIsRequired } =
     useField();
 
   useEffect(() => {
-    saveVariables(id, isRequired);
+    setId(id);
+    setIsRequired(isRequired);
   }, []);
 
   function handleOnChange(event: any) {
+    onChangeValue(event.target.value);
     setValue(event.target.value);
-    handleValue(event.target.value);
     if (errorFunction) {
-      handleError(errorFunction(event.target.value));
+      setError(errorFunction(event.target.value));
     }
   }
 
@@ -60,9 +61,13 @@ export default function FieldInput({
         className={`
           peer w-full rounded border bg-theme-01-light-gray p-3 text-theme-04-medium-gray 
           outline-none focus:ring-0 
-          ${isEmpty ? "border-red-500" : "border-theme-02-light-gray"}
           ${
-            isEmpty
+            isEmpty && isRequired
+              ? "border-red-500"
+              : "border-theme-02-light-gray"
+          }
+          ${
+            isEmpty && isRequired
               ? "focus:border-red-500"
               : "focus:border-theme-08-light-green"
           }

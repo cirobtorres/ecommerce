@@ -1,5 +1,5 @@
 import { IoIosClose } from "react-icons/io";
-import { MdVerified } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
 import useField from "@/hooks/useField";
 
 export default function FieldHelp() {
@@ -15,14 +15,14 @@ export default function FieldHelp() {
               key={index}
               className="flex items-center justify-center rounded border bg-green-100 text-sm text-theme-08-light-green"
             >
-              <MdVerified size="1rem" /> {errorText[0]}
+              <FaCheck size="1rem" className="mr-1" /> {errorText[0]}
             </span>
           ) : (
             <span
               key={index}
               className="flex items-center justify-center rounded border bg-red-200 text-sm text-red-500"
             >
-              <IoIosClose size="1.25rem" /> {errorText[0]}
+              <IoIosClose size="1.5rem" /> {errorText[0]}
             </span>
           )
         )}

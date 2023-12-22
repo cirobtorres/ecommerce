@@ -86,47 +86,43 @@ export default function Register() {
               <Field.Content.Input
                 type="text"
                 id="floating_name"
-                setValue={setName}
+                onChange={setName}
                 isRequired
               >
                 <Field.Content.Label label="Nome" />
               </Field.Content.Input>
-              <Field.Error />
+              <Field.Error errorText="É necessário informar seu nome" />
             </Field.Root>
             <Field.Root>
               <Field.Content.Input
                 type="text"
                 id="floating_last_name"
-                setValue={setLastName}
-                isRequired
+                onChange={setLastName}
               >
                 <Field.Content.Label label="Sobrenome" />
               </Field.Content.Input>
-              <Field.Error />
             </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
             <Field.Root>
               <Field.Content.Input
                 type="text"
-                id="floating_cpf_label"
-                setValue={setCpf}
-                isRequired
+                id="floating_birth_label"
+                onChange={setBirth}
               >
-                <Field.Content.Label label="CPF" />
+                <Field.Content.Label label="Data de Nascimento" />
               </Field.Content.Input>
-              <Field.Error />
             </Field.Root>
             <Field.Root>
               <Field.Content.Input
                 type="text"
-                id="floating_birth_label"
-                setValue={setBirth}
+                id="floating_cpf_label"
+                onChange={setCpf}
                 isRequired
               >
-                <Field.Content.Label label="Data de Nascimento" />
+                <Field.Content.Label label="CPF" />
               </Field.Content.Input>
-              <Field.Error />
+              <Field.Error errorText="CPF é um campo obrigatório" />
             </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
@@ -134,23 +130,23 @@ export default function Register() {
               <Field.Content.Input
                 type="text"
                 id="floating_cel_label"
-                setValue={setCel}
+                onChange={setCel}
                 isRequired
               >
                 <Field.Content.Label label="Telefone Celular" />
               </Field.Content.Input>
-              <Field.Error />
+              <Field.Error errorText="É necessário informar um telefone" />
             </Field.Root>
             <Field.Root>
               <Field.Content.Input
                 type="email"
                 id="floating_email_label"
-                setValue={setEmail}
+                onChange={setEmail}
                 isRequired
               >
                 <Field.Content.Label label="E-mail" />
               </Field.Content.Input>
-              <Field.Error />
+              <Field.Error errorText="Informe um endereço de e-mail" />
             </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
@@ -158,25 +154,25 @@ export default function Register() {
               <Field.Content.Input
                 type="password"
                 id="floating_pass_label"
-                setValue={setPassword}
+                onChange={setPassword}
                 errorFunction={validatePassword}
                 isRequired
               >
                 <Field.Content.Label label="Criar Senha" />
               </Field.Content.Input>
               <Field.Help />
-              <Field.Error />
+              <Field.Error errorText="É necessário criar uma senha" />
             </Field.Root>
             <Field.Root>
               <Field.Content.Input
                 type="password"
                 id="floating_pass_conf_label"
-                setValue={setPasswordConfirmation}
+                onChange={setPasswordConfirmation}
                 isRequired
               >
                 <Field.Content.Label label="Confirmar Senha" />
               </Field.Content.Input>
-              <Field.Error />
+              <Field.Error errorText="É necessário confirmar sua senha" />
             </Field.Root>
           </div>
         </div>
