@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IoHeart, IoCartSharp } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUser, FaMagnifyingGlass } from "react-icons/fa6";
-import SideBar from "../SideBar";
+import SideBar from "@/components/SideBar";
 import useSideBar from "@/hooks/useSideBar";
 
 export default function Header() {

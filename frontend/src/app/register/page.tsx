@@ -3,14 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { FaGoogle, FaSpotify, FaFacebook } from "react-icons/fa";
+
 import { validatePassword } from "@/functions/validatePassword";
-import Field from "@/components/Field";
-import { facebook, google, spotify } from "@/icons";
+import { Field } from "@/components/Field";
 import Checkbox from "@/components/Checkbox";
 import ConfirmationButton from "@/components/ConfirmationButton";
 
 export default function Register() {
-  const [fullName, setFullName] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [cpf, setCpf] = useState("");
   const [birth, setBirth] = useState("");
   const [cel, setCel] = useState("");
@@ -45,21 +47,21 @@ export default function Register() {
             "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01-light-gray"
           }
         >
-          Cadastrar com {facebook(20, 20, "#fff")} Facebook
+          Cadastrar com <FaFacebook size="1.25rem" /> Facebook
         </button>
         <button
           className={
             "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01-light-gray"
           }
         >
-          Cadastrar com {google(20, 20, "#fff")} Google
+          Cadastrar com <FaGoogle size="1.25rem" /> Google
         </button>
         <button
           className={
             "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01-light-gray"
           }
         >
-          Cadastrar com {spotify(20, 20, "#fff")} Spotify
+          Cadastrar com <FaSpotify size="1.25rem" /> Spotify
         </button>
       </div>
       <div className={"relative"}>
@@ -80,69 +82,102 @@ export default function Register() {
       <form>
         <div className={"flex flex-col gap-2"}>
           <div className={"flex flex-row gap-1"}>
-            <Field
-              type="text"
-              id="floating_name_label"
-              label="Nome"
-              required
-              onChange={setFullName}
-            />
-            <Field
-              type="text"
-              id="floating_name_label"
-              label="Sobrenome"
-              required
-              onChange={setFullName}
-            />
+            <Field.Root>
+              <Field.Content.Input
+                type="text"
+                id="floating_name"
+                setValue={setName}
+                isRequired
+              >
+                <Field.Content.Label label="Nome" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
+            <Field.Root>
+              <Field.Content.Input
+                type="text"
+                id="floating_last_name"
+                setValue={setLastName}
+                isRequired
+              >
+                <Field.Content.Label label="Sobrenome" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
-            <Field
-              type="text"
-              id="floating_cpf_label"
-              label="CPF"
-              required
-              onChange={setCpf}
-            />
-            <Field
-              type="text"
-              id="floating_birth_label"
-              label="Data de Nascimento"
-              required
-              onChange={setBirth}
-            />
+            <Field.Root>
+              <Field.Content.Input
+                type="text"
+                id="floating_cpf_label"
+                setValue={setCpf}
+                isRequired
+              >
+                <Field.Content.Label label="CPF" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
+            <Field.Root>
+              <Field.Content.Input
+                type="text"
+                id="floating_birth_label"
+                setValue={setBirth}
+                isRequired
+              >
+                <Field.Content.Label label="Data de Nascimento" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
-            <Field
-              type="text"
-              id="floating_cel_label"
-              label="Telefone Celular"
-              required
-              onChange={setCel}
-            />
-            <Field
-              type="email"
-              id="floating_email_label"
-              label="E-mail"
-              required
-              onChange={setEmail}
-            />
+            <Field.Root>
+              <Field.Content.Input
+                type="text"
+                id="floating_cel_label"
+                setValue={setCel}
+                isRequired
+              >
+                <Field.Content.Label label="Telefone Celular" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
+            <Field.Root>
+              <Field.Content.Input
+                type="email"
+                id="floating_email_label"
+                setValue={setEmail}
+                isRequired
+              >
+                <Field.Content.Label label="E-mail" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
           </div>
           <div className={"flex flex-row gap-1"}>
-            <Field
-              type="password"
-              id="floating_pass_label"
-              label="Criar Senha"
-              required
-              onChange={setPassword}
-              errorFunction={validatePassword}
-            />
-            <Field
-              type="password"
-              id="floating_pass_conf_label"
-              label="Confirmar Senha"
-              required
-              onChange={setPasswordConfirmation}
-            />
+            <Field.Root>
+              <Field.Content.Input
+                type="password"
+                id="floating_pass_label"
+                setValue={setPassword}
+                errorFunction={validatePassword}
+                isRequired
+              >
+                <Field.Content.Label label="Criar Senha" />
+              </Field.Content.Input>
+              <Field.Help />
+              <Field.Error />
+            </Field.Root>
+            <Field.Root>
+              <Field.Content.Input
+                type="password"
+                id="floating_pass_conf_label"
+                setValue={setPasswordConfirmation}
+                isRequired
+              >
+                <Field.Content.Label label="Confirmar Senha" />
+              </Field.Content.Input>
+              <Field.Error />
+            </Field.Root>
           </div>
         </div>
         <div className={"my-4 text-left"}>

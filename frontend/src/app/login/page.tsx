@@ -1,14 +1,16 @@
 "use client";
 
-import ConfirmationButton from "@/components/ConfirmationButton";
-import Field from "@/components/Field";
-import { facebook, google, spotify } from "@/icons";
 import Link from "next/link";
 import { useState } from "react";
 
+import { FaGoogle, FaSpotify, FaFacebook } from "react-icons/fa";
+
+import { Field } from "@/components/Field";
+import ConfirmationButton from "@/components/ConfirmationButton";
+
 export default function Login(): JSX.Element {
-  const [loginCredentials, setLoginCredentials] = useState();
-  const [password, setPassword] = useState();
+  const [loginCredentials, setLoginCredentials] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div
@@ -25,18 +27,26 @@ export default function Login(): JSX.Element {
       </h2>
       <div>
         <form className={"mb-4 flex flex-col gap-4"}>
-          <Field
-            type="text"
-            id="login_input_field"
-            label="Login"
-            onChange={setLoginCredentials}
-          />
-          <Field
-            type="password"
-            id="password_input_field"
-            label="Senha"
-            onChange={setPassword}
-          />
+          <Field.Root>
+            <Field.Content.Input
+              type="text"
+              id="login_input_field"
+              setValue={setLoginCredentials}
+              isRequired
+            >
+              <Field.Content.Label label="Login" />
+            </Field.Content.Input>
+          </Field.Root>
+          <Field.Root>
+            <Field.Content.Input
+              type="password"
+              id="password_input_field"
+              setValue={setPassword}
+              isRequired
+            >
+              <Field.Content.Label label="Senha" />
+            </Field.Content.Input>
+          </Field.Root>
           <ConfirmationButton
             text="Entrar"
             padding="p-3"
@@ -59,21 +69,21 @@ export default function Login(): JSX.Element {
               "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01-light-gray"
             }
           >
-            {facebook(20, 20, "#fff")} Facebook
+            <FaFacebook size="1.25rem" /> Facebook
           </button>
           <button
             className={
               "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01-light-gray"
             }
           >
-            {google(20, 20, "#fff")} Google
+            <FaGoogle size="1.25rem" /> Google
           </button>
           <button
             className={
               "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01-light-gray"
             }
           >
-            {spotify(20, 20, "#fff")} Spotify
+            <FaSpotify size="1.25rem" /> Spotify
           </button>
         </div>
       </div>
