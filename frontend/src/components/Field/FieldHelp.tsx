@@ -13,7 +13,7 @@ export default function FieldHelp() {
           Number(errorText[1]) === 0 ? (
             <span
               key={index}
-              className="flex items-center justify-center rounded border bg-green-100 text-sm text-theme-08-light-green"
+              className="flex items-center justify-center rounded border bg-green-100 text-sm text-theme-08"
             >
               <FaCheck size="1rem" className="mr-1" /> {errorText[0]}
             </span>

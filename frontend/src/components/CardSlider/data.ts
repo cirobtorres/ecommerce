@@ -1,6 +1,6 @@
 export const iMaTemporary = [
 	{
-		title: "1", 
+		title: "1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti iusto nesciunt labore velit eligendi animi architecto earum, enim aut voluptatibus!",  
 		image: "/images/atuador-do-freio.jpg", 
 		units: 10, 
 		fullPrice: 99.99, 

@@ -11,25 +11,39 @@ const config: Config = {
   darkMode: "class", // 'media' / 'class'
   theme: {
     extend: {
-      backgroundImage: {},
+      backgroundImage: {
+        "header-linear-gradient":
+          "linear-gradient(to right, var(--theme-07) 50%, var(--theme-06) 50%, var(--theme-06) 100%)",
+      },
+      backgroundColor: {},
       colors: {
-        "theme-01-light-gray": "#e9eaed",
-        "theme-02-light-gray": "#a8afb8",
-        "theme-03-medium-gray": "#6a7481",
-        "theme-04-medium-gray": "#353a41",
-        "theme-05-dark-gray": "#25282d",
-        "theme-06-light-blue": "#1dbaed",
-        "theme-07-dark-blue": "#0d3e80",
-        "theme-08-light-green": "#37a73b",
+        "theme-01": "var(--theme-01)",
+        "theme-02": "var(--theme-02)",
+        "theme-03": "var(--theme-03)",
+        "theme-04": "var(--theme-04)",
+        "theme-05": "var(--theme-05)",
+        "theme-06": "var(--theme-06)",
+        "theme-07": "var(--theme-07)",
+        "theme-08": "var(--theme-08)",
+        "theme-09": "var(--theme-09)",
+        "border-light": "var(--border-light)",
       },
       boxShadow: {
         bright: "inset 0 0 100px 100px rgba(255, 255, 255, 0.2)",
       },
+      width: {},
+      maxWidth: {
+        webpage: "var(--page-max-width)",
+      },
+      gridTemplateColumns: {
+        "mega-menu": "repeat(6, minmax(200px, 1fr))",
+      },
+      gap: {
+        "product-card-slider": "var(--product-card-slider-gap)",
+      },
     },
   },
   plugins: [
-    require("daisyui"),
-    require("flowbite/plugin"),
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     require("tailwind-scrollbar")({ nocompatible: true }),
   ],

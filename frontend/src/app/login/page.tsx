@@ -13,20 +13,12 @@ export default function Login(): JSX.Element {
   const [password, setPassword] = useState("");
 
   return (
-    <div
-      className={
-        "mx-auto flex h-full max-w-md flex-col justify-center text-center"
-      }
-    >
-      <h2
-        className={
-          "mb-8 uppercase text-theme-07-dark-blue dark:text-theme-01-light-gray"
-        }
-      >
+    <div className="mx-auto flex h-full max-w-md flex-col justify-center text-center">
+      <h2 className="mb-8 uppercase text-theme-07">
         Fazer Login
       </h2>
       <div>
-        <form className={"mb-4 flex flex-col gap-4"}>
+        <form className="mb-4 flex flex-col gap-4">
           <Field.Root>
             <Field.Content.Input
               type="text"
@@ -54,34 +46,28 @@ export default function Login(): JSX.Element {
             onClick={() => {}}
           />
         </form>
-        <Link href="" className={"dark:text-theme-01-light-gray"}>
+        <Link href="">
           Esqueci minha senha
         </Link>
       </div>
-      <hr className={"my-4 dark:border-theme-03-medium-gray"} />
-      <div className={"mb-4"}>
-        <span className={"dark:text-theme-01-light-gray"}>
+      <hr className="my-4" />
+      <div className="mb-4">
+        <span>
           Acessar com redes sociais
         </span>
-        <div className={"flex flex-row justify-center gap-1"}>
+        <div className="flex flex-row justify-center gap-1">
           <button
-            className={
-              "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01-light-gray"
-            }
+            className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01"
           >
             <FaFacebook size="1.25rem" /> Facebook
           </button>
           <button
-            className={
-              "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01-light-gray"
-            }
+            className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01"
           >
             <FaGoogle size="1.25rem" /> Google
           </button>
           <button
-            className={
-              "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01-light-gray"
-            }
+            className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01"
           >
             <FaSpotify size="1.25rem" /> Spotify
           </button>
@@ -89,9 +75,7 @@ export default function Login(): JSX.Element {
       </div>
       <Link
         href="/register"
-        className={
-          "text-lg font-bold text-theme-07-dark-blue dark:text-theme-01-light-gray"
-        }
+        className="text-lg font-bold text-theme-07"
       >
         Crie uma conta
       </Link>

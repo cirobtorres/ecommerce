@@ -6,14 +6,12 @@ import Link from "next/link";
 import { IoHeart, IoCartSharp } from "react-icons/io5";
 import { FaRegStar } from "react-icons/fa";
 
-import styles from "./styles.module.css";
-
 export default function ProductCard(props: ProductCardProps) {
   return (
     <article
       className={`group h-[var(--product-card-height)] min-w-[280px] overflow-hidden 
 		rounded
-		border border-theme-02-light-gray bg-white duration-700 ease-in-out hover:border-theme-04-medium-gray hover:shadow-xl`}
+		border border-theme-02 bg-white duration-700 ease-in-out hover:border-theme-06 hover:shadow-xl`}
     >
       <Link href="/" className={"flex h-full flex-col"}>
         <div className={"p-2"}>
@@ -21,7 +19,7 @@ export default function ProductCard(props: ProductCardProps) {
             <div className={"flex flex-row gap-1"}>
               <div
                 className={
-                  "flex h-12 w-12 items-center justify-center rounded bg-gradient-to-r from-theme-03-medium-gray to-theme-04-medium-gray p-1 text-sm font-bold text-white"
+                  "flex h-12 w-12 items-center justify-center rounded bg-gradient-to-r from-theme-03 to-theme-04 p-1 text-sm font-bold text-white"
                 }
               >
                 -{props.discountRate.toFixed(0)}%
@@ -29,7 +27,7 @@ export default function ProductCard(props: ProductCardProps) {
               {props.units > 0 && (
                 <div
                   className={
-                    "flex h-12 w-12 flex-col items-center justify-center rounded border border-theme-02-light-gray p-1 text-xs leading-3"
+                    "flex h-12 w-12 flex-col items-center justify-center rounded border border-theme-02 p-1 text-xs leading-3"
                   }
                 >
                   {props.units > 99 ? (
@@ -82,10 +80,12 @@ export default function ProductCard(props: ProductCardProps) {
           }
         >
           <div className={""}>
-            <span className={`${styles.ellipsisClass}`}>{props.title}</span>
+            <span className="[display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical] overflow-hidden text-ellipsis">
+              {props.title}
+            </span>
             <div className={"flex flex-col justify-between"}>
               <span
-                className={"text-sm text-theme-03-medium-gray line-through"}
+                className={"text-sm text-theme-03 line-through"}
               >
                 R$ {props.fullPrice.toFixed(2)}
               </span>
@@ -101,7 +101,7 @@ export default function ProductCard(props: ProductCardProps) {
                   {props.discountRate}% off
                 </span>
               </div>
-              <span className={"text-sm text-theme-03-medium-gray"}>
+              <span className={"text-sm text-theme-03"}>
                 ou R$ {props.fullPrice.toFixed(2)} em {props.installmentNumber}x
                 de R$ {(props.fullPrice / props.installmentNumber).toFixed(2)}
               </span>
@@ -110,7 +110,7 @@ export default function ProductCard(props: ProductCardProps) {
         </div>
         <div className={"p-2"}>
           <button
-            className={`z-10 flex w-full justify-center rounded bg-gradient-to-r from-theme-03-medium-gray to-theme-04-medium-gray p-2 
+            className={`z-10 flex w-full justify-center rounded bg-gradient-to-r from-theme-03 to-theme-04 p-2 
           text-sm font-bold uppercase text-white duration-300 ease-in-out hover:shadow-bright`}
             onClick={() => console.log("me clicaram")}
           >

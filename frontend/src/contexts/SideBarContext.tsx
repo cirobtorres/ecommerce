@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, createContext } from 'react';
+import { useState, createContext } from "react";
 
 type SideBarContextProps = {
   isCollapsed: boolean;

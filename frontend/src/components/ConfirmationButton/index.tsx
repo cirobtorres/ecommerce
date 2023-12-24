@@ -2,9 +2,7 @@ type ConfirmationButtonProps = {
   padding?: string;
   width?: string;
   lightText?: string;
-  darkText?: string;
   lightTheme?: string;
-  darkTheme?: string;
   text: string;
   onClick: (variable: any) => void;
 };
@@ -12,10 +10,8 @@ type ConfirmationButtonProps = {
 export default function ConfirmationButton({
   padding = "p-4",
   width = "w-80",
-  lightText = "text-theme-01-light-gray",
-  darkText = "text-theme-01-light-gray",
-  lightTheme = "bg-theme-07-dark-blue",
-  darkTheme = "bg-theme-07-dark-blue",
+  lightText = "text-theme-01",
+  lightTheme = "bg-theme-07",
   text,
   onClick,
 }: ConfirmationButtonProps) {

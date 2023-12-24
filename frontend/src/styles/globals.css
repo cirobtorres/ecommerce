@@ -4,22 +4,37 @@
 
 :root {
   --page-max-width: 1440px;
+
   --side-bar-width: 24rem;
 
-  --grid-product-card-gap: 10px;
+  --product-card-slider-max-width: ;
+  --product-card-slider-min-width: ;
+  --product-card-slider-height: ;
+  --product-card-slider-gap: 10px;
 
   --product-card-max-width: 280px;
   --product-card-min-width: 240px;
-  --product-card-height: 450px;
+  --product-card-height: 500px;
 
-  --theme-01-light-gray: #e9eaed;
-  --theme-02-light-gray: #a8afb8;
-  --theme-03-medium-gray: #6a7481;
-  --theme-04-medium-gray: #353a41;
-  --theme-05-dark-gray: #25282d;
-  --theme-06-light-blue: #1dbaed;
-  --theme-07-dark-blue: #0d3e80;
-  --theme-08-light-green: #37a73b;
+  --theme-01: #e9eaed;
+  --theme-02: #a8afb8;
+  --theme-03: #6a7481;
+  --theme-04: #353a41;
+  --theme-05: #25282d;
+  --theme-06: #325e97;
+  --theme-07: #0d3e80;
+  --theme-08: #89cc3b;
+  --theme-09: #5e862f;
+
+  --border-light: #d8d9db;
+}
+
+/* Remove default close icon from search input */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }
 
 /* Block browser to change background color when autofilling */
@@ -32,8 +47,8 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-text-fill-color: var(--theme-05-dark-gray) !important;
-  -webkit-box-shadow: 0 0 0 30px var(--theme-01-light-gray) inset !important;
+  -webkit-text-fill-color: var(--theme-05) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--theme-01) inset !important;
 }
 
 .fade-anim img {
@@ -48,12 +63,12 @@ select:-webkit-autofill:focus {
 
 body {
   border-collapse: collapse;
-  /* background-color: var(--theme-01-light-gray); */
+  /* background-color: var(--theme-01); */
 }
 
 h2 {
   font-size: 2rem;
-  color: var(--theme-05-dark-gray);
+  color: var(--theme-05);
   font-weight: 700;
   line-height: 1.5;
 }

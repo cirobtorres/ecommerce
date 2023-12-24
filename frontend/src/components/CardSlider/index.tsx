@@ -27,25 +27,17 @@ export default function CardSlider() {
   };
 
   return (
-    <section className="max-w-[var(--page-max-width)]">
-      <div
-        className={`
-				my-8 rounded bg-theme-02-light-gray px-6
-				py-4 text-theme-04-medium-gray 
-				dark:bg-theme-07-dark-blue dark:text-theme-01-light-gray
-			`}
-      >
+    <section className="max-w-webpage">
+      <div className="my-8 rounded px-6 py-4">
         <h2 className="text-inherit">Ofertas</h2>
       </div>
       <div className="relative">
         {newPositivePosition > 0 ? null : (
           <button
             onClick={handleLeftButton}
-            className={`
-							absolute -left-9 right-auto top-1/2 z-10 
+            className="absolute -left-9 right-auto top-1/2 z-10 
 							flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border 
-							border-theme-01-light-gray bg-white text-2xl hover:shadow-xl
-						`}
+							border-theme-01 bg-white text-2xl hover:shadow-xl"
           >
             <MdOutlineArrowBackIos />
           </button>
@@ -53,11 +45,7 @@ export default function CardSlider() {
         <div className="overflow-hidden">
           <div
             style={{ transform: `translateX(${scrollPosition}px)` }}
-            className={`
-							flex gap-[var(--grid-product-card-gap)] 
-							duration-500 scrollbar-none
-						`}
-          >
+            className="flex gap-product-card-slider duration-500 scrollbar-none">
             {cards.map((card, index) => (
               <ProductCard key={index} {...card} />
             ))}
@@ -66,11 +54,9 @@ export default function CardSlider() {
         {newNegativePosition < maxScroll - 100 ? null : (
           <button
             onClick={handleRightButton}
-            className={`
-							absolute -right-9 left-auto top-1/2 z-10
+            className="absolute -right-9 left-auto top-1/2 z-10
 							flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full
-							border border-theme-01-light-gray bg-white text-2xl hover:shadow-xl
-						`}
+							border border-theme-01 bg-white text-2xl hover:shadow-xl"
           >
             <MdOutlineArrowForwardIos />
           </button>

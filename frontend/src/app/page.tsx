@@ -1,17 +1,12 @@
-import CarouselComponent from "@/components/CarouselComponent";
+import SwipeCarousel from "@/components/SwipeCarousel";
 import CardSlider from "@/components/CardSlider";
 
 export default function Home(): JSX.Element {
   return (
     <>
-      <CarouselComponent />
+      <SwipeCarousel />
       <CardSlider />
-      <div
-        className={`
-				my-8 rounded bg-theme-02-light-gray px-6
-				py-4 text-theme-04-medium-gray 
-			`}
-      >
+      <div className="my-8 px-6 py-4 text-theme-05">
         <h2 className="text-inherit">Departamentos</h2>
       </div>
     </>

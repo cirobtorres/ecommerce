@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Roboto, Open_Sans, Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
-import HomeLayout from "@/components/HomeLayout";
+import LayoutWrapper from "@/components/LayoutWrapper";
 import { AuthContextProvider } from "@/contexts/AuthContext";
 import { SideBarContextProvider } from "@/contexts/SideBarContext";
 
@@ -25,11 +25,10 @@ export default function RootLayout({
     <html lang="pt">
       <SideBarContextProvider>
         <AuthContextProvider>
-          <body className={`${poppins.className}`}>
-            <HomeLayout>
+          <body className={`${inter.className}`}>
+            <LayoutWrapper>
               {children}
-              <script src="https://unpkg.com/flowbite@2.2.0/dist/flowbite.js"></script>
-            </HomeLayout>
+            </LayoutWrapper>
           </body>
         </AuthContextProvider>
       </SideBarContextProvider>

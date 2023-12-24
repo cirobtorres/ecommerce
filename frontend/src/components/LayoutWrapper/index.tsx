@@ -3,7 +3,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
-export default function HomeLayout({
+export default function LayoutWrapper({
   children,
 }: {
   children: React.ReactNode;
@@ -12,11 +12,11 @@ export default function HomeLayout({
     <div className="">
       <div
         className={
-          "flex h-screen flex-col justify-between bg-theme-01-light-gray"
+          "flex min-h-screen flex-col justify-between bg-theme-01"
         }
       >
         <Header />
-        <main className="mx-auto h-[svh] w-full min-w-[480px] max-w-[var(--page-max-width)]">
+        <main className="mx-auto w-full min-w-[480px] max-w-webpage">
           {children}
         </main>
         <Footer />

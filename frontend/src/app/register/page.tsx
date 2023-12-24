@@ -29,59 +29,40 @@ export default function Register() {
   }
 
   return (
-    <div
-      className={
-        "mx-auto flex h-full max-w-3xl flex-col justify-center text-center"
-      }
-    >
-      <h2
-        className={
-          "mb-8 uppercase text-theme-07-dark-blue dark:text-theme-01-light-gray"
-        }
-      >
+    <div className="mx-auto flex h-full max-w-3xl flex-col justify-center text-center">
+      <h2 className="mb-8 uppercase text-theme-07">
         Criar Conta
       </h2>
-      <div className={"flex flex-row justify-center gap-1"}>
+      <div className="flex flex-row justify-center gap-1">
         <button
-          className={
-            "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01-light-gray"
-          }
+          className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01"
         >
           Cadastrar com <FaFacebook size="1.25rem" /> Facebook
         </button>
         <button
-          className={
-            "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01-light-gray"
-          }
+          className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01"
         >
           Cadastrar com <FaGoogle size="1.25rem" /> Google
         </button>
         <button
-          className={
-            "flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01-light-gray"
-          }
+          className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01"
         >
           Cadastrar com <FaSpotify size="1.25rem" /> Spotify
         </button>
       </div>
-      <div className={"relative"}>
+      <div className="relative">
         <hr
-          className={
-            "my-4 border-theme-02-light-gray dark:border-theme-04-medium-gray"
-          }
+          className="my-4 border-theme-02"
         />
         <span
-          className={`
-					absolute left-1/2 top-0 flex h-full w-12 -translate-x-1/2 items-center
-					justify-center bg-theme-01-light-gray text-theme-02-light-gray dark:bg-slate-800 dark:text-theme-03-medium-gray
-				`}
+          className="absolute left-1/2 top-0 flex h-full w-12 -translate-x-1/2 items-center justify-center bg-theme-01 text-theme-02"
         >
           ou
         </span>
       </div>
       <form>
-        <div className={"flex flex-col gap-2"}>
-          <div className={"flex flex-row gap-1"}>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row gap-1">
             <Field.Root>
               <Field.Content.Input
                 type="text"
@@ -103,7 +84,7 @@ export default function Register() {
               </Field.Content.Input>
             </Field.Root>
           </div>
-          <div className={"flex flex-row gap-1"}>
+          <div className="flex flex-row gap-1">
             <Field.Root>
               <Field.Content.Input
                 type="text"
@@ -125,7 +106,7 @@ export default function Register() {
               <Field.Error errorText="CPF é um campo obrigatório" />
             </Field.Root>
           </div>
-          <div className={"flex flex-row gap-1"}>
+          <div className="flex flex-row gap-1">
             <Field.Root>
               <Field.Content.Input
                 type="text"
@@ -149,7 +130,7 @@ export default function Register() {
               <Field.Error errorText="Informe um endereço de e-mail" />
             </Field.Root>
           </div>
-          <div className={"flex flex-row gap-1"}>
+          <div className="flex flex-row gap-1">
             <Field.Root>
               <Field.Content.Input
                 type="password"
@@ -176,14 +157,14 @@ export default function Register() {
             </Field.Root>
           </div>
         </div>
-        <div className={"my-4 text-left"}>
-          <div className={"inline-flex items-center gap-2"}>
+        <div className="my-4 text-left">
+          <div className="inline-flex items-center gap-2">
             <Checkbox
               label="Quero receber ofertas e novidades por e-mail, SMS ou WhatsApp"
               checked={true}
             />
           </div>
-          <div className={"inline-flex items-center gap-2"}>
+          <div className="inline-flex items-center gap-2">
             <Checkbox
               label="Aceito os termos de uso e a política de privacidade"
               checked={true}
@@ -192,11 +173,11 @@ export default function Register() {
         </div>
         <ConfirmationButton text="Cadastrar" onClick={handleSubmit} />
       </form>
-      <span className={"my-4 text-theme-03-medium-gray"}>
+      <span className="my-4 text-theme-03">
         Já possui cadastro?{" "}
         <Link
           href="/login"
-          className={"font-bold text-theme-07-dark-blue underline"}
+          className="font-bold text-theme-07 underline"
         >
           Entrar
         </Link>
