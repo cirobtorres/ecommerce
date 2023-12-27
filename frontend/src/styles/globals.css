@@ -27,6 +27,7 @@
   --theme-09: #5e862f;
 
   --border-light: #d8d9db;
+  --transparent-side-bar-bg: rgb(37, 40, 45, 0.4);
 }
 
 /* Remove default close icon from search input */

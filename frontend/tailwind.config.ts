@@ -27,6 +27,7 @@ const config: Config = {
         "theme-08": "var(--theme-08)",
         "theme-09": "var(--theme-09)",
         "border-light": "var(--border-light)",
+        "transparent-side-bar-bg": "var(--transparent-side-bar-bg)",
       },
       boxShadow: {
         bright: "inset 0 0 100px 100px rgba(255, 255, 255, 0.2)",

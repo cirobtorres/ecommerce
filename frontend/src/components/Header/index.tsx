@@ -9,23 +9,33 @@ import { ImMenu3 } from "react-icons/im";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaUser } from "react-icons/fa6";
 
-import SideBar from "@/components/SideBar";
-import useSideBar from "@/hooks/useSideBar";
+import SideBar from "@/components/Header/SideBar";
 import MegaMenu from "./MegaMenu";
 import SearchBar from "./SearchBar";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const { toggleSideBar } = useSideBar();
+  const [megaMenuIsCollapsed, setMegaMenuIsCollapsed] = useState(false);
+  const [sideBarIsCollapsed, setSideBarIsCollapsed] = useState(false);
+  const [userSubMenu, setUserSubMenu] = useState(false);
+
+  const handleSideBar = () => {
+    setSideBarIsCollapsed(!sideBarIsCollapsed);
+    setUserSubMenu(false);
+  };
 
   return (
     <header className="relative bg-theme-08 text-white">
-      <SideBar toggle={toggleSideBar} />
+      <SideBar
+        userSubMenu={userSubMenu}
+        isCollapsed={sideBarIsCollapsed}
+        toggleUserSubMenu={setUserSubMenu}
+        toggleSideBar={handleSideBar}
+      />
       <div className="mx-auto grid h-16 max-w-webpage grid-cols-12 gap-4">
         <div className="col-span-7 flex flex-row items-center justify-center gap-4">
           <GiHamburgerMenu
             size="2rem"
-            onClick={toggleSideBar}
+            onClick={handleSideBar}
             className={"cursor-pointer"}
           />
           <div className="flex justify-center min-w-40">
@@ -72,13 +82,13 @@ export default function Header() {
         <ul className="mx-auto flex h-full max-w-webpage flex-row">
           <li>
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setMegaMenuIsCollapsed(!megaMenuIsCollapsed)}
               className="flex h-full items-center gap-2 px-4"
               title="Departamentos"
             >
               <ImMenu3 size="1.25rem" /> Departamentos
             </button>
-            {isOpen && <MegaMenu />}
+            {megaMenuIsCollapsed && <MegaMenu />}
           </li>
           <div className="flex w-full bg-theme-06">
             <li className="flex items-center px-4">

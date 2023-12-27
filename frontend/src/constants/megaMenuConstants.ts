@@ -3,7 +3,7 @@ import { PiThermometerColdBold } from "react-icons/pi";
 import { BsStars } from "react-icons/bs";
 import { IoIosBeer } from "react-icons/io";
 
-export const LISTPROPS = [
+export const MEGA_MENU_ITEMS = [
   {
     title: "Cozinhar",
     icon: FaDrumSteelpan,

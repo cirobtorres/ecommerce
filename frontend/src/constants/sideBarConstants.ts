@@ -4,31 +4,38 @@ import { MdLocalShipping } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import { AiFillLike } from "react-icons/ai";
 
-type UserSideBarItemsProps = {
-  name: string;
-  href: string;
-  icon?: any;
-  submenu?: true,
-  subMenuItems?: { title: string, path: string, icon?: any}[]
-};
-
 export const SIDENAV_ITEMS: UserSideBarItemsProps[] = [
   {
-    name: "Home",
+    title: "Home",
     href: "/",
     icon: IoHome,
+    submenu: false,
+    separation: true,
   },
   {
-    name: "Minha conta",
+    title: "Minha conta",
     href: "/",
     icon: FaUser,
     submenu: true,
     subMenuItems: [
-      { title: "Meus dados", path: "/", icon: FaClipboardList },
-      { title: "Favoritos", path: "/", icon: IoHeart },
-      { title: "Carrinho", path: "/", icon: IoCartSharp },
-      { title: "Meus Pedidos", path: "/", icon: MdLocalShipping },
-      { title: "Avaliações", path: "/", icon: AiFillLike },
-    ]
+      { title: "Meus dados", href: "/", icon: FaClipboardList },
+      { title: "Favoritos", href: "/", icon: IoHeart },
+      { title: "Carrinho", href: "/", icon: IoCartSharp },
+      { title: "Meus Pedidos", href: "/", icon: MdLocalShipping },
+      { title: "Avaliações", href: "/", icon: AiFillLike },
+    ],
+    separation: true,
+  },
+  {
+    title: "Mais vendidos",
+    href: "/",
+    icon: IoHome,
+    submenu: false,
+  },
+  {
+    title: "Mais procurados",
+    href: "/",
+    icon: IoHome,
+    submenu: false,
   },
 ];

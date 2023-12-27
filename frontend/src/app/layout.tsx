@@ -4,7 +4,6 @@ import "@/styles/globals.css";
 
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { AuthContextProvider } from "@/contexts/AuthContext";
-import { SideBarContextProvider } from "@/contexts/SideBarContext";
 
 const inter = Inter({ subsets: ["latin"], weight: ["400", "700"] });
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
@@ -23,15 +22,11 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="pt">
-      <SideBarContextProvider>
-        <AuthContextProvider>
-          <body className={`${inter.className}`}>
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
-          </body>
-        </AuthContextProvider>
-      </SideBarContextProvider>
+      <AuthContextProvider>
+        <body className={`${inter.className}`}>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }

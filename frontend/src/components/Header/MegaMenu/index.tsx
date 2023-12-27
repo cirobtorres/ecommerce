@@ -1,14 +1,13 @@
-type MenuToggleProps = {};
-
 import Link from "next/link";
 
 import { motion } from "framer-motion";
 
 import { BiSolidChevronRight } from "react-icons/bi";
 
-import { LISTPROPS } from "./data";
+import { MEGA_MENU_ITEMS } from "@/constants/megaMenuConstants";
 
 export default function MegaMenu() {
+  console.log("Renderizou");
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -23,7 +22,7 @@ export default function MegaMenu() {
         className="max-w-webpage mx-auto"
       >
         <div className="grid grid-cols-mega-menu [&_li]:p-3 [&_li_li]:py-3 [&_li_li]mr-3 [&_li_li:not(:first-child):not(:last-child)]:border-b-theme-01 [&_li_li:not(:first-child):not(:last-child)]:border-b">
-          {LISTPROPS.map((item, idx) => (
+          {MEGA_MENU_ITEMS.map((item, idx) => (
             <GridElements
               key={idx}
               title={item.title as string}
@@ -50,7 +49,7 @@ const GridElements = ({ title, icon: Icon, listProps }: GridElementsProps) => {
   return (
     <li>
       <div>
-        <div>
+        <div className="flex h-12">
           <span className="flex items-center gap-1 whitespace-nowrap">
             {Icon && <Icon fill="var(--theme-07)" size="2rem" />}
             Para <b>{title}</b>
@@ -83,7 +82,7 @@ const ListComponent = ({ text, href }: { text: string; href: string }) => {
         whileHover="animate"
         className="flex justify-between items-center hover:font-bold hover:text-theme-07"
         variants={moveOnHover}
-        transition={{ ease: "easeIn", duration: 0.2 }}
+        transition={{ ease: "easeInOut", duration: 0.15 }}
       >
         <Link href={href} className="w-full">
           {text}
