@@ -12,7 +12,7 @@ const featuredProducts = [
     src: "/images/featured-product-placeholder-2560x1440.png",
     alt: "Carousel title 2",
   },
-  { 
+  {
     src: "/images/featured-product-placeholder-2560x1440.png",
     alt: "Carousel title 3",
   },
@@ -28,7 +28,7 @@ const featuredProducts = [
 
 export default function SwipeCarousel() {
   return (
-    <div className="relative flex h-72">
+    <div className="relative flex h-96">
       <Images />
     </div>
   );
@@ -38,10 +38,19 @@ const Images = () => {
   return (
     <>
       {featuredProducts.map((item, index) => (
-        <motion.div drag="x" key={index} className="flex items-center cursor-grab active:cursor-pointer">
-          <Image src={item.src} alt={item.alt} fill className="aspect-video object-cover bg-center" />
+        <motion.div
+          drag="x"
+          key={index}
+          className="flex items-center cursor-grab active:cursor-pointer"
+        >
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            className="aspect-video object-cover bg-center"
+          />
         </motion.div>
       ))}
     </>
-  )
-}
+  );
+};

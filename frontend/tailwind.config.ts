@@ -8,7 +8,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class", // 'media' / 'class'
+  darkMode: "class", // "media" / "class"
   theme: {
     extend: {
       backgroundImage: {
@@ -31,10 +31,25 @@ const config: Config = {
       },
       boxShadow: {
         bright: "inset 0 0 100px 100px rgba(255, 255, 255, 0.2)",
+        card: "0 0 10px 3px rgba(40, 41, 61, 0.08)",
+        "carousel-button": "0 0 10px 3px rgba(40, 41, 61, 0.08)",
       },
       width: {},
       maxWidth: {
         webpage: "var(--page-max-width)",
+        card: "var(--product-card-max-width)",
+        "product-card-slider": "var(--product-card-slider-max-width)",
+      },
+      minWidth: {
+        card: "var(--product-card-min-width)",
+        "product-card-slider": "var(--product-card-slider-min-width)",
+      },
+      height: {
+        card: "var(--product-card-height)",
+      },
+      padding: {
+        "product-card": "var(--product-card-padding)",
+        "product-card-slider": "var(--product-card-slider-padding)",
       },
       gridTemplateColumns: {
         "mega-menu": "repeat(6, minmax(200px, 1fr))",

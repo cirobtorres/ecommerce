@@ -5,16 +5,31 @@
 :root {
   --page-max-width: 1440px;
 
+  /* Header */
   --side-bar-width: 24rem;
 
-  --product-card-slider-max-width: ;
-  --product-card-slider-min-width: ;
-  --product-card-slider-height: ;
-  --product-card-slider-gap: 10px;
+  /* Product Carousel */
+  --product-card-slider-max-width: calc(var(--page-max-width) * 0.9);
+  --product-card-slider-min-width: calc(var(--page-max-width) * 0.5);
+  --product-card-slider-padding: 0.5rem;
+  --product-card-slider-gap: 0.5rem;
 
-  --product-card-max-width: 280px;
-  --product-card-min-width: 240px;
-  --product-card-height: 500px;
+  /* Individual Products from Product Carousel */
+  --product-cards-display: 6;
+  --product-card-padding: 0.5rem;
+  --product-card-max-width: calc(var(--product-card-min-width) * 1.2);
+  --product-card-min-width: calc(
+    (
+        var(--product-card-slider-max-width) - 4 *
+          var(--product-card-slider-padding) - 5 *
+          var(--product-card-slider-gap)
+      ) / var(--product-cards-display)
+  );
+  --product-card-height: 450px;
+
+  /* Rating Star */
+  --like-star-color-unchecked: #d8d9db;
+  --like-star-color-checked: #f5c518;
 
   --theme-01: #e9eaed;
   --theme-02: #a8afb8;

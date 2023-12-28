@@ -6,61 +6,78 @@ import {
 } from "react-icons/md";
 import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
-import { iMaTemporary } from "./data"; // TODO: delete me when I'm done
+import Link from "next/link";
 
-export default function CardSlider() {
-  const [cards, setCards] = useState(iMaTemporary);
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const cardWidth = 280;
-  const maxScroll = -((cards.length - 5) * cardWidth + 50);
-  const newPositivePosition = scrollPosition + cardWidth * 5 + 50;
-  const newNegativePosition = scrollPosition - cardWidth * 5 - 50;
+export default function CardSlider({
+  title,
+  cards,
+}: {
+  title?: string;
+  cards: ProductCardProps[];
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleLeftButton = () => {
-    setScrollPosition(newPositivePosition > 0 ? 0 : newPositivePosition);
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 === cards.length ? 0 : prevIndex + 1
+    );
   };
-
-  const handleRightButton = () => {
-    setScrollPosition(
-      newNegativePosition < maxScroll - 100 ? maxScroll : newNegativePosition
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex - 1 < 0 ? cards.length - 1 : prevIndex - 1
     );
   };
 
+  const handleDotClick = (index: any) => {
+    setCurrentIndex(index);
+  };
+
+  const slideVariants = {
+    hiddenRight: {
+      x: "100%",
+    },
+    hiddenLeft: {
+      x: "-100%",
+    },
+    visible: {
+      transition: {},
+    },
+    exit: {
+      transition: {},
+    },
+  };
+
   return (
-    <section className="max-w-webpage">
-      <div className="my-8 rounded px-6 py-4">
-        <h2 className="text-inherit">Ofertas</h2>
+    <section className="mx-auto my-3 max-w-product-card-slider min-w-product-card-slider bg-white rounded-[5px] p-product-card-slider">
+      <div className="relative flex items-center justify-between py-2 px-4 h-16">
+        {title && (
+          <div className="flex items-center gap-3">
+            <h2 className="text-inherit">{title}</h2>
+            <Link href="/" className="text-blue-500">
+              Mostrar todas as ofertas
+            </Link>
+          </div>
+        )}
+        <div className="absolute right-4 h-full -top-1 translate-y-1/2 flex gap-1">
+          <div className="w-2 h-2 rounded-full bg-theme-01" />
+          <div className="w-2 h-2 rounded-full bg-theme-01" />
+          <div className="w-2 h-2 rounded-full bg-theme-01" />
+        </div>
       </div>
       <div className="relative">
-        {newPositivePosition > 0 ? null : (
-          <button
-            onClick={handleLeftButton}
-            className="absolute -left-9 right-auto top-1/2 z-10 
-							flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border 
-							border-theme-01 bg-white text-2xl hover:shadow-xl"
-          >
-            <MdOutlineArrowBackIos />
-          </button>
-        )}
-        <div className="overflow-hidden">
-          <div
-            style={{ transform: `translateX(${scrollPosition}px)` }}
-            className="flex gap-product-card-slider duration-500 scrollbar-none">
+        <button className="absolute -left-9 right-auto top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300">
+          <MdOutlineArrowBackIos />
+        </button>
+        <div className="overflow-x-hidden p-product-card-slider">
+          <div className="flex gap-product-card-slider duration-500 scrollbar-none">
             {cards.map((card, index) => (
               <ProductCard key={index} {...card} />
             ))}
           </div>
         </div>
-        {newNegativePosition < maxScroll - 100 ? null : (
-          <button
-            onClick={handleRightButton}
-            className="absolute -right-9 left-auto top-1/2 z-10
-							flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full
-							border border-theme-01 bg-white text-2xl hover:shadow-xl"
-          >
-            <MdOutlineArrowForwardIos />
-          </button>
-        )}
+        <button className="absolute -right-9 left-auto top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300">
+          <MdOutlineArrowForwardIos />
+        </button>
       </div>
     </section>
   );

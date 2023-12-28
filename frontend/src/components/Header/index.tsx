@@ -17,10 +17,19 @@ export default function Header() {
   const [megaMenuIsCollapsed, setMegaMenuIsCollapsed] = useState(false);
   const [sideBarIsCollapsed, setSideBarIsCollapsed] = useState(false);
   const [userSubMenu, setUserSubMenu] = useState(false);
+  const [whishList, setWhishList] = useState(false);
 
   const handleSideBar = () => {
     setSideBarIsCollapsed(!sideBarIsCollapsed);
     setUserSubMenu(false);
+  };
+
+  const hoverEnterWhishList = () => {
+    setWhishList(true);
+  };
+
+  const hoverLeaveWhishList = () => {
+    setWhishList(false);
   };
 
   return (
@@ -55,13 +64,25 @@ export default function Header() {
               </Link>
             </div>
           </div>
-          <Link
-            href="/"
-            className="flex h-full flex-1 items-center justify-center gap-1 px-2"
-            title="Favoritos"
+          <div
+            className="relative cursor-pointer"
+            onMouseEnter={hoverEnterWhishList}
+            onMouseLeave={hoverLeaveWhishList}
           >
-            <IoHeart size="1.25rem" /> Favoritos
-          </Link>
+            <Link
+              href="/"
+              className="flex h-full flex-1 items-center justify-center gap-1 px-2"
+              title="Favoritos"
+            >
+              <IoHeart size="1.25rem" /> Favoritos
+            </Link>
+            {whishList && (
+              <>
+                <div className="absolute top-0 right-0 h-8 w-full z-[4999]" />
+                <div className="absolute top-[120%] right-0 h-40 w-80 p-2 rounded text-theme-05 bg-theme-01 border border-border-light z-[5000]"></div>
+              </>
+            )}
+          </div>
           <Link
             href="/"
             className="flex h-full flex-1 items-center justify-center gap-1 px-2"

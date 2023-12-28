@@ -48,14 +48,20 @@ export default function SideBar({
             setUserSubMenu={toggleUserSubMenu}
             items={SIDENAV_ITEMS}
           />
-          <hr className={"my-4 text-theme-05"} />
           {/* Expand here */}
-          <button
-            className="mx-6 rounded bg-theme-07 p-4 font-bold uppercase text-theme-01 hover:shadow-bright"
-            onClick={toggleSideBar}
+          <Link
+            href="/"
+            className="mx-6 text-center rounded bg-theme-07 p-4 font-bold uppercase text-theme-01 hover:shadow-bright"
+            // onClick={toggleSideBar}
           >
-            Fechar
-          </button>
+            Login
+          </Link>
+          <Link
+            href="/"
+            className="mx-6 text-center text p-4 font-bold uppercase text-theme-07"
+          >
+            Cadastrar
+          </Link>
         </motion.aside>
       </>
     )
