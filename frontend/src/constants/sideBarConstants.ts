@@ -1,6 +1,6 @@
 import { IoHome, IoHeart, IoCartSharp } from "react-icons/io5";
 import { FaClipboardList } from "react-icons/fa";
-import { MdLocalShipping } from "react-icons/md";
+import { MdSell, MdLocalShipping, MdScreenSearchDesktop } from "react-icons/md";
 import { FaUser } from "react-icons/fa6";
 import { AiFillLike } from "react-icons/ai";
 
@@ -29,13 +29,13 @@ export const SIDENAV_ITEMS: UserSideBarItemsProps[] = [
   {
     title: "Mais vendidos",
     href: "/",
-    icon: IoHome,
+    icon: MdSell,
     submenu: false,
   },
   {
     title: "Mais procurados",
     href: "/",
-    icon: IoHome,
+    icon: MdScreenSearchDesktop,
     submenu: false,
   },
 ];

@@ -33,7 +33,7 @@ export default function SwipeCarousel() {
   };
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden h-96">
       <NavButton
         icon={MdOutlineArrowBackIos}
         direction="left"
@@ -70,43 +70,45 @@ const slideVariants = {
   visible: {
     x: "0",
     opacity: 1,
+    transition: {
+      duration: 0.5,
+      delay: 0.3,
+    },
   },
   exit: {
     opacity: 0,
-    scale: 0.8,
+    scale: 0.95,
+    transition: {
+      duration: 0.3,
+    },
   },
 };
 
 const ImagesComponent = ({ image, index, direction }: any) => {
   return (
-    // <AnimatePresence>
-    <motion.div
-      key={index}
-      variants={slideVariants}
-      initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
-      animate="visible"
-      exit="exit"
-      transition={
-        direction === "right"
-          ? { duration: 0.5, ease: "easeInOut" }
-          : { duration: 0.5, ease: "easeInOut" }
-      }
-      className="relative flex items-center h-96"
-    >
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
-        className="aspect-video object-cover bg-center"
-      />
-    </motion.div>
-    // </AnimatePresence>
+    <AnimatePresence>
+      <motion.div
+        key={index}
+        variants={slideVariants}
+        initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
+        animate="visible"
+        exit="exit"
+        className="relative flex items-center h-96"
+      >
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          className="aspect-video object-cover bg-center"
+        />
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
 const NavDots = ({ images, currentIndex, onClick }: any) => {
   return (
-    <div className="absolute flex h-full top-[92%] left-1/2 -translate-x-1/2 gap-1">
+    <div className="absolute flex h-full top-[90%] left-1/2 -translate-x-1/2 gap-1">
       {images.map((_: any, index: any) => (
         <div
           key={index}

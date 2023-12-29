@@ -53,9 +53,9 @@ export default function Header() {
           <SearchBar />
         </div>
         <div className="col-span-5 flex h-full flex-row items-center gap-4 text-xs">
-          <div className="flex-2 flex h-full flex-row items-center gap-1">
+          <div className="flex-2 flex h-full flex-row items-center gap-2">
             <FaUser size="1.25rem" />
-            <div className="flex h-full flex-[2_2_0%] flex-col items-start justify-center gap-1">
+            <div className="flex h-full flex-[2_2_0%] flex-col items-start justify-center">
               <Link href="/login" className="hover:underline">
                 Entrar
               </Link>
