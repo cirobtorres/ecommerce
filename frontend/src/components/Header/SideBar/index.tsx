@@ -186,9 +186,9 @@ const MenuItems = ({ items, userSubMenu, setUserSubMenu }: MenuItemsProps) => {
                           initial="closed"
                           animate={userSubMenu ? "open" : "closed"}
                           variants={borderVariants}
-                          className="flex items-center top-full left-0 ms-4 my-3 ps-4 border-l border-theme-05 before:border-l overflow-hidden"
+                          className="flex items-center top-full left-0 ms-4 my-3 ps-4 border-l border-border-light before:border-l overflow-hidden"
                         >
-                          <motion.ul className="w-full pr-4">
+                          <motion.ul className="w-full">
                             {subMenuItems?.map(
                               ({ title, href, icon: Icon }, index) => (
                                 <motion.li

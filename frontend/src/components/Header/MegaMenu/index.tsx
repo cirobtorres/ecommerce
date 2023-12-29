@@ -13,7 +13,7 @@ export default function MegaMenu() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ ease: "easeIn", duration: 0.2 }}
-      className="z-10 absolute w-full top-full left-0 bg-border-light text-theme-03 text-start"
+      className="z-20 absolute w-full top-full left-0 bg-border-light text-theme-03 text-start"
     >
       <motion.ul
         initial={{ x: 0 }}

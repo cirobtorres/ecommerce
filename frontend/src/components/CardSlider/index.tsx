@@ -16,6 +16,7 @@ export default function CardSlider({
   cards: ProductCardProps[];
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselPages = Math.ceil(cards.length / 6);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
@@ -48,7 +49,7 @@ export default function CardSlider({
   };
 
   return (
-    <section className="mx-auto my-3 max-w-product-card-slider min-w-product-card-slider bg-white rounded-[5px] p-product-card-slider">
+    <section className="relative mx-auto my-3 max-w-product-card-slider min-w-product-card-slider bg-white rounded-[5px] p-product-card-slider">
       <div className="relative flex items-center justify-between py-2 px-4 h-16">
         {title && (
           <div className="flex items-center gap-3">
@@ -59,13 +60,22 @@ export default function CardSlider({
           </div>
         )}
         <div className="absolute right-4 h-full -top-1 translate-y-1/2 flex gap-1">
-          <div className="w-2 h-2 rounded-full bg-theme-01" />
-          <div className="w-2 h-2 rounded-full bg-theme-01" />
-          <div className="w-2 h-2 rounded-full bg-theme-01" />
+          {[...Array(carouselPages)].map((_, index) => (
+            <div
+              key={index}
+              className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer ${
+                currentIndex === index ? "bg-blue-400" : ""
+              }`}
+              onClick={() => handleDotClick(index)}
+            />
+          ))}
         </div>
       </div>
-      <div className="relative">
-        <button className="absolute -left-9 right-auto top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300">
+      <div className="">
+        <button
+          className="absolute -left-8 top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500"
+          onClick={handlePrevious}
+        >
           <MdOutlineArrowBackIos />
         </button>
         <div className="overflow-x-hidden p-product-card-slider">
@@ -75,7 +85,10 @@ export default function CardSlider({
             ))}
           </div>
         </div>
-        <button className="absolute -right-9 left-auto top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300">
+        <button
+          className="absolute -right-8 top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500"
+          onClick={handleNext}
+        >
           <MdOutlineArrowForwardIos />
         </button>
       </div>

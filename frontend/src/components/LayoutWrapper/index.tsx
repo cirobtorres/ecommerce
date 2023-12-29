@@ -10,15 +10,10 @@ export default function LayoutWrapper({
 }) {
   return (
     <div className="">
-      <div
-        className={
-          "flex min-h-screen flex-col justify-between bg-theme-01"
-        }
-      >
+      <div className="flex min-h-screen flex-col justify-between bg-theme-01">
         <Header />
-        <main className="mx-auto w-full min-w-[480px] max-w-webpage">
-          {children}
-        </main>
+        <main className="mx-auto w-full min-w-[480px]">{children}</main>
+        {/* max-w-webpage */}
         <Footer />
       </div>
     </div>

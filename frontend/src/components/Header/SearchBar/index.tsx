@@ -15,7 +15,7 @@ export default function SearchBar() {
         </button>
         <button
           type="reset"
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-theme-08 peer-focus:text-theme-07 hover:text-red-500"
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-theme-08 peer-focus:text-theme-07 peer-focus:hover:text-red-500 hover:text-red-500"
         >
           <IoIosClose size="2rem" />
         </button>
