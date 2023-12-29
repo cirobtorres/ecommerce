@@ -7,6 +7,7 @@ import {
 import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function CardSlider({
   title,
@@ -16,20 +17,24 @@ export default function CardSlider({
   cards: ProductCardProps[];
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState("left");
   const carouselPages = Math.ceil(cards.length / 6);
 
   const handleNext = () => {
+    setDirection("right");
     setCurrentIndex((prevIndex) =>
       prevIndex + 1 === cards.length ? 0 : prevIndex + 1
     );
   };
   const handlePrevious = () => {
+    setDirection("left");
     setCurrentIndex((prevIndex) =>
       prevIndex - 1 < 0 ? cards.length - 1 : prevIndex - 1
     );
   };
 
   const handleDotClick = (index: any) => {
+    setDirection(index > currentIndex ? "right" : "left");
     setCurrentIndex(index);
   };
 
@@ -41,10 +46,10 @@ export default function CardSlider({
       x: "-100%",
     },
     visible: {
-      transition: {},
-    },
-    exit: {
-      transition: {},
+      x: "0%",
+      transition: {
+        duration: 0.5,
+      },
     },
   };
 
