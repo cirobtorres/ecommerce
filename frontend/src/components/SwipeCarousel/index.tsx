@@ -1,134 +1,161 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
 
-import { featuredProducts } from "@/constants/swipeCarouselConstants";
+import { featuredProducts as images } from "@/constants/swipeCarouselConstants";
 
 export default function SwipeCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("left");
+  const [[page, direction], setPage] = useState([0, 0]);
 
-  const handleNext = () => {
-    setDirection("right");
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === featuredProducts.length ? 0 : prevIndex + 1
-    );
-  };
-  const handlePrevious = () => {
-    setDirection("left");
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? featuredProducts.length - 1 : prevIndex - 1
-    );
+  // newDirection:
+  // 1 -> navigate forward
+  // -1 -> navigate backward
+  const paginate = (newDirection: 1 | -1) => {
+    setPage([page + newDirection, newDirection]);
   };
 
-  const handleDotClick = (index: any) => {
-    setDirection(index > currentIndex ? "right" : "left");
-    setCurrentIndex(index);
+  // wrap -> [min, max, value]:
+  //    - if value lies within the range, it is returned;
+  //    - if value is greater than max, it returns min;
+  //    - if value is less than min, it returns max.
+  const wrap = (min: number, max: number, value: number) => {
+    const rangeSize = max - min;
+    return ((((value - min) % rangeSize) + rangeSize) % rangeSize) + min;
   };
+
+  const imageIndex = wrap(0, images.length, page);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      paginate(1);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [page]);
 
   return (
     <div className="relative overflow-hidden h-96">
       <NavButton
         icon={MdOutlineArrowBackIos}
-        direction="left"
-        handleOnClick={handlePrevious}
+        navTo="backward"
+        onClick={paginate}
       />
-      <ImagesComponent
-        image={featuredProducts[currentIndex]}
-        index={currentIndex}
+      <SlideShow
+        images={images}
         direction={direction}
+        page={page}
+        imageIndex={imageIndex}
       />
-      <NavDots
-        images={featuredProducts}
-        currentIndex={currentIndex}
-        onClick={handleDotClick}
-      />
+      <NavDots images={images} imageIndex={imageIndex} onClick={paginate} />
       <NavButton
         icon={MdOutlineArrowForwardIos}
-        direction="right"
-        handleOnClick={handleNext}
+        onClick={paginate}
+        navTo="forward"
       />
     </div>
   );
 }
 
 const slideVariants = {
-  hiddenRight: {
-    x: "100%",
-    opacity: 0,
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 2000 : -2000,
+    };
   },
-  hiddenLeft: {
-    x: "-100%",
-    opacity: 0,
+  center: {
+    zIndex: 1,
+    x: 0,
   },
-  visible: {
-    x: "0",
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      delay: 0.3,
-    },
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.95,
-    transition: {
-      duration: 0.3,
-    },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? 2000 : -2000,
+    };
   },
 };
 
-const ImagesComponent = ({ image, index, direction }: any) => {
+type SlideShowProps = {
+  images: any;
+  page: number;
+  imageIndex: number;
+  direction: number;
+};
+
+const SlideShow = ({ images, page, imageIndex, direction }: SlideShowProps) => {
   return (
-    <AnimatePresence>
-      <motion.div
-        key={index}
-        variants={slideVariants}
-        initial={direction === "right" ? "hiddenRight" : "hiddenLeft"}
-        animate="visible"
-        exit="exit"
-        className="relative flex items-center h-96"
-      >
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className="aspect-video object-cover bg-center"
-        />
-      </motion.div>
-    </AnimatePresence>
+    <Link href="/">
+      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+        <motion.div
+          key={page}
+          variants={slideVariants}
+          custom={direction}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.5 }}
+          className="absolute max-w-webpage h-full left-0 right-0 mx-auto flex gap-[15%]"
+        >
+          <Image
+            src={images[imageIndex].src}
+            alt={images[imageIndex].alt}
+            fill
+            className="aspect-video object-cover bg-center"
+          />
+        </motion.div>
+      </AnimatePresence>
+    </Link>
   );
 };
 
-const NavDots = ({ images, currentIndex, onClick }: any) => {
+type NavDotsProps = {
+  images: any;
+  imageIndex: number;
+  onClick: (direction: 1 | -1) => void;
+};
+
+const NavDots = ({ images, imageIndex, onClick }: NavDotsProps) => {
   return (
-    <div className="absolute flex h-full top-[90%] left-1/2 -translate-x-1/2 gap-1">
-      {images.map((_: any, index: any) => (
+    <div className="absolute flex h-full top-[90%] left-1/2 -translate-x-1/2 gap-1 z-10">
+      {images.map((_: any, index: number) => (
         <div
           key={index}
-          className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer ${
-            currentIndex === index ? "bg-blue-400" : ""
-          }`}
-          onClick={() => onClick(index)}
-        />
+          // className={`w-12 h-2 rounded-full bg-theme-01 cursor-pointer overflow-hidden`}
+          className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer overflow-hidden`}
+          onClick={() => onClick(1)}
+        >
+          {imageIndex === index && (
+            <motion.div
+              // initial={{ width: 0 }}
+              // animate={{ width: "100%" }}
+              className="h-full bg-blue-500"
+            />
+          )}
+        </div>
       ))}
     </div>
   );
 };
 
-const NavButton = ({ icon: Icon, handleOnClick, direction }: any) => {
+type NavButtonProps = {
+  icon: any;
+  onClick: (direction: 1 | -1) => void;
+  navTo: "forward" | "backward";
+};
+
+const NavButton = ({ icon: Icon, onClick, navTo }: NavButtonProps) => {
   return (
     <button
       className={`absolute top-1/2 -translate-y-1/2 z-10 bg-white w-16 h-16 flex items-center p-3 rounded-full hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500 ${
-        direction === "right" ? "-right-8 justify-start" : "-left-8 justify-end"
+        navTo === "forward" ? "-right-8 justify-start" : "-left-8 justify-end"
       }`}
-      onClick={handleOnClick}
+      onClick={() => onClick(navTo === "forward" ? 1 : -1)}
     >
       <Icon />
     </button>

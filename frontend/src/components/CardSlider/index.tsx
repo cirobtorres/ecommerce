@@ -69,7 +69,7 @@ export default function CardSlider({
             <div
               key={index}
               className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer ${
-                currentIndex === index ? "bg-blue-400" : ""
+                currentIndex === index ? "bg-blue-500" : ""
               }`}
               onClick={() => handleDotClick(index)}
             />
