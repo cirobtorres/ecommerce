@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { wrap, motion, AnimatePresence } from "framer-motion";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
@@ -18,7 +18,7 @@ export default function SwipeCarousel() {
   // newDirection:
   // 1 -> navigate forward
   // -1 -> navigate backward
-  const paginate = (newDirection: 1 | -1) => {
+  const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   };
 
@@ -26,11 +26,6 @@ export default function SwipeCarousel() {
   //    - if value lies within the range, it is returned;
   //    - if value is greater than max, it returns min;
   //    - if value is less than min, it returns max.
-  const wrap = (min: number, max: number, value: number) => {
-    const rangeSize = max - min;
-    return ((((value - min) % rangeSize) + rangeSize) % rangeSize) + min;
-  };
-
   const imageIndex = wrap(0, images.length, page);
 
   useEffect(() => {
@@ -41,7 +36,7 @@ export default function SwipeCarousel() {
   }, [page]);
 
   return (
-    <div className="relative overflow-hidden h-96">
+    <section className="relative overflow-hidden h-96">
       <NavButton
         icon={MdOutlineArrowBackIos}
         navTo="backward"
@@ -59,7 +54,7 @@ export default function SwipeCarousel() {
         onClick={paginate}
         navTo="forward"
       />
-    </div>
+    </section>
   );
 }
 
@@ -117,7 +112,7 @@ const SlideShow = ({ images, page, imageIndex, direction }: SlideShowProps) => {
 type NavDotsProps = {
   images: any;
   imageIndex: number;
-  onClick: (direction: 1 | -1) => void;
+  onClick: (direction: number) => void;
 };
 
 const NavDots = ({ images, imageIndex, onClick }: NavDotsProps) => {
@@ -128,7 +123,7 @@ const NavDots = ({ images, imageIndex, onClick }: NavDotsProps) => {
           key={index}
           // className={`w-12 h-2 rounded-full bg-theme-01 cursor-pointer overflow-hidden`}
           className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer overflow-hidden`}
-          onClick={() => onClick(1)}
+          onClick={() => onClick(index - imageIndex)}
         >
           {imageIndex === index && (
             <motion.div
@@ -141,12 +136,6 @@ const NavDots = ({ images, imageIndex, onClick }: NavDotsProps) => {
       ))}
     </div>
   );
-};
-
-type NavButtonProps = {
-  icon: any;
-  onClick: (direction: 1 | -1) => void;
-  navTo: "forward" | "backward";
 };
 
 const NavButton = ({ icon: Icon, onClick, navTo }: NavButtonProps) => {

@@ -19,3 +19,9 @@ type UserSideBarItemsProps = {
   subMenuItems?: { title: string; href: string; icon?: any }[];
   separation?: boolean;
 };
+
+type NavButtonProps = {
+  icon: any;
+  onClick: (direction: number) => void;
+  navTo: "forward" | "backward";
+};

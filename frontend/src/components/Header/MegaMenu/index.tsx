@@ -17,8 +17,13 @@ export default function MegaMenu() {
     >
       <motion.ul
         initial={{ x: 0 }}
-        animate={{ x: "1%" }}
-        transition={{ ease: "easeIn", duration: 0.2 }}
+        animate={{ x: "2%" }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 30,
+          duration: 0.2,
+        }}
         className="max-w-webpage mx-auto"
       >
         <div className="grid grid-cols-mega-menu [&_li]:p-3 [&_li_li]:py-3 [&_li_li]mr-3 [&_li_li:not(:first-child):not(:last-child)]:border-b-theme-01 [&_li_li:not(:first-child):not(:last-child)]:border-b">

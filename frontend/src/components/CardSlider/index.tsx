@@ -7,49 +7,45 @@ import {
 import ProductCard from "@/components/ProductCard";
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, wrap } from "framer-motion";
 
 export default function CardSlider({
   title,
   cards,
 }: {
   title?: string;
-  cards: ProductCardProps[];
+  cards: ProductCardProps[][]; // 2D array
 }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState("left");
-  const carouselPages = Math.ceil(cards.length / 6);
+  const [[page, direction], setPage] = useState([0, 0]);
 
-  const handleNext = () => {
-    setDirection("right");
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === cards.length ? 0 : prevIndex + 1
-    );
-  };
-  const handlePrevious = () => {
-    setDirection("left");
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? cards.length - 1 : prevIndex - 1
-    );
+  // newDirection:
+  // 1 -> navigate forward
+  // -1 -> navigate backward
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
   };
 
-  const handleDotClick = (index: any) => {
-    setDirection(index > currentIndex ? "right" : "left");
-    setCurrentIndex(index);
-  };
+  // wrap -> [min, max, value]:
+  //    - if value lies within the range, it is returned;
+  //    - if value is greater than max, it returns min;
+  //    - if value is less than min, it returns max.
+  const cardIndex = wrap(0, cards.length, page);
 
   const slideVariants = {
-    hiddenRight: {
-      x: "100%",
+    enter: (direction: number) => {
+      return {
+        x: direction > 0 ? "100%" : "-100%",
+      };
     },
-    hiddenLeft: {
-      x: "-100%",
+    center: {
+      zIndex: 1,
+      x: 0,
     },
-    visible: {
-      x: "0%",
-      transition: {
-        duration: 0.5,
-      },
+    exit: (direction: number) => {
+      return {
+        zIndex: 0,
+        x: direction < 0 ? "100%" : "-100%",
+      };
     },
   };
 
@@ -65,38 +61,62 @@ export default function CardSlider({
           </div>
         )}
         <div className="absolute right-4 h-full -top-1 translate-y-1/2 flex gap-1">
-          {[...Array(carouselPages)].map((_, index) => (
+          {cards.map((_, index) => (
             <div
               key={index}
               className={`w-2 h-2 rounded-full bg-theme-01 cursor-pointer ${
-                currentIndex === index ? "bg-blue-500" : ""
+                cardIndex === index ? "bg-blue-400" : ""
               }`}
-              onClick={() => handleDotClick(index)}
+              onClick={() => paginate(index - cardIndex)}
             />
           ))}
         </div>
       </div>
-      <div className="">
-        <button
-          className="absolute -left-8 top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500"
-          onClick={handlePrevious}
-        >
-          <MdOutlineArrowBackIos />
-        </button>
-        <div className="overflow-x-hidden p-product-card-slider">
-          <div className="flex gap-product-card-slider duration-500 scrollbar-none">
-            {cards.map((card, index) => (
-              <ProductCard key={index} {...card} />
-            ))}
-          </div>
+      <div>
+        <NavButton
+          icon={MdOutlineArrowBackIos}
+          onClick={paginate}
+          navTo="backward"
+        />
+        <div className="relative w-full overflow-x-hidden">
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <motion.div
+              key={page}
+              variants={slideVariants}
+              custom={direction}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.5 }}
+              className="overflow-x-hidden p-product-card-slider"
+            >
+              <div className="flex gap-product-card-slider duration-500 scrollbar-none">
+                {cards[cardIndex].map((card, index) => (
+                  <ProductCard key={index} {...card} />
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
-        <button
-          className="absolute -right-8 top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500"
-          onClick={handleNext}
-        >
-          <MdOutlineArrowForwardIos />
-        </button>
+        <NavButton
+          icon={MdOutlineArrowForwardIos}
+          onClick={paginate}
+          navTo="forward"
+        />
       </div>
     </section>
   );
 }
+
+const NavButton = ({ icon: Icon, onClick, navTo }: NavButtonProps) => {
+  return (
+    <button
+      className={`absolute ${
+        navTo === "forward" ? "-right-8" : "-left-8"
+      } top-1/2 z-10 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-theme-01 bg-white text-2xl hover:shadow-carousel-button transition-all duration-300 hover:text-blue-500`}
+      onClick={() => onClick(navTo === "forward" ? 1 : -1)}
+    >
+      <Icon />
+    </button>
+  );
+};
