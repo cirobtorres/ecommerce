@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  frontend:
+    # image: frontend-ecommerce
+    build:
+      context: ./frontend
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - ./frontend/.env.local
+    volumes:
+      - ./frontend:/app
+      - /frontend/node_modules
+    networks:
+      - localnetwork
+
+  backend:
+    # image: backend-ecommerce
+    build:
+      context: ./backend
+    restart: always
+    ports:
+      - 8000:8000
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - database
+    volumes:
+      - ./backend:/src
+      - /backend/app/node_modules
+    networks:
+      - localnetwork
+
+  database:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data/
+    env_file:
+      - ./backend/.env
+    networks:
+      - localnetwork
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - 5050:80
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - database
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
+    networks:
+      - localnetwork
+
+networks:
+  localnetwork:
+    driver: bridge

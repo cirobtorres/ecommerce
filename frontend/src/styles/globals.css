@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --page-max-width: 1440px;
+
+  /* Header */
+  --side-bar-width: 24rem;
+
+  /* Product Carousel */
+  --product-card-slider-max-width: calc(var(--page-max-width) * 0.9);
+  --product-card-slider-min-width: calc(var(--page-max-width) * 0.5);
+  --product-card-slider-padding: 0.5rem;
+  --product-card-slider-gap: 0.5rem;
+
+  /* Individual Products from Product Carousel */
+  --product-cards-display: 6;
+  --product-card-padding: 0.5rem;
+  --product-card-max-width: calc(var(--product-card-min-width) * 1.2);
+  --product-card-min-width: calc(
+    (
+        var(--product-card-slider-max-width) - 4 *
+          var(--product-card-slider-padding) - 5 *
+          var(--product-card-slider-gap)
+      ) / var(--product-cards-display)
+  );
+  --product-card-height: 450px;
+
+  /* Category Carousel */
+  --category-card-slider-max-width: calc(var(--page-max-width) * 0.9);
+  --category-card-slider-min-width: calc(var(--page-max-width) * 0.5);
+  --category-card-slider-padding: 0.5rem;
+  --category-card-slider-gap: 0.5rem;
+  --category-lateral-carousel-padding: 2rem;
+
+  /* Individual Categories from Category Carousel */
+  --category-cards-display: 7;
+  --category-card-padding: 0.5rem;
+  --category-card-max-width: calc(var(--category-card-min-width) * 1.2);
+  --category-card-min-width: 164px;
+  --category-card-height: 192px;
+
+  /* Flash Offer */
+  --flash-offer-max-width: calc(var(--page-max-width) * 1.1);
+
+  /* Login Form */
+  --login-form-max-width: 400px;
+  --login-form-min-width: 300px;
+
+  /* Register Form */
+  --register-form-max-width: 800px;
+  --register-form-min-width: 450px;
+
+  /* Rating Star */
+  --like-star-color-unchecked: #d8d9db;
+  --like-star-color-checked: #f5c518;
+
+  --theme-01: #e9eaed;
+  --theme-02: #a8afb8;
+  --theme-03: #6a7481;
+  --theme-04: #353a41;
+  --theme-05: #25282d;
+  --theme-06: #325e97;
+  --theme-07: #0d3e80;
+  --theme-08: #8aca41;
+  --theme-09: #5e862f;
+
+  --light-gray: #d8d9db;
+  --very-light-gray: #f5f5f5;
+  --side-bar: var(--theme-06);
+  --side-bar-transparent: rgb(37, 40, 45, 0.4);
+}
+
+/* Get rid off reveal button (eye icon) from password input type */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Remove default close icon from search input */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Block browser to change background color when autofilling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--theme-05) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--theme-01) inset !important;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  border-collapse: collapse;
+}
+
+h1 {
+  font-size: 3rem;
+  color: var(--theme-05);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--theme-05);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: var(--theme-05);
+  font-weight: 700;
+  line-height: 1.5;
+}
