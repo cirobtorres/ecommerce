@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Roboto, Open_Sans, Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
-import { AuthContextProvider } from "@/contexts/AuthContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getServerSession } from "next-auth";
@@ -33,18 +32,16 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="pt">
-      <AuthContextProvider>
-        <body className={`${inter.className} bg-theme-01`}>
-          <SessionProvider session={session}>
-            <div className="flex flex-col justify-between w-full min-h-svh">
-              <Header />
-              {children}
-              <Footer />
-              {/* TODO: FooterCompany & FooterShopping are not intended to be in not-found page */}
-            </div>
-          </SessionProvider>
-        </body>
-      </AuthContextProvider>
+      <body className={`${inter.className} bg-theme-01`}>
+        <SessionProvider session={session}>
+          <div className="flex flex-col justify-between w-full min-h-svh">
+            <Header />
+            {children}
+            <Footer />
+            {/* TODO: FooterCompany & FooterShopping are not intended to be in not-found page */}
+          </div>
+        </SessionProvider>
+      </body>
     </html>
   );
 }

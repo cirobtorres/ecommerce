@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { validatePassword } from "@/functions/fieldValidations";
+import { validatePassword } from "@/utils/fieldValidations";
 import Label from "../_tools/Label";
 import Error from "../_tools/Error";
 import Help from "../_tools/Help";

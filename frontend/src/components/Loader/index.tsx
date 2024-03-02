@@ -1,9 +1,9 @@
 export default function Loader({
-  width = 10,
-  height = 10,
+  width,
+  height,
 }: {
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
 }) {
   return (
     <div className={`relative flex items-center w-${width} h-${height}`}>

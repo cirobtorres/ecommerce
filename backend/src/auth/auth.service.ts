@@ -11,6 +11,9 @@ import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
+import { IdentifyCPF } from "src/utils/cpf";
+
+const maxTokenAge = "7 days";
 
 @Injectable()
 export class AuthService {
@@ -23,29 +26,59 @@ export class AuthService {
 
   createToken(user: UserEntity) {
     return {
-      jwt: this.jwtService.sign(
-        { id: user.id }, // TODO: image
-        { expiresIn: "7 days", issuer: "login", audience: `${user.privileges}` }
+      accessToken: this.jwtService.sign(
+        { sub: user.id }, // TODO: image
+        // { expiresIn: "7 days", issuer: "login", audience: `${user.privileges}` }
+        {
+          expiresIn: maxTokenAge,
+          issuer: "login",
+          audience: `${user.privileges}`,
+        }
       ),
     };
   }
 
   async register(formData: RegisterAuthDTO) {
     delete formData.privileges;
+    if (formData.birthAt === "") {
+      delete formData.birthAt;
+    }
+
     const user = await this.userService.create(formData);
-    return this.createToken(user);
+    // return this.createToken(user);
+    return { status: "success" };
   }
 
-  async login(email: string, password: string) {
-    const user = await this.userRepository.findOneBy({ email });
+  async login(login: string, password: string) {
+    const email = login;
+    const cpf = new IdentifyCPF(login); // TODO: create a custom guard to validate CPF
+    let chosenInput = {};
+
+    if (email.includes("@")) {
+      chosenInput = {
+        email: email,
+      };
+    } else if (cpf.isValid) {
+      chosenInput = {
+        cpf: cpf.CPF,
+      };
+    } else {
+      throw new BadRequestException("E-mail e/ou senha incorretos");
+    }
+
+    const user = await this.userRepository.findOneBy({ ...chosenInput });
+
     if (!user) throw new UnauthorizedException("E-mail e/ou senha incorretos");
     if (!(await bcrypt.compare(password, user.password)))
       throw new NotFoundException("E-mail e/ou senha incorretos");
+
     const jwt = this.createToken(user);
+
     return {
-      jwt,
+      jwt: jwt.accessToken,
       id: user.id,
-      name: user.firstName + user.lastName,
+      // name: user.firstName + " " + user.lastName,
+      name: user.firstName,
       email: user.email,
     };
   }

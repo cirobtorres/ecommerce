@@ -9,7 +9,7 @@ import {
   dateMask,
   cpfMask,
   cnpjMask,
-} from "@/functions/inputMasks";
+} from "@/utils/inputMasks";
 
 type FieldProps = {
   children?: React.ReactNode;

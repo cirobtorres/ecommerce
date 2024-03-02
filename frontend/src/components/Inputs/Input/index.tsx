@@ -9,7 +9,7 @@ import {
   cpfMask,
   dateMask,
   phoneMask,
-} from "@/functions/inputMasks";
+} from "@/utils/inputMasks";
 
 interface InputProps {
   id: string;

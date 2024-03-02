@@ -10,30 +10,19 @@ export const fetchRegister = async (registerData: registerFormProps) => {
     }
   );
   if (!response.ok)
-    throw new Error(
-      `Failed registerUser: ${response.statusText} ${response.status}`
-    );
-};
-
-export const fetchUpdate = async (updateData: updateFormProps) => {
-  const response: Response = await fetch(
-    "http://localhost:8000/api/auth/update",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...updateData }),
-    }
-  );
-  if (!response.ok)
-    throw new Error(
-      `Failed updateUser: ${response.statusText} ${response.status}`
-    );
+    if (response.status === 400)
+      return {
+        status: response.status,
+        error: await response.json().then((body) => body.error),
+      };
+    else
+      throw new Error(
+        `Failed registerUser: ${response.statusText} ${response.status}`
+      );
+  return response.json();
 };
 
 export const fetchLogin = async (loginData: loginFormProps) => {
-  /* loginAccess might be an email, CPF or CNPJ */
   const response: Response = await fetch(
     "http://localhost:8000/api/auth/login/",
     {
@@ -44,9 +33,9 @@ export const fetchLogin = async (loginData: loginFormProps) => {
       body: JSON.stringify(loginData),
     }
   );
-  if (!response.ok)
-    throw new Error(
-      `Failed fetchLogin: ${response.statusText} ${response.status}`
-    );
+  if (!response.ok) return null;
+  // throw new Error(
+  //   `Failed fetchLogin: ${response.statusText} ${response.status}`
+  // );
   return response.json();
 };

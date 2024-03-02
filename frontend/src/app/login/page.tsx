@@ -4,22 +4,48 @@ import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { FaFacebook, FaGoogle, FaSpotify } from "react-icons/fa";
+import { IoIosWarning } from "react-icons/io";
 import Input from "@/components/Inputs/Input";
 import Loader from "@/components/Loader";
 import PasswordInput from "@/components/Inputs/PasswordInput";
+import {
+  redirect,
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 // https://codevoweb.com/nextjs-use-custom-login-and-signup-pages-for-nextauth-js/
 
 export default function Login(): JSX.Element {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
+  const handleLogin = async (login: string, password: string) => {
+    if (!login || !password) {
+      setError("Preencha os campos de login");
+      return;
+    }
+    const response = await signIn("credentials", {
+      login,
+      password,
+      redirect: false,
+    });
+    if (!response?.ok) {
+      setError("E-mail, CPF, CNPJ ou senha inválido!");
+      return;
+    }
+    router.push("/");
+  };
 
   const handleSubmit = async (event: any) => {
-    event.preventDefault();
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    event.preventDefault();
+    await handleLogin(login, password);
     setLoading(false);
   };
 
@@ -45,11 +71,18 @@ export default function Login(): JSX.Element {
           />
           <button
             type="submit"
-            className="mx-auto flex items-center justify-center p-4 w-full h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none"
+            className={`mx-auto flex items-center justify-center p-4 w-full h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
+              loading ? "shadow-dark" : null
+            }`}
             disabled={loading}
           >
-            {loading ? <Loader /> : "Entrar"}
+            {loading ? <Loader width={8} height={8} /> : "Entrar"}
           </button>
+          {error ? (
+            <h4 className="mx-auto flex items-center gap-1 text-red-500">
+              <IoIosWarning /> {error}
+            </h4>
+          ) : null}
         </form>
         <Link href="/">Esqueci minha senha</Link>
       </div>

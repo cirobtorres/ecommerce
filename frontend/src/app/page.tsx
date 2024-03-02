@@ -6,7 +6,6 @@ import ProductCardCarousel from "@/components/ProductCardCarousel";
 import { CARD_SLIDER_CONSTANTS } from "@/constants/cardSliderConstants"; // TODO: delete me when I'm done
 import { CATEGORIES_CONSTANTS } from "@/constants/categoriesConstants"; // TODO: delete me when I'm done
 import { FEATURED_PRODUCTS } from "@/constants/swipeCarouselConstants"; // TODO: delete me when I'm done
-import { useSession } from "next-auth/react";
 
 export default function Home(): JSX.Element {
   return (

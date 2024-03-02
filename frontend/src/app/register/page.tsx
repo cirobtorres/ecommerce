@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { FaFacebook, FaGoogle, FaSpotify } from "react-icons/fa";
 import { Checkbox } from "@/components/Checkbox";
-import { useFormState } from "react-dom";
-import { registerForm } from "@/lib/forms";
 import { IoIosWarning } from "react-icons/io";
-import SubmitButton from "@/components/SubmitButton";
 import Input from "@/components/Inputs/Input";
 import { useState } from "react";
 import PasswordInput from "@/components/Inputs/PasswordInput";
 import PasswordConfirm from "@/components/Inputs/PasswordConfirm";
 import Loader from "@/components/Loader";
+import { fetchRegister } from "@/lib/authentication";
+import { formatBirth, formatCPF, formatPhone } from "@/utils/formatStrings";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
@@ -20,25 +21,60 @@ export default function Register() {
   const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [passConfirm, setPassConfirm] = useState("");
-  const [checkBox, setCheckBox] = useState<number>(1); // 1 | -1
+  const [password, setPassword] = useState("");
+  const [passConfirmation, setPassConfirmation] = useState("");
+  const [privacyPolicy, setPrivacyPolicy] = useState<number>(1); // 1 | -1
 
   const [checkBoxError, setCheckBoxError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+
+  const handleRegistration = async (form: registerFormProps) => {
+    const register = await fetchRegister(form);
+    if (register.status === 400) {
+      setError(
+        "Ocorreu um erro durante o cadastro. Por favor, tente mais tarde."
+      );
+      console.log(register.error);
+      setLoading(false);
+      throw new Error("");
+    }
+    return;
+  };
 
   const handleSubmit = async (event: any) => {
+    setLoading(true);
     event.preventDefault();
     setCheckBoxError(false);
-    if (checkBox === -1) {
+    if (privacyPolicy === -1) {
       setCheckBoxError(true);
       setLoading(false);
       return false;
     }
-    // Code here...
-    setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const form: registerFormProps = {
+      firstName,
+      lastName,
+      birthAt: formatBirth(birthAt),
+      cpf: formatCPF(cpf),
+      phone: formatPhone(phone),
+      email,
+      password,
+      privacyPolicy: privacyPolicy === 1,
+    };
+    await handleRegistration(form);
+    const responseLogin = await signIn("credentials", {
+      login: email,
+      password,
+      redirect: false,
+    });
+    if (!responseLogin?.ok) {
+      // setError("E-mail, CPF, CNPJ ou senha inválido!");
+      return;
+    }
     setLoading(false);
+    router.push("/");
   };
 
   return (
@@ -128,16 +164,16 @@ export default function Register() {
               name="password"
               label="Criar senha"
               help={true}
-              value={pass}
-              setValue={setPass}
+              value={password}
+              setValue={setPassword}
             />
             <PasswordConfirm
               id="passwordConfirmation"
               name="passwordConfirmation"
               label="Confirmar senha"
-              value={passConfirm}
-              setValue={setPassConfirm}
-              passwordValue={pass}
+              value={passConfirmation}
+              setValue={setPassConfirmation}
+              passwordValue={password}
             />
           </div>
         </div>
@@ -148,8 +184,8 @@ export default function Register() {
             label="Aceito os termos de uso e a política de privacidade"
             checked={true}
             error={checkBoxError}
-            value={checkBox}
-            setValue={setCheckBox}
+            value={privacyPolicy}
+            setValue={setPrivacyPolicy}
           />
           {checkBoxError && (
             <h4 className="mt-1 flex items-center gap-1 text-red-500">
@@ -158,7 +194,6 @@ export default function Register() {
             </h4>
           )}
         </div>
-        {/* <SubmitButton text="Cadastrar" /> */}
         <button
           type="submit"
           className={`mx-auto flex items-center justify-center p-4 w-80 h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
@@ -166,8 +201,13 @@ export default function Register() {
           }`}
           disabled={loading}
         >
-          {loading ? <Loader /> : "Confirmar"}
+          {loading ? <Loader width={8} height={8} /> : "Confirmar"}
         </button>
+        {error ? (
+          <h4 className="mt-4 flex justify-center items-center gap-1 text-red-500">
+            <IoIosWarning /> {error}
+          </h4>
+        ) : null}
       </form>
       <span className="my-4 text-theme-03">
         Já possui cadastro?{" "}
