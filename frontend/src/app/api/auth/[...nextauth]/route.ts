@@ -3,8 +3,39 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { fetchLogin } from "@/lib/authentication";
+import { User, JWT, Session } from "next-auth";
 
 const tokenAge = 7 * 24 * 60 * 60;
+
+declare module "next-auth" {
+  interface User {
+    jwt: string;
+    id: string;
+    name: string;
+    email: string;
+  }
+
+  interface JWT {
+    jwt: string;
+    sub: string;
+    name: string;
+    email: string;
+    expiration: number;
+    iat: number;
+    exp: number;
+    jti: string;
+  }
+
+  interface Session {
+    user: {
+      id: string;
+      name: string;
+      email: string;
+    };
+    accessToken: string;
+    expires: string;
+  }
+}
 
 export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET ?? "",
@@ -34,7 +65,8 @@ export const authOptions: AuthOptions = {
         if (!token.expiration) return Promise.resolve({});
 
         // If token no longer is valid
-        if (actualDate > (token.exp as number)) return Promise.resolve({});
+        if (actualDate > (token.expiration as number))
+          return Promise.resolve({});
       }
 
       return Promise.resolve(token);
@@ -66,7 +98,7 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {},
-      authorize: async (credentials) => {
+      authorize: async (credentials: any) => {
         if (!credentials?.login || !credentials?.password) return null;
         try {
           const login = <loginFormProps>{
