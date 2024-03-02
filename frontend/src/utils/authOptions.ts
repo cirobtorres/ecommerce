@@ -7,27 +7,29 @@ export const authOptions: NextAuthOptions = {
   // pages: {
   //   signIn: "/login",
   // },
+  jwt: {},
+  secret: process.env.NEXTAUTH_SECRET ?? "",
+  session: {
+    maxAge: 7 * 24 * 60 * 60,
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        chosenInput: {
-          label: "E-mail, CPF ou CNPJ",
-          type: "text",
-          placeholder: "",
-        },
-        password: { label: "Password", type: "password" },
+        email: { label: "email" },
+        password: { label: "password", type: "password" },
       },
       authorize: async (credentials) => {
         try {
-          const loginFormProps = <loginFormProps>{
-            loginInput: credentials?.chosenInput,
+          const login = <loginFormProps>{
+            login: credentials?.email,
             password: credentials?.password,
           };
-          const user = fetchLogin(loginFormProps);
-
-          if (user) return user;
-          else return null;
+          const user = await fetchLogin(login);
+          // console.log(user);
+          if (!user) return null;
+          const { jwt, id, name, email } = user;
+          return { jwt, id, name, email };
         } catch (error: any) {
           const message = error.response.data.message;
           throw new Error(message);

@@ -84,7 +84,7 @@ type updateFormProps = {
 };
 
 type loginFormProps = {
-  loginInput: string;
+  login: string;
   password: string;
 };
 

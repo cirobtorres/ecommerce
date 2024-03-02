@@ -1,6 +1,6 @@
 export const fetchRegister = async (registerData: registerFormProps) => {
   const response: Response = await fetch(
-    "http://localhost:8000/auth/register",
+    "http://localhost:8000/api/auth/register",
     {
       method: "POST",
       headers: {
@@ -35,7 +35,7 @@ export const fetchUpdate = async (updateData: updateFormProps) => {
 export const fetchLogin = async (loginData: loginFormProps) => {
   /* loginAccess might be an email, CPF or CNPJ */
   const response: Response = await fetch(
-    "http://localhost:8000/api/auth/login/access/",
+    "http://localhost:8000/api/auth/login/",
     {
       method: "POST",
       headers: {

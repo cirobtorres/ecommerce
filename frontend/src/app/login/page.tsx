@@ -1,53 +1,55 @@
 "use client";
 
 import Link from "next/link";
-
-import { FaFacebook, FaGoogle, FaSpotify } from "react-icons/fa";
-
-import { Field } from "@/components/Field";
-import { loginForm } from "@/lib/forms";
-import { useFormState } from "react-dom";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
-import SubmitButton from "@/components/SubmitButton";
+import { FaFacebook, FaGoogle, FaSpotify } from "react-icons/fa";
+import Input from "@/components/Inputs/Input";
+import Loader from "@/components/Loader";
+import PasswordInput from "@/components/Inputs/PasswordInput";
 
 // https://codevoweb.com/nextjs-use-custom-login-and-signup-pages-for-nextauth-js/
 
 export default function Login(): JSX.Element {
-  // @ts-expect-error https://github.com/vercel/next.js/issues/56041
-  const [data, formAction] = useFormState(loginForm, {
-    loginInput: null,
-    password: null,
-    message: null,
-  });
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setLoading(false);
+  };
 
   return (
     <div className="mx-auto mt-8 mb-auto flex w-full h-full max-w-login-form flex-col text-center">
-      {data?.message}
       <h2 className="mb-8 uppercase text-theme-07">Fazer Login</h2>
       <div>
-        <form action={formAction} className="mb-4 flex flex-col gap-4">
-          <Field.Root>
-            <Field.Content.Input
-              type="text"
-              id="loginInputField"
-              name="loginInput"
-              isRequired
-            >
-              <Field.Content.Label label="E-mail, CPF ou CNPJ" />
-            </Field.Content.Input>
-          </Field.Root>
-          <Field.Root>
-            <Field.Content.Input
-              type="password"
-              id="passwordInputField"
-              name="password"
-              isRequired
-            >
-              <Field.Content.Label label="Senha" />
-            </Field.Content.Input>
-          </Field.Root>
-          <SubmitButton text="Entrar" width="w-full" />
-          {/* <button onClick={() => signIn("Credentials")}>Entrar</button> */}
+        <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-4">
+          <Input
+            id="loginInput"
+            name="loginInput"
+            label="E-mail, CPF ou CNPJ"
+            value={login}
+            setValue={setLogin}
+          />
+          <PasswordInput
+            id="passowrd"
+            name="passowrd"
+            label="Senha"
+            isRequired={false}
+            value={password}
+            setValue={setPassword}
+          />
+          <button
+            type="submit"
+            className="mx-auto flex items-center justify-center p-4 w-full h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none"
+            disabled={loading}
+          >
+            {loading ? <Loader /> : "Entrar"}
+          </button>
         </form>
         <Link href="/">Esqueci minha senha</Link>
       </div>

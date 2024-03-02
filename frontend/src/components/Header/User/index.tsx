@@ -5,14 +5,14 @@ import { FaUser } from "react-icons/fa6";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function UserLoginRegisterSection() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   return (
     <div className="relative flex gap-3 h-full flex-row items-center">
       {session?.user ? (
         <>
           <Link
             href="/"
-            className="rounded-full border-2 border-theme-01 overflow-hidden"
+            className="rounded-full border-2 border-theme-01 overflow-hidden bg-theme-01"
           >
             <Image
               src={

@@ -12,6 +12,7 @@ interface PassInputProps {
   name: string;
   label: string;
   value: string;
+  help?: boolean;
   bgColor?: string;
   placeholder?: string;
   isRequired?: boolean;
@@ -23,6 +24,7 @@ export default function PasswordInput({
   name,
   label,
   value,
+  help,
   bgColor = "bg-theme-01",
   placeholder = "",
   isRequired = true,
@@ -95,7 +97,7 @@ export default function PasswordInput({
         />
       </div>
       <Error isError={isError} isRequired={isRequired} />
-      <Help value={value} isError={helpLabel} />
+      {help && <Help value={value} isError={helpLabel} />}
     </div>
   );
 }

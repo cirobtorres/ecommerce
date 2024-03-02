@@ -11,6 +11,7 @@ import Input from "@/components/Inputs/Input";
 import { useState } from "react";
 import PasswordInput from "@/components/Inputs/PasswordInput";
 import PasswordConfirm from "@/components/Inputs/PasswordConfirm";
+import Loader from "@/components/Loader";
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
@@ -28,15 +29,15 @@ export default function Register() {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setLoading(true);
     setCheckBoxError(false);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
     if (checkBox === -1) {
       setCheckBoxError(true);
       setLoading(false);
       return false;
     }
     // Code here...
+    setLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setLoading(false);
   };
 
@@ -126,6 +127,7 @@ export default function Register() {
               id="password"
               name="password"
               label="Criar senha"
+              help={true}
               value={pass}
               setValue={setPass}
             />
@@ -158,12 +160,13 @@ export default function Register() {
         </div>
         {/* <SubmitButton text="Cadastrar" /> */}
         <button
-          className={`p-4 w-80 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
+          type="submit"
+          className={`mx-auto flex items-center justify-center p-4 w-80 h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
             loading ? "shadow-dark" : null
           }`}
           disabled={loading}
         >
-          {loading ? "Carregando..." : "Confirmar"}
+          {loading ? <Loader /> : "Confirmar"}
         </button>
       </form>
       <span className="my-4 text-theme-03">

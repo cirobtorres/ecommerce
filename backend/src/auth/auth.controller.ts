@@ -1,8 +1,9 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { RegisterAuthDTO } from "./dto/register-auth.dto";
+import { AuthLoginDTO } from "./dto/login-auth.dto";
 
-@Controller("auth")
+@Controller("api/auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -12,7 +13,9 @@ export class AuthController {
   }
 
   @Post("login")
-  login() {}
+  login(@Body() { email, password }: AuthLoginDTO) {
+    return this.authService.login(email, password);
+  }
 
   @Post("forget")
   forget() {}

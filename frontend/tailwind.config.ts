@@ -78,7 +78,28 @@ const config: Config = {
         "product-card-slider": "var(--product-card-slider-gap)",
         "category-card-slider": "var(--category-card-slider-gap)",
       },
+      animation: {
+        loading: "loading 1.5s ease-in-out infinite",
+        "bounce-once": "bounce-once 0.15s linear",
+      },
       keyframes: {
+        loading: {
+          "0%": {
+            "stroke-dasharray": "1, 200",
+            "stroke-dashoffset": "0",
+            stroke: "var(--theme-01)",
+          },
+          "50%": {
+            "stroke-dasharray": "89, 200",
+            "stroke-dashoffset": "-35px",
+            stroke: "var(--theme-01)",
+          },
+          "100%": {
+            "stroke-dasharray": "89, 200",
+            "stroke-dashoffset": "-124px",
+            stroke: "var(--theme-01)",
+          },
+        },
         "bounce-once": {
           "0%, 80%": {
             transform: "rotate(45deg) translateY(30%) translateX(65%)",
@@ -90,9 +111,6 @@ const config: Config = {
             transform: "rotate(45deg) translateY(0%) translateX(0%)",
           },
         },
-      },
-      animation: {
-        "bounce-once": "bounce-once 0.15s linear",
       },
     },
   },
