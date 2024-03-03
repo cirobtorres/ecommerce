@@ -1,9 +1,6 @@
 import Link from "next/link";
-
 import { motion } from "framer-motion";
-
 import { BiSolidChevronRight } from "react-icons/bi";
-
 import { MEGA_MENU_ITEMS } from "@/constants/megaMenuConstants";
 
 export default function MegaMenu() {

@@ -2,18 +2,11 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { motion } from "framer-motion";
-import {
-  IoHome,
-  IoTicketSharp,
-  IoHeart,
-  IoApps,
-  IoCartSharp,
-} from "react-icons/io5";
-import { AiFillLike } from "react-icons/ai";
+import { IoTicketSharp, IoHeart, IoApps, IoCartSharp } from "react-icons/io5";
 import { MdEmail, MdLocalShipping } from "react-icons/md";
-import { FaCamera, FaClipboardList } from "react-icons/fa";
+import { FaCamera } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
+import QuickSideBar from "@/components/QuickSideBar";
 
 export default async function UserPage() {
   const session = await getServerSession();
