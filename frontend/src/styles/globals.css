@@ -4,6 +4,8 @@
 
 :root {
   --page-max-width: 1440px;
+  --userpage-max-width: 1140px;
+  /* --userpage-max-width: 1080px; */
 
   /* Header */
   --side-bar-width: 24rem;

@@ -14,7 +14,7 @@ import { formatBirth, formatCPF, formatPhone } from "@/utils/formatStrings";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function Register() {
+export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthAt, setBirthAt] = useState("");

@@ -77,8 +77,8 @@ export class AuthService {
     return {
       jwt: jwt.accessToken,
       id: user.id,
-      // name: user.firstName + " " + user.lastName,
-      name: user.firstName,
+      name: user.firstName + " " + user.lastName,
+      // name: user.firstName,
       email: user.email,
     };
   }

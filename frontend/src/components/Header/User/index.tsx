@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import Image from "next/image";
 import { FaUser } from "react-icons/fa6";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function UserLoginRegisterSection() {
   const { data: session, status } = useSession();
@@ -28,7 +28,7 @@ export default function UserLoginRegisterSection() {
             {session.user.name}
             <div>
               <Link
-                href="/"
+                href="/user"
                 className="font-bold hover:underline uppercase after:border-r after:border-white after:mx-1"
               >
                 Minha Conta

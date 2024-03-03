@@ -38,6 +38,7 @@ const config: Config = {
       boxShadow: {
         bright: "inset 0 0 100px 100px rgba(255, 255, 255, 0.2)",
         dark: "inset 0 0 100px 100px rgba(0, 0, 0, 0.2)",
+        darker: "inset 0 0 100px 100px rgba(0, 0, 0, 0.5)",
         generic: "0 0 10px 3px rgba(40, 41, 61, 0.08)",
         "carousel-button": "0 0 10px 3px rgba(40, 41, 61, 0.08)",
       },
@@ -47,6 +48,7 @@ const config: Config = {
         "register-form": "var(--register-form-max-width)",
         "flash-offer": "var(--flash-offer-max-width)",
         webpage: "var(--page-max-width)",
+        userpage: "var(--userpage-max-width)",
         card: "var(--product-card-max-width)",
         "product-card-slider": "var(--product-card-slider-max-width)",
         category: "var(--category-max-width)",

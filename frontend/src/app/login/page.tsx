@@ -18,7 +18,7 @@ import {
 
 // https://codevoweb.com/nextjs-use-custom-login-and-signup-pages-for-nextauth-js/
 
-export default function Login(): JSX.Element {
+export default function LoginPage(): JSX.Element {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);

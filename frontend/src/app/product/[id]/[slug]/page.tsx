@@ -32,7 +32,7 @@ import { CARD_SLIDER_CONSTANTS } from "@/constants/cardSliderConstants";
 const name = "Venda de Peças no Varejo";
 const product = CARD_SLIDER_CONSTANTS[0][0];
 
-export default function Product() {
+export default function ProductPage() {
   return (
     <main>
       <article>

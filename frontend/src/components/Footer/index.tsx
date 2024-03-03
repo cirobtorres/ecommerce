@@ -12,7 +12,7 @@ import { FOOTER_COMPANY } from "@/constants/footerCompanyConstants"; // TODO: de
 export default function FooterBody() {
   const pathname = usePathname();
   return (
-    <footer className="bg-white mt-6">
+    <footer className="bg-white">
       {pathname.match(/\/./) ? null : (
         <>
           <FooterShoppingInfo items={FOOTER_SHOPPING} />
