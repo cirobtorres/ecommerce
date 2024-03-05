@@ -5,13 +5,13 @@ import { IoHome, IoHeart, IoCartSharp } from "react-icons/io5";
 
 export const USER_SIDENAV_ITEMS: userQuickSideNavItems[] = [
   {
-    title: "Home",
-    href: "/",
+    title: "Início",
+    href: "/user",
     icon: IoHome,
   },
   {
     title: "Meus dados",
-    href: "/",
+    href: "/user/my-data",
     icon: FaClipboardList,
   },
   {

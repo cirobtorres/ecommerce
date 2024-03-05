@@ -7,12 +7,9 @@ export default function Error({
   isError: [boolean, string];
   isRequired: boolean;
 }) {
-  return (
-    isRequired &&
-    isError[0] && (
-      <span className="ml-1 flex flex-row items-center gap-1 p-1 text-left text-sm text-red-500">
-        <IoIosWarning size="1.25rem" /> {isError[1]}
-      </span>
-    )
-  );
+  return isRequired && isError[0] && isError[1] !== "" ? (
+    <span className="ml-1 flex flex-row items-center gap-1 p-1 text-left text-sm text-red-500">
+      <IoIosWarning size="1.25rem" /> {isError[1]}
+    </span>
+  ) : null;
 }

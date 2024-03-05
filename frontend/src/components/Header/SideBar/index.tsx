@@ -3,11 +3,12 @@ import { SIDENAV_ITEMS } from "@/constants/sideBarConstants";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 type SideBarProps = {
   userSubMenu: boolean;
   isCollapsed: boolean;
+  pathname: string;
   toggleUserSubMenu: (value: boolean) => void;
   toggleSideBar: () => void;
 };
@@ -20,6 +21,7 @@ const displaySideBar = {
 export default function SideBar({
   userSubMenu,
   isCollapsed,
+  pathname,
   toggleUserSubMenu,
   toggleSideBar,
 }: SideBarProps) {
@@ -44,6 +46,7 @@ export default function SideBar({
           <MenuItems
             userSubMenu={userSubMenu}
             setUserSubMenu={toggleUserSubMenu}
+            pathname={pathname}
             items={SIDENAV_ITEMS}
           />
           <SignInSignUp closeSideBar={toggleSideBar} />
@@ -72,7 +75,7 @@ const Avatar = () => {
   const { data: session } = useSession();
   return (
     <div className="mx-6 flex w-fit flex-row items-center gap-4">
-      {session?.user?.name ? (
+      {session?.user ? (
         <>
           <div className="overflow-hidden rounded-full border-2 border-theme-01 bg-theme-01">
             <Link href="/">
@@ -87,7 +90,7 @@ const Avatar = () => {
               />
             </Link>
           </div>
-          <Link href="/">
+          <Link href="/user">
             <span className="text-2xl text-theme-01 hover:underline">
               <strong>{session?.user.name}</strong>
             </span>
@@ -115,6 +118,7 @@ const Avatar = () => {
 type MenuItemsProps = {
   items: UserSideBarItemsProps[];
   userSubMenu: boolean;
+  pathname: string;
   setUserSubMenu: (value: boolean) => void;
 };
 
@@ -157,19 +161,26 @@ const submenuVariants = {
   },
 };
 
-const MenuItems = ({ items, userSubMenu, setUserSubMenu }: MenuItemsProps) => {
+const MenuItems = ({
+  items,
+  userSubMenu,
+  pathname,
+  setUserSubMenu,
+}: MenuItemsProps) => {
+  // pathname: track the route the user is on and create a highlight around the <Link> to indicate which section of the website they are in
+  // OBS.: currently I'm not using it because I haven't created most of these routes. Right now they all point to the root directory "/"
   return (
     items.length > 0 && (
       <div className="my-6 h-full overflow-auto px-6 scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-900 scrollbar-track-rounded-full scrollbar-thumb-rounded-full">
-        {items.map(
-          (
-            { title, href, icon: Icon, submenu, subMenuItems, separation },
-            index
-          ) => (
-            <>
-              <ul>
+        <ul>
+          {items.map(
+            (
+              { title, href, icon: Icon, submenu, subMenuItems, separation },
+              index
+            ) => (
+              <>
                 <li
-                  key={index}
+                  key={`${title}-${href}-${index}`}
                   className="flex flex-col items-center gap-2 text-sm text-theme-01"
                 >
                   {submenu ? (
@@ -199,9 +210,9 @@ const MenuItems = ({ items, userSubMenu, setUserSubMenu }: MenuItemsProps) => {
                             {subMenuItems?.map(
                               ({ title, href, icon: Icon }, index) => (
                                 <motion.li
-                                  key={index}
+                                  key={`${title}-${href}-${index}`}
                                   variants={submenuVariants}
-                                  className="flex w-full items-center gap-2 text-sm text-theme-01"
+                                  className="flex w-full items-center gap-2 text-sm text-theme-01" // href.split(" ").indexOf(pathname) > -1
                                 >
                                   <Link
                                     href={href}
@@ -218,37 +229,48 @@ const MenuItems = ({ items, userSubMenu, setUserSubMenu }: MenuItemsProps) => {
                       )}
                     </div>
                   ) : (
-                    <Link
-                      href={href}
-                      className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md"
-                    >
-                      <Icon size="1.25rem" /> {title}
-                    </Link>
+                    href && (
+                      <Link
+                        href={href}
+                        className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md" // href.split(" ").indexOf(pathname) > -1
+                      >
+                        <Icon size="1.25rem" /> {title}
+                      </Link>
+                    )
                   )}
                 </li>
-              </ul>
-              {separation && <hr className={"my-1 border-theme-02"} />}
-            </>
-          )
-        )}
+                {separation && <hr className={"my-1 border-theme-02"} />}
+              </>
+            )
+          )}
+        </ul>
       </div>
     )
   );
 };
 
 const SignInSignUp = ({ closeSideBar }: { closeSideBar: () => void }) => {
-  return (
+  const { data: session } = useSession();
+  return session?.user ? (
+    <button
+      type="button"
+      className="mx-6 text-xl text-center uppercase text-theme-01 font-bold rounded bg-theme-08 p-4 hover:shadow-bright"
+      onClick={() => signOut()}
+    >
+      Sair
+    </button>
+  ) : (
     <>
       <Link
         href="/login"
-        className="mx-6 text-xl text-center rounded bg-theme-08 p-4 font-bold uppercase text-theme-01 hover:shadow-bright"
+        className="mx-6 text-xl text-center uppercase text-theme-01 font-bold rounded bg-theme-08 p-4 hover:shadow-bright"
         onClick={closeSideBar}
       >
         Login
       </Link>
       <Link
         href="/register"
-        className="mx-6 text-xl text-center text p-4 font-bold uppercase text-theme-01"
+        className="mx-6 text-xl text-center uppercase text-theme-01 font-bold p-4"
         onClick={closeSideBar}
       >
         Cadastrar

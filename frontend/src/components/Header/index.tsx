@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { ImMenu3 } from "react-icons/im";
 import { IoCartSharp, IoHeart } from "react-icons/io5";
@@ -46,6 +46,10 @@ const TopLeftNavHeader = () => {
     setUserSubMenu(false);
   };
 
+  useEffect(() => {
+    if (sideBarIsCollapsed) setSideBarIsCollapsed(!sideBarIsCollapsed);
+  }, [pathname]);
+
   return (
     <div className="col-span-7 flex flex-row items-center gap-4">
       {pathname.includes("/login") || pathname.includes("/register") ? null : (
@@ -53,6 +57,7 @@ const TopLeftNavHeader = () => {
           <SideBar
             userSubMenu={userSubMenu}
             isCollapsed={sideBarIsCollapsed}
+            pathname={pathname}
             toggleUserSubMenu={setUserSubMenu}
             toggleSideBar={handleSideBar}
           />

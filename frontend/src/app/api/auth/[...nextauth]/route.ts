@@ -3,7 +3,6 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { fetchLogin } from "@/lib/authentication";
-import { User, JWT, Session } from "next-auth";
 
 const tokenAge = 7 * 24 * 60 * 60;
 
@@ -31,9 +30,10 @@ declare module "next-auth" {
       id: string;
       name: string;
       email: string;
+      image: string | null;
     };
     accessToken: string;
-    expires: string;
+    expiration: number;
   }
 }
 
@@ -72,22 +72,24 @@ export const authOptions: AuthOptions = {
       return Promise.resolve(token);
     },
     async session({ session, token, user }) {
-      //   if (
-      //     !token.jwt ||
-      //     !token.sub ||
-      //     !token.name ||
-      //     !token.email ||
-      //     !token.expiration
-      //   )
-      //     return null;
+      // if (
+      //   !token.jwt ||
+      //   !token.sub ||
+      //   !token.name ||
+      //   !token.email ||
+      //   !token.expiration
+      // )
+      //   return null;
 
       session.accessToken = token.jwt as string;
+      session.expiration = token.expiration as number;
 
       if (session.user) {
         session.user = {
           id: token.sub as string,
           name: token.name as string,
           email: token.email as string,
+          image: null, // TODO ==========------------------------------
         };
       }
 

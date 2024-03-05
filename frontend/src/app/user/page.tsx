@@ -6,7 +6,6 @@ import { IoTicketSharp, IoHeart, IoApps, IoCartSharp } from "react-icons/io5";
 import { MdEmail, MdLocalShipping } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
-import QuickSideBar from "@/components/QuickSideBar";
 
 export default async function UserPage() {
   const session = await getServerSession();
@@ -15,21 +14,22 @@ export default async function UserPage() {
   }
 
   return (
-    <main className="relative flex w-full flex-1">
-      <QuickSideBar />
-      <div className="flex-1 mx-auto mb-12 max-w-userpage p-4">
-        <Greetings user={session.user} />
-        <Resume />
-        <Shorcuts />
-      </div>
-    </main>
+    <>
+      <Greetings user={session.user} />
+      <Resume />
+      <Shorcuts />
+    </>
   );
 }
 
 const Greetings = ({
   user: { name, email, image },
 }: {
-  user: { name: string; email: string; image: string };
+  user: {
+    name: string;
+    email: string;
+    image: string | null;
+  };
 }) => {
   return (
     <div className="flex flex-row gap-3">
@@ -118,7 +118,7 @@ const Resume = () => {
           </div>
         </div>
         <hr className="my-6" />
-        <button className="ml-auto w-60 border border-theme-07 rounded text-theme-07 bg-white uppercase font-bold px-4 py-2">
+        <button className="ml-auto w-96 border border-theme-07 rounded text-theme-07 bg-white uppercase font-bold px-4 py-2">
           Ver todos os pedidos
         </button>
       </div>
