@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "./entity/user.entity";
 import { Repository } from "typeorm";
@@ -11,6 +15,11 @@ export class UserService {
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {}
 
+  async retrieve(id: number) {
+    await this.exists(id);
+    return this.userRepository.findOneBy({ id });
+  }
+
   async create(formData: CreateUserDTO) {
     if (await this.userRepository.exists({ where: { email: formData.email } }))
       throw new BadRequestException("E-mail já cadastrado");
@@ -18,5 +27,10 @@ export class UserService {
     formData.password = await bcrypt.hash(formData.password, salt);
     const user = this.userRepository.create(formData);
     return this.userRepository.save(user);
+  }
+
+  async exists(id: number) {
+    if (!(await this.userRepository.existsBy({ id })))
+      throw new NotFoundException("Usuário não existe");
   }
 }

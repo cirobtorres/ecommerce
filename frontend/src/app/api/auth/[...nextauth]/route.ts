@@ -71,29 +71,25 @@ export const authOptions: AuthOptions = {
 
       return Promise.resolve(token);
     },
-    async session({ session, token, user }) {
-      // if (
-      //   !token.jwt ||
-      //   !token.sub ||
-      //   !token.name ||
-      //   !token.email ||
-      //   !token.expiration
-      // )
-      //   return null;
+    async session({ session, token }) {
+      if (
+        !token.jwt ||
+        !token.sub ||
+        !token.name ||
+        !token.email ||
+        !token.expiration
+      )
+        return null;
 
       session.accessToken = token.jwt as string;
-      session.expiration = token.expiration as number;
+      session.user = {
+        id: token.sub as string,
+        name: token.name as string,
+        email: token.email as string,
+        image: null,
+      };
 
-      if (session.user) {
-        session.user = {
-          id: token.sub as string,
-          name: token.name as string,
-          email: token.email as string,
-          image: null, // TODO ==========------------------------------
-        };
-      }
-
-      return session;
+      return { ...session };
     },
   },
   providers: [

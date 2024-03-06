@@ -10,15 +10,15 @@ export const fetchRegister = async (registerData: registerFormProps) => {
     }
   );
   if (!response.ok)
-    if (response.status === 400)
-      return {
-        status: response.status,
-        error: await response.json().then((body) => body.error),
-      };
-    else
-      throw new Error(
-        `Failed registerUser: ${response.statusText} ${response.status}`
-      );
+    // if (response.status === 400)
+    //   return {
+    //     status: response.status,
+    //     error: await response.json().then((body) => body.error),
+    //   };
+    // else
+    throw new Error(
+      `Failed registerUser: ${response.statusText} ${response.status}`
+    );
   return response.json();
 };
 

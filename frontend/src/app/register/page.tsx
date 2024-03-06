@@ -37,9 +37,8 @@ export default function RegisterPage() {
       setError(
         "Ocorreu um erro durante o cadastro. Por favor, tente mais tarde."
       );
-      console.log(register.error);
       setLoading(false);
-      throw new Error("");
+      throw new Error(`${register.status} ${register.statusText}`);
     }
     return;
   };

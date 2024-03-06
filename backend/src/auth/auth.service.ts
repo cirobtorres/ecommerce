@@ -38,6 +38,17 @@ export class AuthService {
     };
   }
 
+  checkToken(token: string) {
+    try {
+      const payload = this.jwtService.verify(token, {
+        issuer: "login",
+      });
+      return payload;
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
   async register(formData: RegisterAuthDTO) {
     delete formData.privileges;
     if (formData.birthAt === "") {
