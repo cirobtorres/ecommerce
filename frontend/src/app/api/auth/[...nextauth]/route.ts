@@ -11,14 +11,14 @@ declare module "next-auth" {
     jwt: string;
     id: string;
     name: string;
-    email: string;
+    // email: string;
   }
 
   interface JWT {
     jwt: string;
     sub: string;
     name: string;
-    email: string;
+    // email: string;
     expiration: number;
     iat: number;
     exp: number;
@@ -29,8 +29,8 @@ declare module "next-auth" {
     user: {
       id: string;
       name: string;
-      email: string;
-      image: string | null;
+      // email: string;
+      // image: string | null;
     };
     accessToken: string;
     expiration: number;
@@ -52,13 +52,14 @@ export const authOptions: AuthOptions = {
         // But both user and account are called just once, which is when the session was first created
         // We gonna call and update our token just when the session is created
         // After that, everything we gonna go is check if the token is still valid (else statement)
-        if (!user.jwt || !user.id || !user.name || !user.email) {
+        // if (!user.jwt || !user.id || !user.name || !user.email) {
+        if (!user.jwt || !user.id || !user.name) {
           return Promise.resolve({});
         }
         token.jwt = user.jwt;
         token.sub = user.id.toString();
         token.name = user.name;
-        token.email = user.email;
+        // token.email = user.email;
         token.expiration = Math.floor(actualDate + tokenAge) as number;
       } else {
         // If someone has removed expiration attribute from token
@@ -76,7 +77,7 @@ export const authOptions: AuthOptions = {
         !token.jwt ||
         !token.sub ||
         !token.name ||
-        !token.email ||
+        // !token.email ||
         !token.expiration
       )
         return null;
@@ -85,8 +86,8 @@ export const authOptions: AuthOptions = {
       session.user = {
         id: token.sub as string,
         name: token.name as string,
-        email: token.email as string,
-        image: null,
+        // email: token.email as string,
+        // image: null,
       };
 
       return { ...session };
@@ -105,8 +106,10 @@ export const authOptions: AuthOptions = {
           };
           const user = await fetchLogin(login);
           if (!user) return null;
-          const { jwt, id, name, email } = user;
-          return { jwt, id, name, email };
+          // const { jwt, id, name, email } = user;
+          // return { jwt, id, name, email };
+          const { jwt, id, name } = user;
+          return { jwt, id, name };
         } catch (error: any) {
           const message = error.response.data.message;
           throw new Error(message);

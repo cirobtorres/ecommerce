@@ -98,53 +98,6 @@ const Greetings = ({
   );
 };
 
-// const Greetings = ({
-//   user: { name, email, image },
-// }: {
-//   user: {
-//     name: string;
-//     email: string;
-//     image: string | null;
-//   };
-// }) => {
-//   return (
-//     <div className="flex flex-row gap-3">
-//       <div className="flex flex-1 flex-row items-center justify-between gap-3 mb-4 bg-white rounded px-12 py-4 border border-light-gray shadow-generic">
-//         <div className="relative rounded-full overflow-hidden cursor-pointer hover:shadow-darker transition ease-in duration-300 group">
-//           <Image
-//             src={image ?? "/images/user-not-signed-in/1281x1281-user-icon.png"}
-//             alt={`Avatar de ${name}`}
-//             width={64}
-//             height={64}
-//           />
-//           <FaCamera className="absolute bottom-2 left-1/2 -translate-x-1/2 text-transparent group-hover:text-white transition ease-in duration-300" />
-//         </div>
-//         <div className="flex-1">
-//           <h2 id="userName" className="text-2xl font-bold">
-//             <strong className="text-theme-07">{name}</strong>
-//           </h2>
-//           <span id="userEmail" className="flex flex-row items-center gap-1">
-//             <MdEmail />
-//             <strong>{email}</strong>
-//           </span>
-//         </div>
-//         <Link href="/">
-//           <FaGear className="text-2xl text-theme-07" />
-//         </Link>
-//       </div>
-//       <div className="flex flex-1 flex-col gap-3 mb-4 bg-white rounded px-12 py-4 border border-light-gray shadow-generic">
-//         <h2 className="text-2xl font-bold">Endereço atual</h2>
-//         <div className="flex flex-col text-sm text-theme-03">
-//           <span>Rua João das Dores</span>
-//           <span>Número 123, Doutor Socorro Nascimento</span>
-//           <span>Comércio</span>
-//           <span>CEP 47500-150 - São Paulo, SP</span>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
 const Resume = () => {
   return (
     <div className="flex flex-col gap-3 mb-4">
