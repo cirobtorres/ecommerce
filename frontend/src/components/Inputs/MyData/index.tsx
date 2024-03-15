@@ -13,10 +13,6 @@ export default function MyData({
   cpf,
   phone,
   email,
-  password,
-  createdAt,
-  updatedAt,
-  privacyPolicy,
   privileges,
   active,
 }: {
@@ -27,10 +23,6 @@ export default function MyData({
   cpf: string;
   phone: string;
   email: string;
-  password: string;
-  createdAt: string;
-  updatedAt: string;
-  privacyPolicy: boolean;
   privileges: number;
   active: boolean;
 }) {
@@ -48,7 +40,7 @@ export default function MyData({
   const [clientEmail, setClientEmail] = useState(email ?? "");
 
   return (
-    <div className="flex flex-col gap-3 shadow-generic rounded p-12 w-1/2 bg-white">
+    <div className="max-h-full flex flex-col gap-3 shadow-generic rounded p-12 w-1/2 bg-white">
       <h2 className="flex items-center gap-3 text-theme-07 text-xl">
         <FaInfoCircle /> Dados
       </h2>

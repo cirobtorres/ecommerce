@@ -1,10 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Items } from "./Items";
 import { USER_SIDENAV_ITEMS } from "@/constants/quickSideBarConstants";
-import { usePathname } from "next/navigation";
 
 const displayModal = {
   initial: { opacity: 0 },
@@ -13,13 +12,6 @@ const displayModal = {
 
 export default function QuickSideBar() {
   const [onHover, setOnHover] = useState(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (onHover) {
-      setOnHover(false);
-    }
-  }, [pathname]);
 
   return (
     <>
