@@ -8,7 +8,7 @@ export const User = createParamDecorator(
   (filter: string, context: ExecutionContext) => {
     const request = context.switchToHttp().getRequest();
     if (request.user) {
-      if (filter) return request.user[filter];
+      // if (filter) return request.user[filter];
       delete request.user.password;
       delete request.user.createdAt;
       delete request.user.updatedAt;

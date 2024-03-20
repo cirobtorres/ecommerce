@@ -106,8 +106,6 @@ export const authOptions: AuthOptions = {
           };
           const user = await fetchLogin(login);
           if (!user) return null;
-          // const { jwt, id, name, email } = user;
-          // return { jwt, id, name, email };
           const { jwt, id, name } = user;
           return { jwt, id, name };
         } catch (error: any) {
