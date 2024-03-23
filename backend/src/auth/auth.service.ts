@@ -4,14 +4,14 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
-import { UserEntity } from "src/user/entity/user.entity";
-import { UserService } from "src/user/user.service";
+import { UserEntity } from "../user/entity/user.entity";
+import { UserService } from "../user/user.service";
 import { RegisterAuthDTO } from "./dto/register-auth.dto";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import * as bcrypt from "bcrypt";
-import { IdentifyCPF } from "src/utils/cpf";
+import { IdentifyCPF } from "../utils/cpf";
 
 const maxTokenAge = "7 days";
 

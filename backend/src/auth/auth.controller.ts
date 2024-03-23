@@ -10,10 +10,10 @@ import { AuthService } from "./auth.service";
 import { RegisterAuthDTO } from "./dto/register-auth.dto";
 import { AuthLoginDTO } from "./dto/login-auth.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UserEntity } from "src/user/entity/user.entity";
+import { UserEntity } from "../user/entity/user.entity";
 import { Repository } from "typeorm";
-import { AuthGuard } from "src/guards/auth.guard";
-import { User } from "src/decorators/user.decorator";
+import { AuthGuard } from "../guards/auth.guard";
+import { User } from "../decorators/user.decorator";
 
 @Controller("api/auth")
 export class AuthController {

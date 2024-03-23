@@ -9,7 +9,7 @@ import { Privileges } from "../enum/privilege.enum";
 
 @Entity({
   name: "users",
-  schema: "ecommerce",
+  // schema: "ecommerce",
 })
 export class UserEntity {
   @PrimaryGeneratedColumn({

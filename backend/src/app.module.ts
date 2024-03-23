@@ -10,7 +10,7 @@ import { AuthModule } from "./auth/auth.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: process.env.DEVELOPMENT === "true" ? ".env.test" : ".env",
+      envFilePath: process.env.ENV === "test" ? ".env.test" : ".env",
     }),
     TypeOrmModule.forRoot({
       type: "postgres",
@@ -19,8 +19,9 @@ import { AuthModule } from "./auth/auth.module";
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
+      schema: process.env.POSTGRES_SCHEMA,
       entities: [UserEntity, "dist/**/*.entity.js"],
-      synchronize: process.env.DEVELOPMENT === "true",
+      synchronize: process.env.ENV === "development",
     }),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),

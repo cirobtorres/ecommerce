@@ -10,8 +10,8 @@ export class UserController {
     return this.userService.create(formData);
   }
 
-  @Get(":id")
-  read() {}
+  // @Get(":id")
+  // read() {}
 
   @Get(":id")
   update() {}
