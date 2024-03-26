@@ -1,6 +1,6 @@
 export class IdentifyCPF {
   private cpf: string;
-  private valid: boolean | string;
+  private valid: boolean;
 
   constructor(cpf: string) {
     this.cpf = cpf;

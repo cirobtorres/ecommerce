@@ -9,11 +9,31 @@ import { Repository } from "typeorm";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import * as bcrypt from "bcrypt";
 
+interface queryDTO {
+  skip: number;
+}
+
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {}
+
+  async list(query: queryDTO) {
+    const take = 10;
+    const skip = query.skip || 0;
+
+    const [data, total] = await this.userRepository.findAndCount({
+      order: { firstName: "ASC", lastName: "ASC" },
+      take,
+      skip,
+    });
+
+    return {
+      total,
+      data,
+    };
+  }
 
   async retrieve(id: number) {
     await this.exists(id);

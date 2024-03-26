@@ -54,7 +54,6 @@ export class AuthService {
     if (formData.birthAt === "") {
       delete formData.birthAt;
     }
-
     const user = await this.userService.create(formData);
     // return this.createToken(user);
     return { status: "success" };
@@ -62,7 +61,7 @@ export class AuthService {
 
   async login(login: string, password: string) {
     const email = login;
-    const cpf = new IdentifyCPF(login); // TODO: create a custom guard to validate CPF
+    const cpf = new IdentifyCPF(login); // TODO: create a custom guard to check if its a CPF
     let chosenInput = {};
 
     if (email.includes("@")) {
@@ -88,8 +87,7 @@ export class AuthService {
     return {
       jwt: jwt.accessToken,
       id: user.id,
-      name: user.firstName + `${user.lastName}`,
-      // email: user.email,
+      name: user.firstName + ` ${user.lastName}`,
     };
   }
 }

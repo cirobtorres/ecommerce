@@ -66,10 +66,14 @@ const userMock: CreateUserDTO = {
 const userRepositoryMock = {
   provide: getRepositoryToken(UserEntity),
   useValue: {
-    create: jest.fn(),
-    list: jest.fn().mockResolvedValue(userEntityList),
-    retrieve: jest.fn().mockResolvedValue(userEntityList[1]),
     exists: jest.fn().mockResolvedValue(true),
+    existsBy: jest.fn().mockResolvedValue(true),
+    findOneBy: jest.fn().mockResolvedValue(userEntityList[0]),
+    create: jest.fn(),
+    save: jest.fn().mockResolvedValue(userEntityList[0]),
+    findAndCount: jest.fn().mockResolvedValue([2, userEntityList.slice(1)]),
+    // update: jest.fn(),
+    // delete: jest.fn(),
   },
 };
 
@@ -99,7 +103,13 @@ describe("user.service.ts", () => {
   });
 
   describe("Read", () => {
-    // it("returns a list of users", () => {});
+    it("returns a paginated list of users", async () => {
+      const [data, total] = Object.values(await userService.list({ skip: 1 }));
+      expect({ total, data }).toEqual({
+        total: 2,
+        data: userEntityList.slice(1),
+      });
+    });
     it("retrieves a single user", async () => {
       const result = await userService.retrieve(1);
       expect(result).toEqual(userEntityList[0]);

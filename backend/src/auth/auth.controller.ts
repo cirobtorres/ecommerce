@@ -12,7 +12,7 @@ import { AuthLoginDTO } from "./dto/login-auth.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "../user/entity/user.entity";
 import { Repository } from "typeorm";
-import { AuthGuard } from "../guards/auth.guard";
+import { AuthGuard, RegisterGuard } from "../guards/auth.guard";
 import { User } from "../decorators/user.decorator";
 
 @Controller("api/auth")
@@ -22,6 +22,7 @@ export class AuthController {
     private readonly authService: AuthService
   ) {}
 
+  @UseGuards(RegisterGuard)
   @Post("register")
   register(@Body() body: RegisterAuthDTO) {
     return this.authService.register(body);
