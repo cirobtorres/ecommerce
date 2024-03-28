@@ -16,7 +16,8 @@ interface queryDTO {
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>
   ) {}
 
   async list(query: queryDTO) {
@@ -53,4 +54,8 @@ export class UserService {
     if (!(await this.userRepository.existsBy({ id })))
       throw new NotFoundException("Usuário não existe");
   }
+
+  async update() {}
+
+  async delete() {}
 }

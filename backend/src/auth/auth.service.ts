@@ -76,7 +76,12 @@ export class AuthService {
       throw new BadRequestException("E-mail e/ou senha incorretos");
     }
 
-    const user = await this.userRepository.findOneBy({ ...chosenInput });
+    const user = await this.userRepository.findOne({
+      where: { ...chosenInput },
+      relations: {
+        address: true,
+      },
+    });
 
     if (!user) throw new UnauthorizedException("E-mail e/ou senha incorretos");
     if (!(await bcrypt.compare(password, user.password)))

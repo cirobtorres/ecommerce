@@ -6,6 +6,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "./user/entity/user.entity";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
+import { ProductModule } from "./product/product.module";
+import { ManufacturerModule } from "./manufacturer/manufacturer.module";
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { AuthModule } from "./auth/auth.module";
     }),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => ManufacturerModule),
   ],
   controllers: [AppController],
   providers: [AppService],

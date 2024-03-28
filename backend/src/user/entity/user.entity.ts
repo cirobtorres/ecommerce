@@ -2,19 +2,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Privileges } from "../enum/privilege.enum";
+import { AddressEntity } from "../../address/entity/address.entity";
 
 @Entity({
-  name: "users",
-  // schema: "ecommerce",
+  name: "user",
 })
 export class UserEntity {
-  @PrimaryGeneratedColumn({
-    unsigned: true,
-  })
+  @PrimaryGeneratedColumn()
   id?: number;
 
   @Column({
@@ -49,6 +49,15 @@ export class UserEntity {
     unique: true,
   })
   email: string;
+
+  @OneToMany(() => AddressEntity, (address) => address.user, {
+    cascade: true,
+  })
+  @JoinColumn({ name: "user_address" })
+  address?: AddressEntity;
+
+  @Column()
+  src?: string;
 
   @Column()
   password: string;

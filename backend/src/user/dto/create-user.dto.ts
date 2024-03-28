@@ -13,11 +13,12 @@ export class CreateUserDTO {
   @IsString()
   firstName: string;
 
+  @IsString()
   @IsOptional()
   lastName?: string;
 
-  @IsOptional()
   @IsDateString()
+  @IsOptional()
   birthAt?: string;
 
   @IsString()
