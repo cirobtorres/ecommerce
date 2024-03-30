@@ -35,11 +35,22 @@ export class AddressService {
     return { status: "success" };
   }
 
-  async update() {
-    // default
+  async update(id: number, formData: AddressDTO) {
+    if (!(await this.retrieve(id))) {
+      throw new NotFoundException("Address not found");
+    }
+    if (formData.defaultAddress) {
+      const previousDefault = await this.addressRepository.findOneBy({
+        defaultAddress: true,
+      });
+      previousDefault.defaultAddress = false;
+      await this.addressRepository.update(previousDefault.id, previousDefault);
+    }
+    await this.addressRepository.update(id, formData);
+    return this.retrieve(id);
   }
 
-  async destroy(id: number) {
+  async delete(id: number) {
     if (!(await this.retrieve(id))) {
       throw new NotFoundException("Address not found");
     }
