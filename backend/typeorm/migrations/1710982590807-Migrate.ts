@@ -48,7 +48,7 @@ export class Migrate1710982590807 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: "address",
+            name: "userAddress",
             type: "int",
           },
           {
@@ -271,7 +271,7 @@ export class Migrate1710982590807 implements MigrationInterface {
     const tableUserAddress = await queryRunner.getTable("user_address");
     const tableProductSrc = await queryRunner.getTable("product_src");
     const foreignKeyUserAddress = tableUserAddress.foreignKeys.find(
-      (fk) => fk.columnNames.indexOf("user") !== -1
+      (fk) => fk.columnNames.indexOf("userId") !== -1
     );
     const foreignKeyProductSrc = tableProductSrc.foreignKeys.find(
       (fk) => fk.columnNames.indexOf("productId") !== -1

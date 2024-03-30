@@ -37,7 +37,7 @@ export class ProductEntity {
     cascade: true,
   })
   @JoinColumn([{ name: "productSrcId", referencedColumnName: "id" }])
-  product_src?: ProductSrcEntity[];
+  productSrc?: ProductSrcEntity[];
 
   // A tensão é mais complexa. Será necessário relacionar a outra entidade, cada um com seu preço e código diferente
   // @Column()

@@ -17,7 +17,7 @@ export class ProductSrcEntity {
   @Column()
   src: string;
 
-  @ManyToOne(() => ProductEntity, (product) => product.product_src)
+  @ManyToOne(() => ProductEntity, (product) => product.productSrc)
   @JoinColumn([
     { name: "productId", referencedColumnName: "id" },
     { name: "code", referencedColumnName: "code" },

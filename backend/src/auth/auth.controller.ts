@@ -13,7 +13,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "../user/entity/user.entity";
 import { Repository } from "typeorm";
 import { AuthGuard, CPFGuard } from "./guards/auth.guard";
-import { User } from "../decorators/user.decorator";
+import { Auth } from "./decorators/auth.decorator";
 
 @Controller("api/auth")
 export class AuthController {
@@ -35,7 +35,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post("user-data")
-  userData(@User() user: UserEntity) {
+  userData(@Auth() user: UserEntity) {
     return user;
   }
 

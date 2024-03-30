@@ -53,8 +53,8 @@ export class UserEntity {
   @OneToMany(() => AddressEntity, (address) => address.userId, {
     cascade: true,
   })
-  @JoinColumn({ name: "user_address" })
-  address?: AddressEntity;
+  @JoinColumn({ name: "userAddress" })
+  address?: AddressEntity[];
 
   @Column({
     nullable: true,
