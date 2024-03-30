@@ -56,7 +56,9 @@ export class UserEntity {
   @JoinColumn({ name: "user_address" })
   address?: AddressEntity;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   src?: string;
 
   @Column()
