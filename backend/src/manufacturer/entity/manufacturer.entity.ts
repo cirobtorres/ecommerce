@@ -28,4 +28,10 @@ export class ManufacturerEntity {
 
   @Column()
   im: string; // Inscrição municipal
+
+  @Column()
+  phone: string;
+
+  @Column()
+  email: string;
 }

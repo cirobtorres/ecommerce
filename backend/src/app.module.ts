@@ -8,6 +8,7 @@ import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
 import { ProductModule } from "./product/product.module";
 import { ManufacturerModule } from "./manufacturer/manufacturer.module";
+import { AddressModule } from "./address/address.module";
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ManufacturerModule } from "./manufacturer/manufacturer.module";
       synchronize: process.env.ENV === "development",
     }),
     forwardRef(() => UserModule),
+    forwardRef(() => AddressModule),
     forwardRef(() => AuthModule),
     forwardRef(() => ProductModule),
     forwardRef(() => ManufacturerModule),

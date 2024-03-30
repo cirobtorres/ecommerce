@@ -1,11 +1,11 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsString } from "class-validator";
 
 export class AddressDTO {
   @IsString()
   street: string;
 
-  @IsString()
-  number: string;
+  @IsNumber()
+  number: number;
 
   @IsString()
   neighborhood: string;
@@ -23,5 +23,8 @@ export class AddressDTO {
   place: string; // Complemento
 
   @IsNumber()
-  user: number;
+  userId: number;
+
+  @IsBoolean()
+  defaultAddress: boolean;
 }

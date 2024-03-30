@@ -19,10 +19,8 @@ export class AddressEntity {
   })
   street: string;
 
-  @Column({
-    length: 6,
-  })
-  number: string;
+  @Column()
+  number: number;
 
   @Column({
     length: 115,
@@ -49,7 +47,10 @@ export class AddressEntity {
   })
   place: string; // Complemento
 
-  @ManyToOne(() => UserEntity, (user) => user.id)
-  @JoinColumn({ name: "user" })
-  user: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.address)
+  @JoinColumn({ name: "userId" })
+  userId: number;
+
+  @Column({ default: false })
+  defaultAddress: boolean;
 }

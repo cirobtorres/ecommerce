@@ -33,10 +33,11 @@ export class ProductEntity {
   @Column()
   description: string;
 
-  @OneToMany(() => ProductSrcEntity, (src) => src.product, {
+  @OneToMany(() => ProductSrcEntity, (product_src) => product_src.product, {
     cascade: true,
   })
-  src?: ProductSrcEntity[];
+  @JoinColumn([{ name: "productSrcId", referencedColumnName: "id" }])
+  product_src?: ProductSrcEntity[];
 
   // A tensão é mais complexa. Será necessário relacionar a outra entidade, cada um com seu preço e código diferente
   // @Column()

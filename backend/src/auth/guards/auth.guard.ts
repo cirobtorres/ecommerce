@@ -6,11 +6,11 @@ import {
   Injectable,
 } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { AuthService } from "../auth/auth.service";
-import { UserService } from "../user/user.service";
-import { IdentifyCPF } from "../utils/cpf";
+import { AuthService } from "../auth.service";
+import { UserService } from "../../user/user.service";
+import { IdentifyCPF } from "../../utils/cpf";
 import { Repository } from "typeorm";
-import { UserEntity } from "../user/entity/user.entity";
+import { UserEntity } from "../../user/entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
 }
 
 @Injectable()
-export class RegisterGuard implements CanActivate {
+export class CPFGuard implements CanActivate {
   constructor(
     @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
   ) {}

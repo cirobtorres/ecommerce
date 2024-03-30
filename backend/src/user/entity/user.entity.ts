@@ -50,7 +50,7 @@ export class UserEntity {
   })
   email: string;
 
-  @OneToMany(() => AddressEntity, (address) => address.user, {
+  @OneToMany(() => AddressEntity, (address) => address.userId, {
     cascade: true,
   })
   @JoinColumn({ name: "user_address" })

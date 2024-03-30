@@ -1,4 +1,4 @@
-import { IsString } from "class-validator";
+import { IsEmail, IsString } from "class-validator";
 
 export class ManufacturerDTO {
   @IsString()
@@ -15,4 +15,11 @@ export class ManufacturerDTO {
 
   @IsString()
   im: string;
+
+  @IsString()
+  phone: string;
+
+  @IsString()
+  @IsEmail()
+  email: string;
 }

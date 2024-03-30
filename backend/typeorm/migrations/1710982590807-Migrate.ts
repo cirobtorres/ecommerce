@@ -105,8 +105,7 @@ export class Migrate1710982590807 implements MigrationInterface {
           },
           {
             name: "number",
-            type: "varchar",
-            length: "6",
+            type: "int",
           },
           {
             name: "neighborhood",
@@ -134,8 +133,13 @@ export class Migrate1710982590807 implements MigrationInterface {
             length: "115",
           },
           {
-            name: "user",
+            name: "userId",
             type: "int",
+          },
+          {
+            name: "defaultAddress",
+            type: "boolean",
+            default: false,
           },
         ],
       })
@@ -171,14 +175,9 @@ export class Migrate1710982590807 implements MigrationInterface {
             type: "int",
           },
           {
-            name: "src",
+            name: "product_src",
             type: "int",
           },
-          // {
-          //   name: "voltage",
-          //   type: "varchar",
-          //   isNullable: true,
-          // },
           {
             name: "password",
             type: "varchar",
@@ -251,6 +250,17 @@ export class Migrate1710982590807 implements MigrationInterface {
           {
             name: "im",
             type: "varchar",
+          },
+          {
+            name: "phone",
+            type: "varchar",
+            length: "11",
+          },
+          {
+            name: "email",
+            type: "varchar",
+            length: "127",
+            isUnique: true,
           },
         ],
       })
