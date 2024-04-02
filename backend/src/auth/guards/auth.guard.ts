@@ -12,6 +12,8 @@ import { IdentifyCPF } from "../../utils/cpf";
 import { Repository } from "typeorm";
 import { UserEntity } from "../../user/entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+import { UserPFEntity } from "../../user/entity/pf.entity";
+import { UserPJEntity } from "../../user/entity/pj.entity";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -39,16 +41,38 @@ export class AuthGuard implements CanActivate {
 @Injectable()
 export class CPFGuard implements CanActivate {
   constructor(
-    @InjectRepository(UserEntity) private userRepository: Repository<UserEntity>
+    // @InjectRepository(UserEntity)
+    // private userRepository: Repository<UserEntity>,
+    @InjectRepository(UserPFEntity)
+    private userPFRepository: Repository<UserPFEntity>,
+    @InjectRepository(UserPJEntity)
+    private userPJRepository: Repository<UserPJEntity>
   ) {}
 
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    const cpf = new IdentifyCPF(request.body.cpf);
-    if (cpf.isValid) {
-      if (!(await this.userRepository.findOneBy({ cpf: cpf.CPF }))) return true;
+    if (request.body.PF) {
+      const cpf = new IdentifyCPF(request.body.PF.cpf);
+      if (cpf.isValid) {
+        if (!(await this.userPFRepository.findOneBy({ cpf: cpf.CPF })))
+          return true;
+        throw new HttpException(
+          "Forbidden: CPF já cadastrado",
+          HttpStatus.FORBIDDEN
+        );
+      }
+    } else if (request.body.PJ) {
+      const cnpj = request.body.PJ.cnpj;
+      if (cnpj) {
+        if (!(await this.userPJRepository.findOneBy({ cnpj }))) return true;
+        throw new HttpException(
+          "Forbidden: CNPJ já cadastrado",
+          HttpStatus.FORBIDDEN
+        );
+      }
+    } else {
       throw new HttpException(
-        "Forbidden: CPF já cadastrado",
+        "Forbidden: user is neither PF nor PJ",
         HttpStatus.FORBIDDEN
       );
     }

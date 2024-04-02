@@ -4,11 +4,14 @@ import {
   Entity,
   JoinColumn,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Privileges } from "../enum/privilege.enum";
 import { AddressEntity } from "../../address/entity/address.entity";
+import { UserPFEntity } from "./pf.entity";
+import { UserPJEntity } from "./pj.entity";
 
 @Entity({
   name: "user",
@@ -18,43 +21,15 @@ export class UserEntity {
   id?: number;
 
   @Column({
-    length: 65,
-  })
-  firstName: string;
-
-  @Column({
-    length: 125,
-  })
-  lastName?: string;
-
-  @Column({
-    type: "date",
-    nullable: true,
-  })
-  birthAt?: string;
-
-  @Column({
-    length: 11,
-    unique: true,
-  })
-  cpf: string;
-
-  @Column({
-    length: 11,
-  })
-  phone: string;
-
-  @Column({
     length: 125,
     unique: true,
   })
   email: string;
 
-  @OneToMany(() => AddressEntity, (address) => address.userId, {
-    cascade: true,
+  @Column({
+    length: 11,
   })
-  @JoinColumn({ name: "userAddress" })
-  address?: AddressEntity[];
+  phone: string;
 
   @Column({
     nullable: true,
@@ -75,6 +50,7 @@ export class UserEntity {
 
   @Column({
     default: Privileges.User,
+    enum: [1, 2],
   })
   privileges?: number;
 
@@ -82,4 +58,24 @@ export class UserEntity {
     default: true,
   })
   active?: boolean;
+
+  @OneToOne(() => UserPFEntity, (pf) => pf.userId, {
+    eager: true,
+    nullable: true,
+  })
+  @JoinColumn({ name: "pf" })
+  PF: UserPFEntity;
+
+  @OneToOne(() => UserPJEntity, (pj) => pj.userId, {
+    eager: true,
+    nullable: true,
+  })
+  @JoinColumn({ name: "pj" })
+  PJ: UserPJEntity;
+
+  @OneToMany(() => AddressEntity, (address) => address.userId, {
+    cascade: true,
+  })
+  @JoinColumn({ name: "userAddress" })
+  address?: AddressEntity[];
 }

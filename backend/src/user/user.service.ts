@@ -6,26 +6,27 @@ import {
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "./entity/user.entity";
 import { Repository } from "typeorm";
-import { CreateUserDTO } from "./dto/create-user.dto";
 import * as bcrypt from "bcrypt";
-
-interface queryDTO {
-  skip: number;
-}
+import { UserPFEntity } from "./entity/pf.entity";
+import { UserPJEntity } from "./entity/pj.entity";
+import { UserDTO } from "./dto/user.dto";
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserEntity)
-    private userRepository: Repository<UserEntity>
+    private userRepository: Repository<UserEntity>,
+    @InjectRepository(UserPFEntity)
+    private userPFRepository: Repository<UserPFEntity>,
+    @InjectRepository(UserPJEntity)
+    private userPJRepository: Repository<UserPJEntity>
   ) {}
 
-  async list(query: queryDTO) {
+  async list(query: { skip: number }) {
     const take = 10;
     const skip = query.skip || 0;
 
     const [data, total] = await this.userRepository.findAndCount({
-      order: { firstName: "ASC", lastName: "ASC" },
       take,
       skip,
     });
@@ -41,13 +42,34 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async create(formData: CreateUserDTO) {
+  async create(formData: UserDTO) {
     if (await this.userRepository.exists({ where: { email: formData.email } }))
       throw new BadRequestException("E-mail já cadastrado");
     const salt = await bcrypt.genSalt();
     formData.password = await bcrypt.hash(formData.password, salt);
-    const user = this.userRepository.create(formData);
-    return this.userRepository.save(user);
+    if (formData.PF) {
+      const { PF } = formData;
+      let pf = this.userPFRepository.create(PF);
+      pf = await this.userPFRepository.save(pf);
+      let user = this.userRepository.create({ ...formData, PF: pf });
+      user = await this.userRepository.save(user);
+      await this.userPFRepository.update(pf.id, { userId: user });
+      return this.retrieve(user.id);
+    } else if (formData.PJ) {
+      const { PJ } = formData;
+      console.log("PJ", PJ);
+      let pj = this.userPJRepository.create(PJ);
+      pj = await this.userPJRepository.save(pj);
+      console.log("pj", pj);
+      let user = this.userRepository.create({ ...formData, PJ: pj });
+      user = await this.userRepository.save(user);
+      console.log("user", user);
+      await this.userPJRepository.update(pj.id, { userId: user });
+      console.log("PASSEI");
+      return this.retrieve(user.id);
+    } else {
+      throw new BadRequestException("Missing PF or PJ data from body");
+    }
   }
 
   async exists(id: number) {

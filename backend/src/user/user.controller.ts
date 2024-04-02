@@ -9,13 +9,13 @@ import {
   Query,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { CreateUserDTO } from "./dto/create-user.dto";
+import { UserDTO } from "./dto/user.dto";
 
 @Controller("api/user")
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()
-  create(@Body() formData: CreateUserDTO) {
+  create(@Body() formData: UserDTO) {
     return this.userService.create(formData);
   }
 
@@ -25,8 +25,8 @@ export class UserController {
   }
 
   @Get("list/:skip")
-  list(@Param("skip", ParseIntPipe) skip: number) {
-    return this.userService.list({ skip });
+  list(@Param("skip", ParseIntPipe) query) {
+    return this.userService.list(query);
   }
 
   @Get(":id")

@@ -51,8 +51,11 @@ export class AuthService {
 
   async register(formData: RegisterAuthDTO) {
     delete formData.privileges;
-    if (formData.birthAt === "") {
-      delete formData.birthAt;
+    if (formData.PF.birthAt === "") {
+      delete formData.PF.birthAt;
+    }
+    if (formData.PJ.establishmentAt === "") {
+      delete formData.PJ.establishmentAt;
     }
     const user = await this.userService.create(formData);
     // return this.createToken(user);
@@ -89,10 +92,20 @@ export class AuthService {
 
     const jwt = this.createToken(user);
 
-    return {
-      jwt: jwt.accessToken,
-      id: user.id,
-      name: user.firstName + ` ${user.lastName}`,
-    };
+    if (user.PF) {
+      return {
+        jwt: jwt.accessToken,
+        id: user.id,
+        name: user.PF.firstName + ` ${user.PF.lastName}`,
+      };
+    } else if (user.PJ) {
+      return {
+        jwt: jwt.accessToken,
+        id: user.id,
+        name: user.PJ.brandName,
+      };
+    } else {
+      throw new BadRequestException("User is neither PF nor PJ");
+    }
   }
 }

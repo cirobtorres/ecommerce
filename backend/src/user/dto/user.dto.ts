@@ -1,29 +1,15 @@
 import {
   IsBoolean,
-  IsDateString,
   IsEmail,
   IsEnum,
-  IsOptional,
+  IsJSON,
+  IsNumber,
   IsString,
   IsStrongPassword,
 } from "class-validator";
 import { Privileges } from "../enum/privilege.enum";
 
-export class CreateUserDTO {
-  @IsString()
-  firstName: string;
-
-  @IsString()
-  @IsOptional()
-  lastName?: string;
-
-  @IsDateString()
-  @IsOptional()
-  birthAt?: string;
-
-  @IsString()
-  cpf: string;
-
+export class UserDTO {
   @IsString()
   phone: string;
 
@@ -49,4 +35,23 @@ export class CreateUserDTO {
 
   @IsEnum(Privileges)
   privileges?: number;
+
+  @IsJSON()
+  PF?: {
+    firstName: string;
+    lastName: string;
+    cpf: string;
+    rg?: string;
+    birthAt: string;
+  };
+
+  @IsJSON()
+  PJ?: {
+    legalName: string;
+    brandName: string;
+    cnpj: string;
+    ie: string;
+    im: string;
+    establishmentAt: string;
+  };
 }
