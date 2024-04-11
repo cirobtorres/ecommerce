@@ -50,7 +50,7 @@ export default function LoginPage(): JSX.Element {
   };
 
   return (
-    <div className="mx-auto mt-8 mb-auto flex w-full h-full max-w-login-form flex-col text-center">
+    <main className="mx-auto mt-8 mb-auto flex w-full h-full max-w-login-form flex-col text-center">
       <h2 className="mb-8 uppercase text-theme-07">Fazer Login</h2>
       <div>
         <form onSubmit={handleSubmit} className="mb-4 flex flex-col gap-4">
@@ -119,6 +119,6 @@ export default function LoginPage(): JSX.Element {
       <Link href="/register" className="text-lg font-bold text-theme-07">
         Crie uma conta
       </Link>
-    </div>
+    </main>
   );
 }
