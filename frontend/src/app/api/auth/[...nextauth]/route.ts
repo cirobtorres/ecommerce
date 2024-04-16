@@ -44,10 +44,15 @@ export const authOptions: AuthOptions = {
     maxAge: tokenAge, // Seconds
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       const isSignIn = !!user;
       const actualDate = Math.floor(Date.now() / 1000); // Seconds
+
       if (isSignIn) {
+        if (account && account.provider === "google") {
+          user.jwt = account.id_token as string;
+        }
+
         // Everytime there is an session update, a new token callback is called
         // But both user and account are called just once, which is when the session was first created
         // We gonna call and update our token just when the session is created
@@ -73,15 +78,6 @@ export const authOptions: AuthOptions = {
       return Promise.resolve(token);
     },
     async session({ session, token }) {
-      if (
-        !token.jwt ||
-        !token.sub ||
-        !token.name ||
-        // !token.email ||
-        !token.expiration
-      )
-        return null;
-
       session.accessToken = token.jwt as string;
       session.user = {
         id: token.sub as string,
@@ -90,7 +86,7 @@ export const authOptions: AuthOptions = {
         // image: null,
       };
 
-      return { ...session };
+      return session;
     },
   },
   providers: [

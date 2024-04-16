@@ -1,4 +1,4 @@
-export const formatCPF = (
+export const formatDocument = (
   cpf: string,
   format: "frontend" | "backend" = "frontend"
 ) => {
@@ -33,7 +33,7 @@ export const formatPhone = (
   }
 };
 
-export const formatBirth = (
+export const formatDate = (
   birth: string,
   format: "frontend" | "backend" = "frontend",
   separator: string = "-"

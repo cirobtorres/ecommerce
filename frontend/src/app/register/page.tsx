@@ -10,7 +10,7 @@ import PasswordInput from "@/components/Inputs/PasswordInput";
 import PasswordConfirm from "@/components/Inputs/PasswordConfirm";
 import Loader from "@/components/Loader";
 import { fetchRegister } from "@/lib/authentication";
-import { formatBirth, formatCPF, formatPhone } from "@/utils/formatStrings";
+import { formatDate, formatDocument, formatPhone } from "@/utils/formatStrings";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -86,7 +86,7 @@ export default function RegisterPage() {
     setPassConfirmation,
   };
 
-  const handleRegistration = async (form: registerFormProps) => {
+  const handleRegistration = async (form: FormProps) => {
     const register = await fetchRegister(form);
     if (register.status === 400) {
       setError(
@@ -107,16 +107,39 @@ export default function RegisterPage() {
       setLoading(false);
       return false;
     }
-    const form: registerFormProps = {
-      firstName,
-      lastName,
-      birthAt: formatBirth(birthAt),
-      cpf: formatCPF(cpf),
-      phone: formatPhone(phone),
-      email,
-      password,
-      privacyPolicy: privacyPolicy === 1,
-    };
+    let form: FormProps | null = null;
+    if (radioType === "PF") {
+      form = {
+        phone: formatPhone(phone),
+        email,
+        password,
+        privacyPolicy: privacyPolicy === 1,
+        PF: {
+          firstName,
+          lastName,
+          cpf: formatDocument(cpf),
+          birthAt: formatDate(birthAt),
+        },
+      };
+    } else if (radioType === "PJ") {
+      form = {
+        phone: formatPhone(phone),
+        email,
+        password,
+        privacyPolicy: privacyPolicy === 1,
+        PJ: {
+          legalName,
+          brandName,
+          cnpj: formatDocument(cnpj),
+          establishmentAt: formatDate(establishmentAt),
+          ie,
+          im,
+        },
+      };
+    } else {
+      setLoading(false);
+      return;
+    }
     await handleRegistration(form);
     const responseLogin = await signIn("credentials", {
       login: email,
@@ -437,6 +460,7 @@ const PJForm = ({
           setValue={setCnpj}
         />
         <Input
+          mask="date"
           id="establishmentAt"
           name="establishmentAt"
           label="Data de Abertura"

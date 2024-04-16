@@ -1,7 +1,7 @@
 "use client";
 
 import Input from "@/components/Inputs/Input";
-import { formatBirth, formatCPF, formatPhone } from "@/utils/formatStrings";
+import { formatDate, formatDocument, formatPhone } from "@/utils/formatStrings";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -29,10 +29,10 @@ export default function MyData({
   const [clientFirstName, setClientFirstName] = useState(firstName ?? "");
   const [clientLastName, setClientLastName] = useState(lastName ?? "");
   const [clientBirthAt, setClientBirthAt] = useState(
-    birthAt ? formatBirth(birthAt, "backend", "/") : ""
+    birthAt ? formatDate(birthAt, "backend", "/") : ""
   );
   const [clientCpf, setClientCpf] = useState(
-    cpf ? formatCPF(cpf, "backend") : ""
+    cpf ? formatDocument(cpf, "backend") : ""
   );
   const [clientPhone, setClientPhone] = useState(
     phone ? formatPhone(phone, "backend") : ""

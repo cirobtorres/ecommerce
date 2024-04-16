@@ -1,4 +1,6 @@
-export const fetchRegister = async (registerData: registerFormProps) => {
+export const fetchRegister = async (
+  registerData: registerPFFormProps | registerPJFormProps
+) => {
   const response: Response = await fetch(
     "http://localhost:8000/api/auth/register",
     {

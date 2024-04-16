@@ -57,15 +57,11 @@ export class UserService {
       return this.retrieve(user.id);
     } else if (formData.PJ) {
       const { PJ } = formData;
-      console.log("PJ", PJ);
       let pj = this.userPJRepository.create(PJ);
       pj = await this.userPJRepository.save(pj);
-      console.log("pj", pj);
       let user = this.userRepository.create({ ...formData, PJ: pj });
       user = await this.userRepository.save(user);
-      console.log("user", user);
       await this.userPJRepository.update(pj.id, { userId: user });
-      console.log("PASSEI");
       return this.retrieve(user.id);
     } else {
       throw new BadRequestException("Missing PF or PJ data from body");

@@ -51,12 +51,7 @@ export class AuthService {
 
   async register(formData: RegisterAuthDTO) {
     delete formData.privileges;
-    if (formData.PF.birthAt === "") {
-      delete formData.PF.birthAt;
-    }
-    if (formData.PJ.establishmentAt === "") {
-      delete formData.PJ.establishmentAt;
-    }
+    if (formData.PF) if (formData.PF.birthAt === "") delete formData.PF.birthAt;
     const user = await this.userService.create(formData);
     // return this.createToken(user);
     return { status: "success" };
