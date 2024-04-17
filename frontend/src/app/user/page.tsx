@@ -1,13 +1,24 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { IoTicketSharp, IoHeart, IoApps, IoCartSharp } from "react-icons/io5";
-import { MdEmail, MdLocalShipping } from "react-icons/md";
-import { FaGear } from "react-icons/fa6";
-import { FaCamera } from "react-icons/fa";
+import { MdLocalShipping } from "react-icons/md";
 import { getUserData } from "@/lib/user-data";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import GreetingsPF from "../../components/UserSession/GreetingsPF";
+import GreetingsPJ from "../../components/UserSession/GreetingsPJ";
+
+interface AddressProps {
+  id: number;
+  street: string;
+  number: number;
+  neighborhood: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  place: string;
+  defaultAddress: boolean;
+}
 
 export default async function UserPage() {
   const session = await getServerSession(authOptions);
@@ -16,87 +27,19 @@ export default async function UserPage() {
     redirect("/");
   }
 
+  const user = await getUserData(session.accessToken);
+  const defaultAddress = user.address.filter(
+    (address: AddressProps) => address.defaultAddress
+  )[0];
+
   return (
     <>
-      <UserData token={session.accessToken} />
+      {user.PF ? <GreetingsPF {...user} /> : <GreetingsPJ {...user} />}
       <Resume />
       <Shorcuts />
     </>
   );
 }
-
-const UserData = async ({ token }: { token: string }) => {
-  const user = await getUserData(token);
-  return <Greetings {...user} />;
-};
-
-const Greetings = ({
-  id,
-  firstName,
-  lastName,
-  birthAt,
-  cpf,
-  phone,
-  email,
-  password,
-  createdAt,
-  updatedAt,
-  privacyPolicy,
-  privileges,
-  active,
-}: {
-  id: number;
-  firstName: string;
-  lastName: string;
-  birthAt: string;
-  cpf: string;
-  phone: string;
-  email: string;
-  password: string;
-  createdAt: string;
-  updatedAt: string;
-  privacyPolicy: boolean;
-  privileges: number;
-  active: boolean;
-}) => {
-  return (
-    <div className="flex flex-row gap-3">
-      <div className="flex flex-1 flex-row items-center justify-between gap-3 mb-4 bg-white rounded px-12 py-4 border border-light-gray shadow-generic">
-        <div className="relative rounded-full overflow-hidden cursor-pointer hover:shadow-darker transition ease-in duration-300 group">
-          <Image
-            // src={image ?? "/images/user-not-signed-in/1281x1281-user-icon.png"}
-            src={"/images/user-not-signed-in/1281x1281-user-icon.png"}
-            alt={`Avatar de ${firstName} ${lastName}`}
-            width={64}
-            height={64}
-          />
-          <FaCamera className="absolute bottom-2 left-1/2 -translate-x-1/2 text-transparent group-hover:text-white transition ease-in duration-300" />
-        </div>
-        <div className="flex-1">
-          <h2 id="userName" className="text-2xl font-bold">
-            <strong className="text-theme-07">{`${firstName} ${lastName}`}</strong>
-          </h2>
-          <span id="userEmail" className="flex flex-row items-center gap-1">
-            <MdEmail />
-            <strong>{email}</strong>
-          </span>
-        </div>
-        <Link href="/">
-          <FaGear className="text-2xl text-theme-07" />
-        </Link>
-      </div>
-      <div className="flex flex-1 flex-col gap-3 mb-4 bg-white rounded px-12 py-4 border border-light-gray shadow-generic">
-        <h2 className="text-2xl font-bold">Endereço atual</h2>
-        <div className="flex flex-col text-sm text-theme-03">
-          <span>Rua João das Dores</span>
-          <span>Número 123, Doutor Socorro Nascimento</span>
-          <span>Comércio</span>
-          <span>CEP 47500-150 - São Paulo, SP</span>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Resume = () => {
   return (

@@ -5,26 +5,26 @@ import { formatDate, formatDocument, formatPhone } from "@/utils/formatStrings";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 
-export default function MyData({
+export default function MyDataPF({
   id,
-  firstName,
-  lastName,
-  birthAt,
-  cpf,
   phone,
   email,
   privileges,
   active,
+  PF: { id: userId, firstName, lastName, birthAt, cpf },
 }: {
   id: number;
-  firstName: string;
-  lastName: string;
-  birthAt: string;
-  cpf: string;
   phone: string;
   email: string;
   privileges: number;
   active: boolean;
+  PF: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    birthAt: string;
+    cpf: string;
+  };
 }) {
   const [clientFirstName, setClientFirstName] = useState(firstName ?? "");
   const [clientLastName, setClientLastName] = useState(lastName ?? "");

@@ -10,44 +10,44 @@ export default function Address({ addresses }: { addresses: any }) {
         {addresses.map(
           (
             {
-              responsible,
+              id,
               street,
-              num,
-              district,
-              reference,
-              cep,
+              number,
+              neighborhood,
               city,
               state,
-              standard,
+              zipCode,
+              place,
+              defaultAddress,
             }: {
-              responsible: string;
+              id: number;
               street: string;
-              num: number;
-              district: string;
-              reference: string;
-              cep: string;
+              number: number;
+              neighborhood: string;
               city: string;
               state: string;
-              standard: boolean;
+              zipCode: string;
+              place: string;
+              defaultAddress: boolean;
             },
             index: number
           ) =>
-            standard ? (
+            defaultAddress ? (
               <div
                 key={index}
                 className="cursor-pointer transition-all duration-300 flex justify-between px-4 py-2 rounded border border-l-4 border-b-4 border-theme-07 bg-blue-100"
               >
                 <div className="flex flex-col text-theme-03">
-                  <span>
+                  {/* <span>
                     <b>{responsible}</b>
-                  </span>
+                  </span> */}
                   <span>{street}</span>
                   <span>
-                    Número {num}, {district}
+                    Número {number}, {neighborhood}
                   </span>
-                  <span>{reference}</span>
+                  {/* <span>{reference}</span> */}
                   <span>
-                    CEP {cep} - {city}, {state}
+                    CEP {zipCode} - {city}, {state}
                   </span>
                 </div>
                 <div className="flex flex-col justify-between items-end">
@@ -63,16 +63,16 @@ export default function Address({ addresses }: { addresses: any }) {
                 className="cursor-pointer transition-all duration-300 flex justify-between px-4 py-2 rounded border border-transparent border-l-4 border-b-4 hover:border-theme-07 hover:border-l-4 hover:border-b-4 hover:bg-blue-100"
               >
                 <div className="flex flex-col text-theme-03">
-                  <span>
+                  {/* <span>
                     <b>{responsible}</b>
-                  </span>
+                  </span> */}
                   <span>{street}</span>
                   <span>
-                    Número {num}, {district}
+                    Número {number}, {neighborhood}
                   </span>
-                  <span>{reference}</span>
+                  {/* <span>{reference}</span> */}
                   <span>
-                    CEP {cep} - {city}, {state}
+                    CEP {zipCode} - {city}, {state}
                   </span>
                 </div>
                 <div className="flex flex-row gap-2 items-end">

@@ -27,7 +27,7 @@ export class AuthService {
   createToken(user: UserEntity) {
     return {
       accessToken: this.jwtService.sign(
-        { sub: user.id }, // TODO: image
+        { sub: user.id, type: user.PF ? "PF" : "PJ" }, // TODO: image
         // { expiresIn: "7 days", issuer: "login", audience: `${user.privileges}` }
         {
           expiresIn: maxTokenAge,

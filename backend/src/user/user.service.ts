@@ -10,10 +10,13 @@ import * as bcrypt from "bcrypt";
 import { UserPFEntity } from "./entity/pf.entity";
 import { UserPJEntity } from "./entity/pj.entity";
 import { UserDTO } from "./dto/user.dto";
+import { AddressEntity } from "../address/entity/address.entity";
 
 @Injectable()
 export class UserService {
   constructor(
+    @InjectRepository(AddressEntity)
+    private addressRepository: Repository<AddressEntity>,
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     @InjectRepository(UserPFEntity)
@@ -39,7 +42,13 @@ export class UserService {
 
   async retrieve(id: number) {
     await this.exists(id);
-    return this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOneBy({ id });
+    const userAddress = await this.addressRepository.findBy({ userId: id });
+    user.address = userAddress;
+    delete user.password;
+    if (user.PF) delete user.PJ;
+    if (user.PJ) delete user.PF;
+    return user;
   }
 
   async create(formData: UserDTO) {

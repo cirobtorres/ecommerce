@@ -30,7 +30,7 @@ declare module "next-auth" {
       id: string;
       name: string;
       // email: string;
-      // image: string | null;
+      image: string | null;
     };
     accessToken: string;
     expiration: number;
@@ -83,7 +83,7 @@ export const authOptions: AuthOptions = {
         id: token.sub as string,
         name: token.name as string,
         // email: token.email as string,
-        // image: null,
+        image: null,
       };
 
       return session;
