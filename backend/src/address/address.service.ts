@@ -15,13 +15,13 @@ export class AddressService {
     return this.addressRepository.findOne({ where: { id } });
   }
 
-  async listAll(id: number) {
-    return this.addressRepository.find({ where: { userId: id } });
+  async listAll(userId: number) {
+    return this.addressRepository.find({ where: { user: { id: userId } } }); // user parameter is not recognized!!!
   }
 
   async listCount(userId: number) {
     const userTotalAddresses = await this.addressRepository.findAndCountBy({
-      userId,
+      user: { id: userId },
     });
     return userTotalAddresses[1];
   }

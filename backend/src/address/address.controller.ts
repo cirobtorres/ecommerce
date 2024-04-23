@@ -22,9 +22,9 @@ import {
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
-  @Get(":userId")
-  async retrieve(@Param("userId", ParseIntPipe) userId: number) {
-    return this.addressService.retrieve(userId);
+  @Get(":id")
+  async retrieve(@Param("id", ParseIntPipe) id: number) {
+    return this.addressService.retrieve(id);
   }
 
   @UseGuards(ReadAddressGuard)

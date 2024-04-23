@@ -43,7 +43,7 @@ export class UserService {
   async retrieve(id: number) {
     await this.exists(id);
     const user = await this.userRepository.findOneBy({ id });
-    const userAddress = await this.addressRepository.findBy({ userId: id });
+    const userAddress = await this.addressRepository.findBy({ user: { id } });
     user.address = userAddress;
     delete user.password;
     if (user.PF) delete user.PJ;

@@ -76,9 +76,6 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { ...chosenInput },
-      relations: {
-        address: true,
-      },
     });
 
     if (!user) throw new UnauthorizedException("E-mail e/ou senha incorretos");

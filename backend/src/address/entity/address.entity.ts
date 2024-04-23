@@ -47,9 +47,9 @@ export class AddressEntity {
   })
   place: string; // Complemento
 
-  @ManyToOne(() => UserEntity, (user) => user.address)
-  @JoinColumn({ name: "userId" })
-  userId: number;
+  @ManyToOne(() => UserEntity, (user) => user.address, { eager: false })
+  @JoinColumn({ name: "userId", referencedColumnName: "id" })
+  user: UserEntity;
 
   @Column({ default: false })
   defaultAddress: boolean;

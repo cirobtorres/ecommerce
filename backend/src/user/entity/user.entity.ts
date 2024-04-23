@@ -50,7 +50,6 @@ export class UserEntity {
 
   @Column({
     default: Privileges.User,
-    enum: [1, 2],
   })
   privileges?: number;
 
@@ -73,9 +72,11 @@ export class UserEntity {
   @JoinColumn({ name: "pj" })
   PJ: UserPJEntity;
 
-  @OneToMany(() => AddressEntity, (address) => address.userId, {
+  @OneToMany(() => AddressEntity, (address) => address.id, {
+    nullable: true,
     cascade: true,
+    onDelete: "CASCADE",
   })
-  @JoinColumn({ name: "userAddress" })
+  @JoinColumn({ name: "address" })
   address?: AddressEntity[];
 }

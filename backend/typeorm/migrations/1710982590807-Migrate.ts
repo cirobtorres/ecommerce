@@ -58,10 +58,10 @@ export class Migrate1710982590807 implements MigrationInterface {
             type: "boolean",
             default: true,
           },
-          {
-            name: "userAddress",
-            type: "int",
-          },
+          // {
+          //   name: "address",
+          //   type: "int",
+          // },
           {
             name: "pf",
             type: "int",
