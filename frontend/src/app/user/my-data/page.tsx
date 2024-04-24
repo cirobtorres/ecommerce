@@ -23,7 +23,11 @@ export default async function MyDataPage() {
       </h1>
       <div className="flex gap-3 max-h-[50rem]">
         {user.PF ? <MyDataPF {...user} /> : <MyDataPJ {...user} />}
-        <Address addresses={user.address} />
+        <Address
+          user={user}
+          addresses={user.address}
+          token={session.accessToken}
+        />
       </div>
     </section>
   );

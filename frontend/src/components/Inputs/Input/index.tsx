@@ -18,6 +18,7 @@ interface InputProps {
   value: string;
   type?: "text" | "email" | "date";
   bgColor?: string;
+  flexSize?: string;
   mask?: "cep" | "phone" | "date" | "cpf" | "cnpj";
   placeholder?: string;
   isRequired?: [boolean, string];
@@ -31,6 +32,7 @@ export default function Input({
   label,
   value,
   bgColor = "bg-theme-01",
+  flexSize,
   mask,
   placeholder = "",
   isRequired = [false, ""],
@@ -76,7 +78,7 @@ export default function Input({
   );
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className={`flex h-full w-full flex-col ${flexSize}`}>
       <div className={"relative"}>
         <input
           type={type}

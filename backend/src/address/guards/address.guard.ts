@@ -45,7 +45,7 @@ export class CreateAddressGuard implements CanActivate {
         (authorization ?? "").split(" ")[1]
       );
       const userAddressesCount = await this.addressService.listCount(data.sub);
-      if (data.sub === request.body.userId && userAddressesCount < 5) {
+      if (data.sub === request.body.user.id && userAddressesCount < 5) {
         // data.sub = user id from token
         // request.body.user = user id from body
         // userAddressesCount = maximum user addresses allowed (5)
