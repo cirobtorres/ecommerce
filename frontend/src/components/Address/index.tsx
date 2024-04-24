@@ -65,6 +65,12 @@ export default function Address({
   };
 
   useEffect(() => {
+    /* 
+    Quando usuário "clica fora" do input de CEP com um CEP válido
+    o método onBlur do InputCEP entra em ação. Se a API dos correios retornar
+    um objeto válido, o método onBlur simplesmente "seta" o valor de zipCodeResponse.
+    Esse useEffect então é disparado
+    */
     if (zipCodeResponse) {
       setCity(zipCodeResponse.localidade);
       setState(zipCodeResponse.uf);
