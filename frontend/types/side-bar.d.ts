@@ -1,3 +1,10 @@
+type MenuItemsProps = {
+  items: UserSideBarItemsProps[];
+  userSubMenu: boolean;
+  pathname: string;
+  setUserSubMenu: (value: boolean) => void;
+};
+
 type UserSideBarItemsProps = {
   title: string;
   href?: string;

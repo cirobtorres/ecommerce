@@ -115,13 +115,6 @@ const Avatar = () => {
   );
 };
 
-type MenuItemsProps = {
-  items: UserSideBarItemsProps[];
-  userSubMenu: boolean;
-  pathname: string;
-  setUserSubMenu: (value: boolean) => void;
-};
-
 const chevronVariants = {
   closed: { rotate: 0 },
   open: { rotate: 180 },
@@ -177,71 +170,80 @@ const MenuItems = ({
             (
               { title, href, icon: Icon, submenu, subMenuItems, separation },
               index
-            ) => (
-              <>
-                <li
-                  key={`${title}-${href}-${index}`}
-                  className="flex flex-col items-center gap-2 text-sm text-theme-01"
-                >
-                  {submenu ? (
-                    <div className="w-full">
-                      <motion.summary
-                        initial="open"
-                        animate={userSubMenu ? "open" : "closed"}
-                        onClick={() => setUserSubMenu(!userSubMenu)}
-                        className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md cursor-pointer"
-                      >
-                        <Icon size="1.25rem" /> {title}
-                        <motion.span
-                          variants={chevronVariants}
-                          transition={{ ease: "easeInOut", duration: 0.15 }}
-                        >
-                          <IoChevronUpOutline size="1.25rem" />
-                        </motion.span>
-                      </motion.summary>
-                      {userSubMenu && submenu && (
-                        <motion.div
-                          initial="closed"
+            ) => {
+              return (
+                <>
+                  <li
+                    key={index}
+                    className="flex flex-col items-center gap-2 text-sm text-theme-01"
+                  >
+                    {submenu ? (
+                      <div className="w-full">
+                        <motion.summary
+                          initial="open"
                           animate={userSubMenu ? "open" : "closed"}
-                          variants={containerVariants}
-                          className="flex items-center top-full left-0 ms-4 my-3 ps-4 border-l border-theme-02 before:border-l overflow-hidden"
+                          onClick={() => setUserSubMenu(!userSubMenu)}
+                          className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md cursor-pointer"
                         >
-                          <motion.ul className="w-full">
-                            {subMenuItems?.map(
-                              ({ title, href, icon: Icon }, index) => (
-                                <motion.li
-                                  key={`${title}-${href}-${index}`}
-                                  variants={submenuVariants}
-                                  className="flex w-full items-center gap-2 text-sm text-theme-01" // href.split(" ").indexOf(pathname) > -1
-                                >
-                                  <Link
-                                    href={href}
-                                    className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md"
+                          <Icon size="1.25rem" /> {title}
+                          <motion.span
+                            variants={chevronVariants}
+                            transition={{ ease: "easeInOut", duration: 0.15 }}
+                          >
+                            <IoChevronUpOutline size="1.25rem" />
+                          </motion.span>
+                        </motion.summary>
+                        {userSubMenu && submenu && (
+                          <motion.div
+                            initial="closed"
+                            animate={userSubMenu ? "open" : "closed"}
+                            variants={containerVariants}
+                            className="flex items-center top-full left-0 ms-4 my-3 ps-4 border-l border-theme-02 before:border-l overflow-hidden"
+                          >
+                            <motion.ul className="w-full">
+                              {subMenuItems?.map(
+                                (
+                                  {
+                                    title: innerTitle,
+                                    href: innerHref,
+                                    icon: Icon,
+                                  },
+                                  innerIndex
+                                ) => (
+                                  <motion.li
+                                    key={innerIndex}
+                                    variants={submenuVariants}
+                                    className="flex w-full items-center gap-2 text-sm text-theme-01" // href.split(" ").indexOf(pathname) > -1
                                   >
-                                    <Icon size="1.25rem" />
-                                    {title}
-                                  </Link>
-                                </motion.li>
-                              )
-                            )}
-                          </motion.ul>
-                        </motion.div>
-                      )}
-                    </div>
-                  ) : (
-                    href && (
-                      <Link
-                        href={href}
-                        className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md" // href.split(" ").indexOf(pathname) > -1
-                      >
-                        <Icon size="1.25rem" /> {title}
-                      </Link>
-                    )
-                  )}
-                </li>
-                {separation && <hr className={"my-1 border-theme-02"} />}
-              </>
-            )
+                                    <Link
+                                      href={innerHref}
+                                      className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md"
+                                    >
+                                      <Icon size="1.25rem" />
+                                      {innerTitle}
+                                    </Link>
+                                  </motion.li>
+                                )
+                              )}
+                            </motion.ul>
+                          </motion.div>
+                        )}
+                      </div>
+                    ) : (
+                      href && (
+                        <Link
+                          href={href}
+                          className="flex w-full flex-row gap-4 whitespace-nowrap p-2 rounded-md" // href.split(" ").indexOf(pathname) > -1
+                        >
+                          <Icon size="1.25rem" /> {title}
+                        </Link>
+                      )
+                    )}
+                  </li>
+                  {separation && <hr className={"my-1 border-theme-02"} />}
+                </>
+              );
+            }
           )}
         </ul>
       </div>
