@@ -7,6 +7,12 @@ import { BiSolidChevronLeft } from "react-icons/bi";
 import Input from "../Inputs/Input";
 import InputCEP from "../Inputs/InputCEP";
 import { fetchCreateAddress } from "../../lib/create-address";
+import {
+  MdMarkEmailRead,
+  MdPhoneIphone,
+  MdLocalShipping,
+} from "react-icons/md";
+import ChildrenModal from "../ChildrenModal";
 
 const chevronHover = {
   initial: { x: 0, opacity: 0 },
@@ -36,6 +42,7 @@ export default function Address({
   token: string;
 }) {
   const [registerAddress, setRegisterAddress] = useState(false);
+  const [addressModal, setAddressModal] = useState(false);
 
   const [zipCode, setZipCode] = useState("");
   const [zipCodeResponse, setZipCodeResponse] =
@@ -64,6 +71,18 @@ export default function Address({
     setRegisterAddress(false);
   };
 
+  const hideEmail = (email: string) => {
+    const [b, a] = email.split("@");
+    const substringOne = b[0] + "..." + b.slice(-1);
+    const [_b, _a] = a.split(".");
+    const substringTwo = _b[0] + "..." + _a;
+    return substringOne + "@" + substringTwo;
+  };
+
+  const hidePhone = (phone: string) => {
+    return `(${phone.slice(0, 2)})#####-${phone.slice(-4)}`;
+  };
+
   useEffect(() => {
     /* 
     Quando usuário "clica fora" do input de CEP com um CEP válido
@@ -81,6 +100,31 @@ export default function Address({
 
   return (
     <div className="max-h-full flex flex-col gap-3 shadow-generic rounded p-12 w-1/2 bg-white">
+      {addressModal && (
+        <ChildrenModal
+          icon={MdLocalShipping}
+          modalTitle="Alterar Endereço"
+          closeModal={setAddressModal}
+        >
+          <p className="text-theme-03">
+            Por questões de segurança, para alteração do endereço de entrega
+            enviaremos um código de validação para seu endereço de <b>e-mail</b>{" "}
+            ou <b>telefone de contato</b>.
+          </p>
+          <div className="flex gap-3">
+            <ConfirmationButton
+              icon={MdMarkEmailRead}
+              toHide={hideEmail(user.email)}
+              confirmClick={() => console.log("Email")}
+            />
+            <ConfirmationButton
+              icon={MdPhoneIphone}
+              toHide={hidePhone(user.phone)}
+              confirmClick={() => console.log("Phone")}
+            />
+          </div>
+        </ChildrenModal>
+      )}
       <h2 className="flex items-center gap-3 text-theme-07 text-xl">
         <FaAddressCard /> Endereços
       </h2>
@@ -229,12 +273,18 @@ export default function Address({
                       <span className="text-theme-07 uppercase">
                         <b>Padrão</b>
                       </span>
-                      <button>Editar</button>
+                      <button
+                        type="button"
+                        onClick={() => console.log("Editar")}
+                      >
+                        Editar
+                      </button>
                     </div>
                   </div>
                 ) : (
                   <div
                     key={index}
+                    onClick={() => setAddressModal(!addressModal)}
                     className="cursor-pointer transition-all duration-300 flex justify-between px-4 py-2 rounded border border-transparent border-l-4 border-b-4 hover:border-theme-07 hover:border-l-4 hover:border-b-4 hover:bg-blue-100"
                   >
                     <div className="flex flex-col text-theme-03">
@@ -248,8 +298,18 @@ export default function Address({
                       </span>
                     </div>
                     <div className="flex flex-row gap-2 items-end">
-                      <button>Excluir</button>
-                      <button>Editar</button>
+                      <button
+                        type="button"
+                        onClick={() => console.log("Excluir")}
+                      >
+                        Excluir
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => console.log("Editar")}
+                      >
+                        Editar
+                      </button>
                     </div>
                   </div>
                 )
@@ -266,3 +326,31 @@ export default function Address({
     </div>
   );
 }
+
+const ConfirmationButton = ({
+  icon: Icon,
+  toHide,
+  confirmClick,
+}: {
+  icon: any;
+  toHide: string;
+  confirmClick: () => void;
+}) => {
+  return (
+    <button
+      type="button"
+      onClick={confirmClick}
+      className="flex flex-col items-center p-3 w-44 h-30 rounded border-2 border-theme-02 hover:text-theme-08 hover:border-theme-08 transition-all duration-300 group"
+    >
+      <Icon size={20} />
+      <h3 className="text-base group-hover:text-theme-08 transition-all duration-300">
+        E-mail
+      </h3>
+      <p className="text-xs text-theme-03">
+        Enviaremos um código para o E-mail:
+        <br />
+        <b>{toHide}</b>
+      </p>
+    </button>
+  );
+};
