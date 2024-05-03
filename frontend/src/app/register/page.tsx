@@ -155,115 +155,127 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="mx-auto mt-8 mb-auto flex flex-col w-full max-w-register-form min-w-register-form text-center p-4">
-      <h2 className="mb-8 uppercase text-theme-07">Criar Conta</h2>
-      <div className="mb-4 mx-auto flex gap-3">
-        <label
-          htmlFor="PF"
-          className="flex gap-2 items-center cursor-pointer"
-          onClick={() => setRadioType("PF")}
-        >
-          <div>
-            <input
-              type="radio"
-              name="person_type"
-              id="PF"
-              value="PF"
-              defaultChecked
-              hidden
-            />
-            <div
-              className={`size-[0.85rem] rounded-full outline outline-offset-2 outline-1 ${
-                radioType === "PF"
-                  ? "bg-theme-07 outline-theme-07"
-                  : "bg-white outline-white"
-              }`}
-            />
-          </div>
-          <span>Pessoa Física</span>
-        </label>
-        <label
-          htmlFor="PJ"
-          className="flex gap-2 items-center cursor-pointer"
-          onClick={() => setRadioType("PJ")}
-        >
-          <div>
-            <input type="radio" name="person_type" id="PJ" value="PJ" hidden />
-            <div
-              className={`size-[0.85rem] rounded-full outline outline-offset-2 outline-1 ${
-                radioType === "PJ"
-                  ? "bg-theme-07 outline-theme-07"
-                  : "bg-white outline-white"
-              }`}
-            />
-          </div>
-          <span>Pessoa Jurídica</span>
-        </label>
-      </div>
-      <div>
-        {radioType === "PF" ? (
-          <>
-            <div className="flex flex-row justify-center gap-1">
-              <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01">
-                Cadastrar com <FaFacebook size="1.25rem" /> Facebook
-              </button>
-              <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01">
-                Cadastrar com <FaGoogle size="1.25rem" /> Google
-              </button>
-              <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01">
-                Cadastrar com <FaSpotify size="1.25rem" /> Spotify
-              </button>
-            </div>
-            <div className="relative">
-              <hr className="my-4 border-light-gray" />
-              <span className="absolute left-1/2 top-0 flex h-full w-12 -translate-x-1/2 items-center justify-center bg-theme-01 text-theme-02">
-                ou
-              </span>
-            </div>
-          </>
-        ) : null}
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-2">
-            {radioType === "PF" ? <PFForm {...pFObj} /> : <PJForm {...pJObj} />}
-          </div>
-          <div className="my-4 text-left">
-            <Checkbox
-              id="policyCheckbox"
-              name="policyCheckbox"
-              label="Aceito os termos de uso e a política de privacidade"
-              checked={true}
-              error={checkBoxError}
-              value={privacyPolicy}
-              setValue={setPrivacyPolicy}
-            />
-            {checkBoxError && (
-              <h4 className="mt-1 flex items-center gap-1 text-red-500">
-                <IoIosWarning /> É necessário estar de acordo com as políticas
-                de privacidade da empresa.
-              </h4>
-            )}
-          </div>
-          <button
-            type="submit"
-            className={`mx-auto flex items-center justify-center p-4 w-80 h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
-              loading ? "shadow-dark" : null
-            }`}
-            disabled={loading}
+    <main className="flex-1 mb-16">
+      <div className="mx-auto mt-8 mb-16 flex flex-col w-full max-w-register-form min-w-register-form text-center p-4">
+        <h2 className="mb-8 uppercase text-theme-07">Criar Conta</h2>
+        <div className="mb-4 mx-auto flex gap-3">
+          <label
+            htmlFor="PF"
+            className="flex gap-2 items-center cursor-pointer"
+            onClick={() => setRadioType("PF")}
           >
-            {loading ? <Loader width={8} height={8} /> : "Confirmar"}
-          </button>
-          {error ? (
-            <h4 className="mt-4 flex justify-center items-center gap-1 text-red-500">
-              <IoIosWarning /> {error}
-            </h4>
+            <div>
+              <input
+                type="radio"
+                name="person_type"
+                id="PF"
+                value="PF"
+                defaultChecked
+                hidden
+              />
+              <div
+                className={`size-[0.85rem] rounded-full outline outline-offset-2 outline-1 ${
+                  radioType === "PF"
+                    ? "bg-theme-07 outline-theme-07"
+                    : "bg-white outline-white"
+                }`}
+              />
+            </div>
+            <span>Pessoa Física</span>
+          </label>
+          <label
+            htmlFor="PJ"
+            className="flex gap-2 items-center cursor-pointer"
+            onClick={() => setRadioType("PJ")}
+          >
+            <div>
+              <input
+                type="radio"
+                name="person_type"
+                id="PJ"
+                value="PJ"
+                hidden
+              />
+              <div
+                className={`size-[0.85rem] rounded-full outline outline-offset-2 outline-1 ${
+                  radioType === "PJ"
+                    ? "bg-theme-07 outline-theme-07"
+                    : "bg-white outline-white"
+                }`}
+              />
+            </div>
+            <span>Pessoa Jurídica</span>
+          </label>
+        </div>
+        <div>
+          {radioType === "PF" ? (
+            <>
+              <div className="flex flex-row justify-center gap-1">
+                <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#0165E1] p-4 text-xs text-theme-01">
+                  Cadastrar com <FaFacebook size="1.25rem" /> Facebook
+                </button>
+                <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#db4437] p-4 text-xs text-theme-01">
+                  Cadastrar com <FaGoogle size="1.25rem" /> Google
+                </button>
+                <button className="flex flex-1 flex-row items-center justify-center gap-1 rounded bg-[#1db954] p-4 text-xs text-theme-01">
+                  Cadastrar com <FaSpotify size="1.25rem" /> Spotify
+                </button>
+              </div>
+              <div className="relative">
+                <hr className="my-4 border-light-gray" />
+                <span className="absolute left-1/2 top-0 flex h-full w-12 -translate-x-1/2 items-center justify-center bg-theme-01 text-theme-02">
+                  ou
+                </span>
+              </div>
+            </>
           ) : null}
-        </form>
-        <span className="mt-4 mb-14 text-theme-03">
-          Já possui cadastro?{" "}
-          <Link href="/login" className="font-bold text-theme-07 underline">
-            Entrar
-          </Link>
-        </span>
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-2">
+              {radioType === "PF" ? (
+                <PFForm {...pFObj} />
+              ) : (
+                <PJForm {...pJObj} />
+              )}
+            </div>
+            <div className="my-4 text-left">
+              <Checkbox
+                id="policyCheckbox"
+                name="policyCheckbox"
+                label="Aceito os termos de uso e a política de privacidade"
+                checked={true}
+                error={checkBoxError}
+                value={privacyPolicy}
+                setValue={setPrivacyPolicy}
+              />
+              {checkBoxError && (
+                <h4 className="mt-1 flex items-center gap-1 text-red-500">
+                  <IoIosWarning /> É necessário estar de acordo com as políticas
+                  de privacidade da empresa.
+                </h4>
+              )}
+            </div>
+            <button
+              type="submit"
+              className={`mx-auto flex items-center justify-center p-4 w-80 h-14 text-theme-01 bg-theme-07 rounded hover:shadow-dark outline-none ${
+                loading ? "shadow-dark" : null
+              }`}
+              disabled={loading}
+            >
+              {loading ? <Loader width={8} height={8} /> : "Confirmar"}
+            </button>
+            {error ? (
+              <h4 className="mt-4 flex justify-center items-center gap-1 text-red-500">
+                <IoIosWarning /> {error}
+              </h4>
+            ) : null}
+          </form>
+          <span className="mt-4 mb-14 text-theme-03">
+            Já possui cadastro?{" "}
+            <Link href="/login" className="font-bold text-theme-07 underline">
+              Entrar
+            </Link>
+          </span>
+        </div>
       </div>
     </main>
   );

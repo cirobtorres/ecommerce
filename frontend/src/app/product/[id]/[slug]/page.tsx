@@ -34,7 +34,7 @@ const product = CARD_SLIDER_CONSTANTS[0][0];
 
 export default function ProductPage() {
   return (
-    <main>
+    <main className="flex-1">
       <article>
         <section>
           <Breadcrumbs />

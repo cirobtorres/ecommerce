@@ -38,7 +38,6 @@ export default async function RootLayout({
             <Header />
             {children}
             <Footer />
-            {/* TODO: FooterCompany & FooterShopping are not intended to be in not-found page */}
           </div>
         </SessionProvider>
       </body>
