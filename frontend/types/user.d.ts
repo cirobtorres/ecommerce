@@ -1,4 +1,4 @@
-type UserPops = {
+type UserProps = {
   id: string;
   firstName: string;
   lastName: string;
