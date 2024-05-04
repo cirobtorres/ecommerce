@@ -25,7 +25,10 @@ export default async function MyDataPage() {
         {user.PF ? <MyDataPF {...user} /> : <MyDataPJ {...user} />}
         <Address
           user={user}
-          addresses={user.address}
+          addresses={user.address.sort(
+            (addressA: AddressProps, addressB: AddressProps) =>
+              addressA.id - addressB.id
+          )}
           token={session.accessToken}
         />
       </div>
