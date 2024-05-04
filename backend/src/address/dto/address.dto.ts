@@ -1,4 +1,5 @@
 import { IsBoolean, IsNumber, IsString } from "class-validator";
+import { UserEntity } from "../../user/entity/user.entity";
 
 export class AddressDTO {
   @IsString()
@@ -23,7 +24,7 @@ export class AddressDTO {
   place: string; // Complemento
 
   @IsNumber()
-  userId: number;
+  user: UserEntity;
 
   @IsBoolean()
   defaultAddress: boolean;

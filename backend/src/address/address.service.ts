@@ -16,7 +16,10 @@ export class AddressService {
   }
 
   async listAll(userId: number) {
-    return this.addressRepository.find({ where: { user: { id: userId } } }); // user parameter is not recognized!!!
+    return this.addressRepository.find({
+      where: { user: { id: userId } },
+      order: { defaultAddress: { direction: "ASC" } },
+    }); // userId is an URL param, not the user id attribute!!
   }
 
   async listCount(userId: number) {
@@ -27,7 +30,7 @@ export class AddressService {
   }
 
   async create(formData: AddressDTO) {
-    if ((await this.listCount(formData.userId)) === 0) {
+    if ((await this.listCount(formData.user.id)) === 0) {
       formData.defaultAddress = true;
     }
     const address = this.addressRepository.create(formData);
@@ -40,8 +43,8 @@ export class AddressService {
       throw new NotFoundException("Address not found");
     }
     if (formData.defaultAddress) {
-      const previousDefault = await this.addressRepository.findOneBy({
-        defaultAddress: true,
+      const previousDefault = await this.addressRepository.findOne({
+        where: { user: { id: formData.user.id }, defaultAddress: true },
       });
       previousDefault.defaultAddress = false;
       await this.addressRepository.update(previousDefault.id, previousDefault);

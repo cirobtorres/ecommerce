@@ -15,12 +15,12 @@ export class ReadAddressGuard implements CanActivate {
         (authorization ?? "").split(" ")[1]
       );
       if (
-        data.sub === Number(request.params.userId) &&
+        data.sub === Number(request.params.userId) && // This userId is an URL param, not the user id attribute!!
         data.aud === "1" &&
         data.iss === "login"
       ) {
         // data.sub = user id from token
-        // request.params.userId = user id from params
+        // request.params.user = user id from params
         return true;
       }
     } catch (error) {
@@ -69,10 +69,10 @@ export class UpdateAddressGuard implements CanActivate {
       const data = this.authService.checkToken(
         (authorization ?? "").split(" ")[1]
       );
-      if (data.sub === request.body.userId) return true;
+      if (data.sub === request.body.user.id) return true;
     } catch (error) {
       // data.sub = user id from token
-      // request.params.userId = user id from params
+      // request.params.user = user id from params
       return false;
     }
   }
