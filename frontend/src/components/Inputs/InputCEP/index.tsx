@@ -40,7 +40,9 @@ export default function InputCEP({
         },
       })
         .then((response) => response.json())
-        .then((data) => onBlur(data))
+        .then((data) => {
+          if (!data.erro) onBlur(data);
+        })
         .catch((error) => {});
     }
   };
