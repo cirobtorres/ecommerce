@@ -1,7 +1,7 @@
 import { ReactNode, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 
-export default function ChildrenModal({
+export default function AddressChildrenModal({
   children,
   icon: Icon,
   modalTitle,
