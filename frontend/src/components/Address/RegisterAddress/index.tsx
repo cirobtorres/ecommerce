@@ -23,12 +23,12 @@ export default function RegisterAddress({
   user,
   token,
   state: componentState,
-  setState: setComponentState,
+  closeFunction,
 }: {
   user: UserProps;
   token: string;
   state: boolean;
-  setState: (a: boolean, b: boolean, c: null | [boolean, number]) => void;
+  closeFunction: (a: boolean, b: boolean) => void;
 }) {
   const [street, setStreet] = useState("");
   const [number, setNumber] = useState("");
@@ -57,7 +57,7 @@ export default function RegisterAddress({
     if (response === "Forbidden") {
       // setError("Você não pode criar mais que 5 endereços");
     }
-    setComponentState(false, false, null);
+    closeFunction(false, false);
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function RegisterAddress({
     componentState && (
       <>
         <motion.div
-          onClick={() => setComponentState(false, false, null)}
+          onClick={() => closeFunction(false, false)}
           initial="initial"
           animate="initial"
           whileHover="animate"

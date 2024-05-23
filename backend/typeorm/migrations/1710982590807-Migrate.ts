@@ -240,6 +240,10 @@ export class Migrate1710982590807 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "category",
+            type: "varchar",
+          },
+          {
             name: "manufacturer",
             type: "int",
           },

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
+import React from "react";
 
 type SideBarProps = {
   userSubMenu: boolean;
@@ -90,7 +91,7 @@ const Avatar = () => {
               />
             </Link>
           </div>
-          <Link href="/user">
+          <Link href="/usuario">
             <span className="text-2xl text-theme-01 hover:underline">
               <strong>{session?.user.name}</strong>
             </span>
@@ -172,11 +173,8 @@ const MenuItems = ({
               index
             ) => {
               return (
-                <>
-                  <li
-                    key={index}
-                    className="flex flex-col items-center gap-2 text-sm text-theme-01"
-                  >
+                <React.Fragment key={index}>
+                  <li className="flex flex-col items-center gap-2 text-sm text-theme-01">
                     {submenu ? (
                       <div className="w-full">
                         <motion.summary
@@ -241,7 +239,7 @@ const MenuItems = ({
                     )}
                   </li>
                   {separation && <hr className={"my-1 border-theme-02"} />}
-                </>
+                </React.Fragment>
               );
             }
           )}
@@ -271,7 +269,7 @@ const SignInSignUp = ({ closeSideBar }: { closeSideBar: () => void }) => {
         Login
       </Link>
       <Link
-        href="/register"
+        href="/registrar"
         className="mx-6 text-xl text-center uppercase text-theme-01 font-bold p-4"
         onClick={closeSideBar}
       >

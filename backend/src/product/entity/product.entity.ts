@@ -33,6 +33,9 @@ export class ProductEntity {
   @Column()
   description: string;
 
+  @Column()
+  category: string;
+
   @OneToMany(() => ProductSrcEntity, (product_src) => product_src.product, {
     cascade: true,
   })

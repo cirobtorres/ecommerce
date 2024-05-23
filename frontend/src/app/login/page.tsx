@@ -117,7 +117,7 @@ export default function LoginPage(): JSX.Element {
             </button>
           </div>
         </div>
-        <Link href="/register" className="text-lg font-bold text-theme-07">
+        <Link href="/registrar" className="text-lg font-bold text-theme-07">
           Crie uma conta
         </Link>
       </div>

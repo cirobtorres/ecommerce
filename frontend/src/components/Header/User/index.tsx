@@ -28,7 +28,7 @@ export default function UserLoginRegisterSection() {
             {session.user.name}
             <div>
               <Link
-                href="/user"
+                href="/usuario"
                 className="font-bold hover:underline uppercase after:border-r after:border-white after:mx-1"
               >
                 Minha Conta
@@ -46,7 +46,7 @@ export default function UserLoginRegisterSection() {
             <Link href="/login" className="font-bold hover:underline">
               Entrar
             </Link>
-            <Link href="/register" className="hover:underline">
+            <Link href="/registrar" className="hover:underline">
               Criar uma conta
             </Link>
           </div>

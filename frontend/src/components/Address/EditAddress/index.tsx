@@ -20,10 +20,10 @@ interface ZipCodeResponseProps {
 
 export default function EditAddress({
   address,
-  setState,
+  closeFunction,
 }: {
   address: AddressProps;
-  setState: (a: boolean, b: boolean, c: null | [boolean, number]) => void;
+  closeFunction: (a: boolean, b: boolean) => void;
 }) {
   const [editZipCode, setEditZipCode] = useState(address.zipCode);
   const [zipCodeResponse, setZipCodeResponse] =
@@ -56,7 +56,7 @@ export default function EditAddress({
   return (
     <>
       <motion.div
-        onClick={() => setState(false, false, null)}
+        onClick={() => closeFunction(false, false)}
         initial="initial"
         animate="initial"
         whileHover="animate"

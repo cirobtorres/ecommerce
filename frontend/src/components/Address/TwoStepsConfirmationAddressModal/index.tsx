@@ -7,15 +7,15 @@ import {
 import ConfirmationButton from "../ConfirmAddressButton";
 
 export default function TwoStepsConfirmationAddressModal({
-  email,
-  phone,
-  state,
-  setState,
+  user,
+  title,
+  body,
+  closeFunction,
 }: {
-  email: string;
-  phone: string;
-  state: boolean;
-  setState: (a: boolean, b: boolean, c: null | [boolean, number]) => void;
+  user: UserProps;
+  title: string;
+  body: string;
+  closeFunction: (a: boolean, b: boolean) => void;
 }) {
   const hideEmail = (email: string) => {
     const [b, a] = email.split("@");
@@ -30,34 +30,28 @@ export default function TwoStepsConfirmationAddressModal({
   };
 
   return (
-    state && (
-      <AddressChildrenModal
-        icon={MdLocalShipping}
-        modalTitle="Alterar Endereço"
-        closeModal={() => setState(false, false, null)}
-      >
-        <p className="text-theme-03">
-          Por questões de segurança, para alteração do endereço de entrega
-          enviaremos um código de validação para seu endereço de <b>e-mail</b>{" "}
-          ou <b>telefone de contato</b>.
-        </p>
-        <div className="flex gap-3">
-          <ConfirmationButton
-            icon={MdMarkEmailRead}
-            toHide={hideEmail(email)}
-            to="E-mail"
-            textTo="Enviaremos um código para o e-mail:"
-            confirmClick={() => console.log("Email")}
-          />
-          <ConfirmationButton
-            icon={MdPhoneIphone}
-            toHide={hidePhone(phone)}
-            to="Celular"
-            textTo="Enviaremos um código para o telefone celular:"
-            confirmClick={() => console.log("Phone")}
-          />
-        </div>
-      </AddressChildrenModal>
-    )
+    <AddressChildrenModal
+      icon={MdLocalShipping}
+      modalTitle={title}
+      closeModal={() => closeFunction(false, false)}
+    >
+      <p className="mx-8 text-theme-03 text-start">{body}</p>
+      <div className="flex gap-3">
+        <ConfirmationButton
+          icon={MdMarkEmailRead}
+          toHide={hideEmail(user.email)}
+          to="E-mail"
+          textTo="Enviaremos um código para o e-mail:"
+          confirmClick={() => console.log("Email")}
+        />
+        <ConfirmationButton
+          icon={MdPhoneIphone}
+          toHide={hidePhone(user.phone)}
+          to="Celular"
+          textTo="Enviaremos um código para o telefone celular:"
+          confirmClick={() => console.log("Phone")}
+        />
+      </div>
+    </AddressChildrenModal>
   );
 }

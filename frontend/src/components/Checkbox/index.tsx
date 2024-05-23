@@ -40,7 +40,11 @@ export const Checkbox = ({
           error ? "border-red-500" : "border-theme-02"
         } peer-checked:border-theme-08`}
       />
-      <div className="absolute top-2 left-2 hidden border-theme-08 border-r-4 border-b-4 w-2 h-4 [-webkit-transform:rotate(45deg)] [-ms-transform:rotate(45deg)] [transform:rotate(45deg)] peer-checked:block peer-checked:animate-bounce-once" />
+      <div
+        className={`absolute top-2 left-2 hidden border-theme-08 border-r-4 border-b-4 w-2 h-4 
+        [-webkit-transform:rotate(45deg)] [-ms-transform:rotate(45deg)] [transform:rotate(45deg)] 
+        peer-checked:block peer-checked:animate-bounce-once`}
+      />
     </label>
   );
 };

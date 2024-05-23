@@ -7,8 +7,8 @@ import { FaStar } from "react-icons/fa";
 
 export default function ProductCard(props: ProductCardProps) {
   return (
-    <article className="h-card max-w-card min-w-card rounded p-product-card bg-white transition duration-200 hover:shadow-generic overflow-hidden group">
-      <Link href="/" className="flex h-full flex-col">
+    <article className="h-card max-w-card min-w-card rounded bg-white transition duration-200 hover:shadow-generic overflow-hidden group">
+      <Link href="/" className="flex h-full flex-col p-product-card">
         <div className="relative min-h-[calc(var(--product-card-height)/2)] max-w-[calc(var(--product-card-max-width)-16px)] overflow-hidden">
           <Image
             src={props.image}
@@ -16,7 +16,7 @@ export default function ProductCard(props: ProductCardProps) {
             fill
             sizes="(max-width: 240px) 100vw, 33vw"
             priority
-            className="object-contain duration-1000 ease-in-out group-hover:scale-105"
+            className="object-contain duration-1000 ease-in-out" // group-hover:scale-105
           />
         </div>
         <div className="flex h-full w-full flex-col text-sm">

@@ -40,8 +40,8 @@ export default function AddressChildrenModal({
         </button>
         {Icon ? (
           <div className="flex items-center gap-3">
-            <Icon size={40} fill="var(--theme-07)" />
-            <h2>{modalTitle}</h2>
+            <Icon size={40} />
+            <h2 className="text-theme-07">{modalTitle}</h2>
           </div>
         ) : (
           <h2>{modalTitle}</h2>
