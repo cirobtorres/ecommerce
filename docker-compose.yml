@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  web:
+    image: web
+    build:
+      context: ./web
+    restart: always
+    volumes:
+      - ./web:/app
+      - /web/app/node_modules
+    # env_file:
+    #   - ./web/.env.local
+    ports:
+      - 3000:3000
+    networks:
+      - main_network
+
+  api:
+    image: api
+    build:
+      context: ./api
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - ./api:/src
+      - /api/app/node_modules
+    env_file:
+      - ./api/.env
+    networks:
+      - main_network
+
+networks:
+  main_network:
+    driver: bridge

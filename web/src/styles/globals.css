@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --refrigel-theme-01: #171c8f;
+  --refrigel-theme-02: #2f339a;
+  --refrigel-theme-03: #4c1d95;
+  --refrigel-theme-04: #5b21b6;
+  --refrigel-theme-05: #1d4f91;
+  --refrigel-theme-06: #34619c;
+  --refrigel-theme-07: #005670;
+  --refrigel-theme-08: #19677e;
+  --refrigel-theme-09: #005f83;
+  --refrigel-theme-10: #196f8f;
+  --refrigel-theme-11: #0ea5e9;
+  --refrigel-theme-12: #38bdf8;
+  --refrigel-theme-13: #14b8a6;
+  --refrigel-theme-14: #2dd4bf;
+  --refrigel-theme-15: #16a34a;
+  --refrigel-theme-16: #22c55e;
+
+  --txt-01: #f1f5f9;
+  --txt-02: #1e293b;
+
+  --gradient-01-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-02) 0%,
+    var(--refrigel-theme-01) 100%
+  );
+  --gradient-02-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-04) 0%,
+    var(--refrigel-theme-03) 100%
+  );
+  --gradient-03-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-06) 0%,
+    var(--refrigel-theme-05) 100%
+  );
+  --gradient-04-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-08) 0%,
+    var(--refrigel-theme-07) 100%
+  );
+  --gradient-05-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-10) 0%,
+    var(--refrigel-theme-09) 100%
+  );
+  --gradient-06-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-12) 0%,
+    var(--refrigel-theme-11) 100%
+  );
+  --gradient-07-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-14) 0%,
+    var(--refrigel-theme-13) 100%
+  );
+  --gradient-08-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-16) 0%,
+    var(--refrigel-theme-15) 100%
+  );
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--txt-02);
+  background: var(--gradient-03-radial);
+}
