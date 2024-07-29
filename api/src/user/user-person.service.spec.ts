@@ -13,7 +13,7 @@ const mockSupabaseClient = {
   update: jest.fn().mockResolvedValue({ data: [], error: null }),
 };
 
-const mockedUser = {
+export const mockedUser = {
   id: "344cf838-492b-45d3-9d7d-fd4ab93b140b",
   email: "johndoe@email.com",
   phone: "11999881156",

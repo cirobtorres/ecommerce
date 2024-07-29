@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString } from "class-validator";
-import { IsCNPJ } from "../../utils/validators/documents.validator";
-import { IsDate } from "../../utils/validators/date.validator";
+import { IsCNPJ } from "../../utils/custom-validation/cnpj.validation";
+import { IsDate } from "../../utils/custom-validation/date.validation";
 
 export class CreateCompanyDTO {
   @IsNotEmpty()

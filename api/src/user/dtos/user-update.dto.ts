@@ -1,7 +1,7 @@
 import { IsEnum, IsOptional, IsString } from "class-validator";
-import { IsDate } from "src/utils/validators/date.validator";
-import { IsCPF } from "src/utils/validators/documents.validator";
-import { IsPhone } from "src/utils/validators/phone.validator";
+import { IsDate } from "../../utils/custom-validation/date.validation";
+import { IsCPF } from "../../utils/custom-validation/cpf.validation";
+import { IsPhone } from "../../utils/custom-validation/phone.validation";
 import { Gender } from "../enums/gender.enum";
 
 export class UpdateUserDTO {

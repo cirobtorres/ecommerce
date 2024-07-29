@@ -6,9 +6,9 @@ import {
   IsString,
   IsStrongPassword,
 } from "class-validator";
-import { IsPhone } from "../../utils/validators/phone.validator";
-import { IsCPF } from "src/utils/validators/documents.validator";
-import { IsDate } from "../../utils/validators/date.validator";
+import { IsPhone } from "../../utils/custom-validation/phone.validation";
+import { IsCPF } from "../../utils/custom-validation/cpf.validation";
+import { IsDate } from "../../utils/custom-validation/date.validation";
 import { Gender } from "../enums/gender.enum";
 
 export class CreateUserDTO {

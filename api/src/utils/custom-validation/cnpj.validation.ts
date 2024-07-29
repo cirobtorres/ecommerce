@@ -5,29 +5,29 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from "class-validator";
+import { CNPJValidator } from "../docValidator";
 
 @ValidatorConstraint({ async: false })
-class IsPhoneConstraint implements ValidatorConstraintInterface {
+class IsCNPJConstraint implements ValidatorConstraintInterface {
   validate(
     value: string,
     validationArguments?: ValidationArguments
   ): Promise<boolean> | boolean {
-    const phoneRegex = /^[1-9]{2}(?:[2-8]|9[1-9])[0-9]{7}$/;
-    return phoneRegex.test(value);
+    return new CNPJValidator(value).isValid;
   }
   defaultMessage(validationArguments?: ValidationArguments): string {
-    return "Invalid phone number";
+    return "Invalid CNPJ";
   }
 }
 
-export function IsPhone(validationOptions?: ValidationOptions) {
+export function IsCNPJ(validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {
     registerDecorator({
       target: object.constructor,
-      propertyName: propertyName,
+      propertyName,
       options: validationOptions,
       constraints: [],
-      validator: IsPhoneConstraint,
+      validator: IsCNPJConstraint,
     });
   };
 }

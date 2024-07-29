@@ -1,5 +1,5 @@
 import { IsBoolean, IsEnum, IsOptional, IsString } from "class-validator";
-import { IsCEP } from "src/utils/validators/cep.validator";
+import { IsCEP } from "../../utils/custom-validation/cep.validation";
 import { UF } from "../enums/uf";
 
 export class CreateAddressDTO {

@@ -5,7 +5,8 @@ import {
   IsString,
   IsStrongPassword,
 } from "class-validator";
-import { IsCNPJ, IsCPF } from "src/utils/validators/documents.validator";
+import { IsCPF } from "src/utils/custom-validation/cpf.validation";
+import { IsCNPJ } from "src/utils/custom-validation/cnpj.validation";
 
 export class AuthLoginDTO {
   @IsOptional()

@@ -83,7 +83,7 @@ export class CNPJValidator {
     }
   }
 
-  static constructCPF(substring: string) {
+  static constructCNPJ(substring: string) {
     const firstDigit = this.genValidCNPJDigits(substring);
     const secondDigit = this.genValidCNPJDigits(substring + firstDigit);
     return substring + firstDigit + secondDigit;
