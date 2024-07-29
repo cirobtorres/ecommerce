@@ -1,12 +1,12 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { TokenPersonService } from "src/token/token-person.service";
-import { PersonService } from "../../user/user-person.service";
+import { UserPersonService } from "../../user/user-person.service";
 
 @Injectable()
 export class AuthPersonGuard implements CanActivate {
   constructor(
     private readonly tokenPersonService: TokenPersonService,
-    private readonly userPersonService: PersonService
+    private readonly userPersonService: UserPersonService
   ) {}
 
   async canActivate(context: ExecutionContext) {

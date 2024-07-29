@@ -1,6 +1,6 @@
 import { Global, Module } from "@nestjs/common";
 import { createClient } from "@supabase/supabase-js";
-import { SUPABASE_CLIENT } from "src/utils/constants/supabase.constants";
+import { SUPABASE_CLIENT } from "../utils/constants/supabase.constants";
 
 @Global()
 @Module({

@@ -3,7 +3,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
-import { PersonService } from "src/user/user-person.service";
+import { UserPersonService } from "src/user/user-person.service";
 import { CreateUserDTO } from "../user/dtos/user-create.dto";
 import { TokenPersonService } from "../token/token-person.service";
 import { AuthLoginDTO } from "./dtos/auth-login.dto";
@@ -13,7 +13,7 @@ import { UpdateUserDTO } from "../user/dtos/user-update.dto";
 @Injectable()
 export class AuthPersonService {
   constructor(
-    private readonly userPersonService: PersonService,
+    private readonly userPersonService: UserPersonService,
     private readonly tokenPersonService: TokenPersonService
   ) {}
 
