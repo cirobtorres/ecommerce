@@ -1,0 +1,57 @@
+.outter-container {
+  position: relative;
+  background-color: #ebebeb;
+  box-shadow: 0 5px 5px hsl(0, 0%, 0%, 0.4);
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.heading-container {
+  font-weight: 900;
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: var(--refrigel-theme-02);
+}
+
+.split-login-form {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+.split-login-form > span {
+  pointer-events: none;
+  color: #979797;
+  margin: 0 8px 0 8px;
+}
+
+.split-login-form > hr {
+  border-color: #cfcfcf;
+}
+
+.utils-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-password-button {
+  font-weight: bold;
+}
+
+.forgot-password-button:hover,
+.sign-up-button:hover {
+  color: var(--refrigel-theme-15);
+}
+
+.oauth-buttons-container {
+  display: flex;
+  gap: 3px;
+}

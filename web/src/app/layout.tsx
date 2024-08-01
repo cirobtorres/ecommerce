@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Kanit, Poppins, Roboto, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
+import RefrigelHeader from "../components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 const kanit = Kanit({ subsets: ["latin"], weight: ["500", "700", "900"] });
@@ -21,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt">
-      <body className={open_sans.className}>{children}</body>
+      <body className={`${open_sans.className} h-svh`}>{children}</body>
     </html>
   );
 }

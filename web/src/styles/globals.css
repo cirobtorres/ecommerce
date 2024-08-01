@@ -19,9 +19,13 @@
   --refrigel-theme-14: #2dd4bf;
   --refrigel-theme-15: #16a34a;
   --refrigel-theme-16: #22c55e;
+  --refrigel-theme-17: #e2e8f0;
+  --refrigel-theme-18: #cbd5e1;
 
-  --txt-01: #f1f5f9;
-  --txt-02: #1e293b;
+  --text-01: #e2e8f0;
+  --text-02: #7a7d81;
+  --text-03: #26282b;
+  --text-04: var(--refrigel-theme-05);
 
   --gradient-01-radial: radial-gradient(
     circle,
@@ -63,6 +67,11 @@
     var(--refrigel-theme-16) 0%,
     var(--refrigel-theme-15) 100%
   );
+  --gradient-09-radial: radial-gradient(
+    circle,
+    var(--refrigel-theme-18) 0%,
+    var(--refrigel-theme-17) 100%
+  );
 }
 
 * {
@@ -72,6 +81,37 @@
 }
 
 body {
-  color: var(--txt-02);
+  color: var(--text-03);
   background: var(--gradient-03-radial);
+}
+
+/* Get rid off reveal button (eye icon) from password input type */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Remove default close icon from search input */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Block browser to change background color when autofilling */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+  /* -webkit-text-fill-color: color !important;
+  -webkit-box-shadow: 0 0 0 30px color inset !important; */
 }

@@ -1,0 +1,16 @@
+.header-outter-container {
+  width: 100%;
+  min-height: 80px;
+  background: var(--gradient-01-radial);
+}
+
+.split-container {
+  /* border-bottom: 1px solid rgb(221, 221, 221); */
+}
+
+.nav-grid {
+  display: grid;
+  align-items: center;
+  height: 90px;
+  grid-template-columns: 350px auto 350px;
+}

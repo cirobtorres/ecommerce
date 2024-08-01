@@ -1,0 +1,23 @@
+.footer-links-container {
+  width: 100%;
+  height: 200px;
+  background: var(--refrigel-theme-15);
+}
+
+.footer-company-container {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  background: #d7dce2;
+}
+
+.footer-company-elements {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-info {
+  color: var(--text-02);
+  font-size: 13px;
+}

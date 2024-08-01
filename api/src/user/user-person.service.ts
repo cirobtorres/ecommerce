@@ -106,6 +106,7 @@ export class UserPersonService {
           user_type: UserType.PERSON,
         },
       ])
+      .select()
       .single<UserData>();
 
     if (userError) throw userError;

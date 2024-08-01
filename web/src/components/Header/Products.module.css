@@ -1,0 +1,17 @@
+.products-main-container {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  background: var(--refrigel-theme-18);
+}
+
+.products-list-container {
+  display: flex;
+  gap: 30px;
+}
+
+.products-list-container li {
+  color: var(--text-02);
+}

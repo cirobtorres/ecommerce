@@ -1,0 +1,63 @@
+.signup-outter-container {
+  max-width: 100svw;
+  margin-bottom: 40px;
+}
+
+.inner-container {
+  padding-top: 20px;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.inner-container,
+.form-container,
+.signup-split-inputs {
+  display: flex;
+  gap: 4px;
+}
+
+.inner-container,
+.form-container {
+  flex-direction: column;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--text-03);
+}
+
+.signup-radio-container {
+  display: flex;
+  gap: 20px;
+}
+
+.minor-heading-container {
+  margin: 10px 0;
+}
+
+.minor-heading {
+  font-size: 14px;
+  color: var(--text-04);
+}
+
+.signup-checkbox-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.oauth-buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.signup-form-has-account-container {
+  margin: 10px auto;
+}
+
+.signup-form-has-account-element {
+  font-size: 15px;
+  color: var(--text-02);
+}

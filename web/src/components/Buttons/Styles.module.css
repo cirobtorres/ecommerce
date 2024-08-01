@@ -1,0 +1,69 @@
+.form-container {
+  width: 100%;
+}
+
+.button-element {
+  width: 100%;
+  margin: 0 auto;
+  height: 40px;
+  color: var(--text-01);
+  border-radius: 4px;
+  text-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 200ms;
+}
+
+.button-element:active {
+  transform: scale(0.97);
+}
+
+.button-color-1 {
+  background-color: var(--refrigel-theme-02);
+}
+
+.button-color-1:hover {
+  background-color: var(--refrigel-theme-01);
+}
+
+.button-color-2 {
+  background-color: var(--refrigel-theme-12);
+}
+
+.button-color-2-pending {
+  background-color: var(--refrigel-theme-11);
+}
+
+.google-button-element,
+.facebook-button-element,
+.apple-button-element {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  background-color: #c9cecf;
+  /* box-shadow: 0px 0px 5px 2px rgb(173, 173, 173, 0.5); */
+  transition-duration: 200ms;
+}
+
+.google-button-element:hover,
+.facebook-button-element:hover,
+.apple-button-element:hover {
+  background-color: #d6d4d4;
+}
+
+.google-button-element {
+  color: #ea4335;
+  /* border: 1px solid #ea4335; */
+}
+
+.facebook-button-element {
+  color: #1877f2;
+  /* border: 1px solid #1877f2; */
+}
+
+.apple-button-element {
+  color: #333333;
+  /* border: 1px solid #333333; */
+}
