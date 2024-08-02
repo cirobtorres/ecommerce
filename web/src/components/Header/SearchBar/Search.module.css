@@ -2,7 +2,9 @@
   position: relative;
   background: white;
   height: 50px;
-  border-radius: 9999px;
+  border-radius: 4px;
+  outline: 2px solid var(--text-01);
+  outline-offset: 2px;
   padding: 0 40px;
   overflow: hidden;
 }
@@ -10,7 +12,7 @@
 .button {
   position: absolute;
   font-size: 25px;
-  color: var(--text-02);
+  color: var(--text-03);
   top: 50%;
   left: 10px;
   transform: translateY(-50%);

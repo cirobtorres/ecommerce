@@ -1,16 +1,19 @@
+.positioning-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .header-outter-container {
   width: 100%;
   min-height: 80px;
   background: var(--gradient-01-radial);
 }
 
-.split-container {
-  /* border-bottom: 1px solid rgb(221, 221, 221); */
-}
-
 .nav-grid {
   display: grid;
   align-items: center;
   height: 90px;
-  grid-template-columns: 350px auto 350px;
+  gap: 15px;
+  grid-template-columns: 55px 55px 240px auto 350px;
 }

@@ -57,3 +57,5 @@
 <h3 style="font-size:1.75rem;font-weight:900;">Icons</h3>
 
 ### [react-icons](https://react-icons.github.io/react-icons/)
+
+### [zxcvbn](https://github.com/dropbox/zxcvbn)

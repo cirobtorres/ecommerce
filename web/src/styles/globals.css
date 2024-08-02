@@ -21,9 +21,11 @@
   --refrigel-theme-16: #22c55e;
   --refrigel-theme-17: #e2e8f0;
   --refrigel-theme-18: #cbd5e1;
+  --refrigel-theme-19: #b7c0c7;
+  --refrigel-theme-20: #a4acb3;
 
   --text-01: #e2e8f0;
-  --text-02: #7a7d81;
+  --text-02: #c0c4c9;
   --text-03: #26282b;
   --text-04: var(--refrigel-theme-05);
 
@@ -82,7 +84,8 @@
 
 body {
   color: var(--text-03);
-  background: var(--gradient-03-radial);
+  background: var(--refrigel-theme-17);
+  /* background: var(--gradient-03-radial); */
 }
 
 /* Get rid off reveal button (eye icon) from password input type */

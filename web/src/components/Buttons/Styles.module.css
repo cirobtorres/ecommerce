@@ -13,10 +13,12 @@
   align-items: center;
   justify-content: center;
   transition-duration: 200ms;
+  outline-color: var(--refrigel-theme-13);
 }
 
-.button-element:active {
-  transform: scale(0.97);
+.button-element:focus {
+  outline: 2px solid var(--refrigel-theme-13);
+  outline-offset: 1px;
 }
 
 .button-color-1 {
@@ -42,7 +44,7 @@
   gap: 3px;
   justify-content: center;
   align-items: center;
-  background-color: #c9cecf;
+  background-color: #cfd5d6;
   /* box-shadow: 0px 0px 5px 2px rgb(173, 173, 173, 0.5); */
   transition-duration: 200ms;
 }
@@ -50,7 +52,7 @@
 .google-button-element:hover,
 .facebook-button-element:hover,
 .apple-button-element:hover {
-  background-color: #d6d4d4;
+  background-color: #c9cfd1;
 }
 
 .google-button-element {

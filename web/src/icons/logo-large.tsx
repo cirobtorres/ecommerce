@@ -16,6 +16,7 @@ export default function RefrigelLogoLarge({
       viewBox="0 0 2048 733"
       width={size ?? "1280"}
       height={size ?? "1280"}
+      className="absolute top-0 left-0"
     >
       <path
         transform="translate(0)"

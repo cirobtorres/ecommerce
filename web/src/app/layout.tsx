@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Kanit, Poppins, Roboto, Open_Sans } from "next/font/google";
 import "../styles/globals.css";
-import RefrigelHeader from "../components/Header";
+import Body from "@/components/Body";
 
 const inter = Inter({ subsets: ["latin"] });
-const kanit = Kanit({ subsets: ["latin"], weight: ["500", "700", "900"] });
-const poppins = Poppins({ subsets: ["latin"], weight: ["500", "700", "900"] });
-const roboto = Roboto({ subsets: ["latin"], weight: ["500", "700", "900"] });
-const open_sans = Open_Sans({ subsets: ["latin"], weight: ["500", "800"] });
+// const kanit = Kanit({ subsets: ["latin"], weight: ["500", "700", "900"] });
+// const poppins = Poppins({ subsets: ["latin"], weight: ["500", "700", "900"] });
+// const roboto = Roboto({ subsets: ["latin"], weight: ["500", "700", "900"] });
+// const open_sans = Open_Sans({ subsets: ["latin"], weight: ["500", "800"] });
 
 export const metadata: Metadata = {
   title: "Refrigel",
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt">
-      <body className={`${open_sans.className} h-svh`}>{children}</body>
+      <body className={`${inter.className} h-svh`}>{children}</body>
     </html>
   );
 }

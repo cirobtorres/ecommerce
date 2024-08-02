@@ -12,6 +12,11 @@
   /* box-shadow: 0px 0px 5px 2px rgb(173, 173, 173, 0.3); */
 }
 
+.outter-container:has(.gender-arrow:focus-visible) {
+  outline: 2px solid var(--refrigel-theme-13);
+  outline-offset: 2px;
+}
+
 .input-element {
   background: none;
   outline: none;
@@ -30,8 +35,12 @@
   color: transparent;
 }
 
+.input-element:active::placeholder {
+  color: var(--text-02);
+}
+
 .input-element:focus::placeholder {
-  color: "#d1d1d1";
+  color: var(--text-02);
 }
 
 .input-element:placeholder-shown + .label-element {
@@ -66,6 +75,7 @@
   background: none;
 }
 
+/*---------------------------------------------------------------------------------*/
 .gender-select-container {
   position: relative;
   display: flex;
@@ -101,6 +111,7 @@
 }
 
 .gender-arrow {
+  outline: none;
   transition: all 150ms;
 }
 
@@ -111,4 +122,70 @@
 .gender-dropdown li:hover {
   width: 100%;
   background: #e2e2e2;
+}
+
+/*---------------------------------------------------------------------------------*/
+.pass-input-padding {
+  padding: 0 40px 0 10px;
+}
+
+.pass-toggle-eye {
+  position: absolute;
+  outline: none;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+}
+
+.toggle-on,
+.toggle-off {
+  font-size: 20px;
+  color: rgb(133, 133, 133);
+}
+
+/*---------------------------------------------------------------------------------*/
+.pass-rules-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  padding: 4px 0;
+}
+
+.pass-rules-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+  color: #fff;
+  font-size: 11px;
+  border-radius: 4px;
+}
+
+/*---------------------------------------------------------------------------------*/
+.pass-progress-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pass-progress-bar-message {
+  font-size: 14px;
+}
+
+.pass-progress-bar-bg {
+  position: relative;
+  width: 100%;
+  height: 9px;
+  background: #f0f0f0;
+  border-radius: 9999px;
+  border: 1px solid #c0c0c0;
+}
+
+.pass-progress-bar {
+  position: absolute;
+  width: 0%;
+  height: 7px;
+  border-radius: 9999px;
+  transition: all 500ms ease-out;
 }

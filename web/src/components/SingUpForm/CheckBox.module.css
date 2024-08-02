@@ -20,6 +20,11 @@
   /* box-shadow: 0px 0px 5px 2px rgb(173, 173, 173, 0.3); */
 }
 
+.checkbox-container:focus-visible {
+  outline: 2px solid var(--refrigel-theme-13);
+  outline-offset: 2px;
+}
+
 .checkbox-element {
   color: var(--text-01);
   display: none;

@@ -59,6 +59,11 @@
   background: var(--refrigel-theme-01);
 }
 
+.radio-container:focus-visible {
+  outline: 2px solid var(--refrigel-theme-13);
+  outline-offset: 2px;
+}
+
 @keyframes radio-select-container {
   0% {
     transform: scale(1);

@@ -1,7 +1,7 @@
 .footer-links-container {
   width: 100%;
-  height: 200px;
-  background: var(--refrigel-theme-15);
+  height: 300px;
+  background: #d7dce2;
 }
 
 .footer-company-container {
@@ -9,7 +9,7 @@
   height: 80px;
   display: flex;
   align-items: center;
-  background: #d7dce2;
+  background: var(--refrigel-theme-15);
 }
 
 .footer-company-elements {
@@ -18,6 +18,6 @@
 }
 
 .footer-info {
-  color: var(--text-02);
+  color: var(--text-01);
   font-size: 13px;
 }
