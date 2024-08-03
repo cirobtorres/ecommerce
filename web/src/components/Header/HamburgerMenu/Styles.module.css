@@ -1,13 +1,13 @@
 .hamb-menu-container {
-  width: 100%;
-  height: 100%;
+  width: 32px;
+  height: 32px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
 }
 
 .hamb-menu-wrapper {
-  cursor: pointer;
   width: 30px;
   height: 14px;
   display: flex;

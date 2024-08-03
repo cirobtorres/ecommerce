@@ -1,19 +1,31 @@
+.header-submenu {
+  height: 32px;
+  background: var(--refrigel-theme-01);
+}
+
 .positioning-container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
 .header-outter-container {
   width: 100%;
-  min-height: 80px;
-  background: var(--gradient-01-radial);
+  background: var(--gradient-03-radial);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
-.nav-grid {
+.header-authentication-container {
+  width: 100%;
+  height: 84px;
+  background: var(--gradient-03-radial);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+}
+
+.header-nav-grid {
   display: grid;
   align-items: center;
-  height: 90px;
+  height: 70px;
   gap: 15px;
-  grid-template-columns: 55px 55px 240px auto 350px;
+  grid-template-columns: 55px 55px 200px auto 350px;
 }

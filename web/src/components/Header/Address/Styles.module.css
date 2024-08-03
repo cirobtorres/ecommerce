@@ -1,15 +1,22 @@
+.address-button {
+  width: 100%;
+}
+
 .address-main-container {
   display: flex;
   align-items: center;
   padding: 4px;
   gap: 8px;
-  width: 100%;
   height: 45px;
-  border: 1px solid var(--refrigel-theme-02);
-  outline: 2px solid var(--refrigel-theme-02);
+  border: 1px solid var(--refrigel-theme-05);
+  outline: 2px solid var(--refrigel-theme-05);
   outline-offset: 2px;
   border-radius: 4px;
-  /* background: var(--refrigel-theme-03); */
+  background: linear-gradient(
+    270deg,
+    var(--refrigel-theme-06) 0%,
+    var(--refrigel-theme-05) 100%
+  );
 }
 
 .address-info-container {
@@ -20,7 +27,7 @@
 }
 
 .address-info-container span {
-  max-width: 85%;
+  max-width: 80%;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;

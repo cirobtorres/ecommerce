@@ -85,7 +85,6 @@
 body {
   color: var(--text-03);
   background: var(--refrigel-theme-17);
-  /* background: var(--gradient-03-radial); */
 }
 
 /* Get rid off reveal button (eye icon) from password input type */

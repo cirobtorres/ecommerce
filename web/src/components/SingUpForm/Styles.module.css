@@ -3,28 +3,34 @@
   margin-bottom: 40px;
 }
 
-.inner-container {
+.signup-inner-container {
   padding-top: 20px;
   width: 400px;
   margin: 0 auto;
 }
 
-.inner-container,
+.signup-inner-container,
 .form-container,
 .signup-split-inputs {
   display: flex;
-  gap: 8px;
+  gap: 4px;
 }
 
-.inner-container,
+.signup-inner-container,
 .form-container {
   flex-direction: column;
 }
 
-.heading {
+.form-container {
+  margin-bottom: 4px;
+}
+
+/* .signup-heading-container {} */
+
+.signup-heading {
   font-size: 30px;
   font-weight: 900;
-  color: var(--text-03);
+  color: var(--refrigel-theme-05);
 }
 
 .signup-radio-container {
@@ -32,11 +38,12 @@
   gap: 20px;
 }
 
-.minor-heading-container {
+/*--------------------------------------------------------------------------------*/
+.form-heading-container {
   margin: 10px 0;
 }
 
-.minor-heading {
+.form-heading {
   font-size: 14px;
   color: var(--text-03);
 }
@@ -60,6 +67,10 @@
 .signup-form-has-account-element {
   font-size: 15px;
   color: #9b9da0;
+}
+
+.signup-form-has-account-element a:hover {
+  color: var(--refrigel-theme-15);
 }
 
 .signup-form-has-account-element a:focus-visible {

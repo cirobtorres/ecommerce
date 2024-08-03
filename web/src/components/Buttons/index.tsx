@@ -2,15 +2,16 @@
 
 import { useFormStatus } from "react-dom";
 import { FaApple, FaFacebook, FaFacebookF, FaGoogle } from "react-icons/fa";
-import { SquareLoader } from "../Loaders";
+import { SquareLoader } from "../Loaders/SquareLoader";
 import {
+  signInWithApple,
   signInWithFacebook,
   signInWithGoogle,
 } from "@/lib/authenticationActions";
 import { FcGoogle } from "react-icons/fc";
 import Styles from "./Styles.module.css";
 
-export function LoginFormActionButton({
+export function SignIn({
   text,
   formAction,
 }: {
@@ -22,15 +23,33 @@ export function LoginFormActionButton({
     <button
       disabled={pending}
       formAction={formAction}
-      className={`${Styles["button-element"]} ${Styles["button-color-1"]}`}
+      className={`${Styles["button-element"]} ${Styles["signin-button-color"]}`}
     >
       {pending ? <SquareLoader /> : text}
-      {text}
     </button>
   );
 }
 
-export function SignUpFormActionButton({
+export function SignInMagicLink({
+  text,
+  formAction,
+}: {
+  text: string;
+  formAction: (formData: FormData) => void;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      disabled={pending}
+      formAction={formAction}
+      className={`${Styles["button-element"]} ${Styles["magiclink-button-color"]}`}
+    >
+      {pending ? <SquareLoader /> : text}
+    </button>
+  );
+}
+
+export function SignUp({
   text,
   formAction,
 }: {
@@ -42,14 +61,14 @@ export function SignUpFormActionButton({
     <button
       disabled={signUpPending}
       formAction={formAction}
-      className={`${Styles["button-element"]} ${Styles["button-color-1"]} ${signUpPending ? Styles["button-color-2-pending"] : null}`}
+      className={`${Styles["button-element"]} ${Styles["signin-button-color"]} ${signUpPending ? Styles["signin-button-color-pending"] : null}`}
     >
       {signUpPending ? <SquareLoader /> : text}
     </button>
   );
 }
 
-export function GoogleLoginButton() {
+export function GoogleSignIn() {
   const { pending } = useFormStatus();
   return (
     <form className={Styles["form-container"]}>
@@ -64,7 +83,7 @@ export function GoogleLoginButton() {
     </form>
   );
 }
-export function FacebookLoginButton() {
+export function FacebookSignIn() {
   const { pending } = useFormStatus();
   return (
     <form className={Styles["form-container"]}>
@@ -79,13 +98,13 @@ export function FacebookLoginButton() {
     </form>
   );
 }
-export function AppleLoginButton() {
+export function AppleSignIn() {
   const { pending } = useFormStatus();
   return (
     <form className={Styles["form-container"]}>
       <button
         disabled={pending}
-        // formAction={signInWithApple}
+        formAction={signInWithApple}
         className={`${Styles["button-element"]} ${Styles["apple-button-element"]}`}
       >
         <FaApple className="text-2xl" /> Continuar com a Apple

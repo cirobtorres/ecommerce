@@ -276,9 +276,17 @@ const PasswordInput = ({
   placeholder: string;
 }) => {
   const [type, setType] = useState<"text" | "password">("password");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleTypeToggle = () => {
     setType(type === "password" ? "text" : "password");
+    setTimeout(() => {
+      // setTimeout is used here to ensure the focus and selection range are updated after DOM remontage
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.setSelectionRange(value.length, value.length); // Set position focus after the last character of the input value
+      }
+    }, 0);
   };
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -292,6 +300,7 @@ const PasswordInput = ({
       } ${Styles["pass-label-element-padding"]}`}
     >
       <input
+        ref={inputRef}
         id="password"
         name="password"
         type={type}

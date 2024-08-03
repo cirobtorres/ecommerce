@@ -1,10 +1,37 @@
 .user-nav-container {
   display: flex;
-  gap: 4px;
+  gap: 12px;
   align-items: center;
   list-style: none;
+  margin-left: 20px;
 }
 
 .user-nav-container li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
   color: var(--text-01);
+}
+
+.user-nav-auth-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.user-nav-auth-subcontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-nav-container span {
+  font-size: 12px;
+}
+
+.user-nav-auth-subcontainer span a {
+  font-weight: 700;
+}
+
+.user-nav-auth-subcontainer span a:hover {
+  text-decoration: underline;
 }

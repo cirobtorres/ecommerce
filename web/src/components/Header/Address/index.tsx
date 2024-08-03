@@ -1,12 +1,12 @@
 import { FaMapMarkerAlt } from "react-icons/fa";
-import Styles from "./Styles.module.css";
+import styles from "./Styles.module.css";
 
 const Address = () => {
   return (
-    <button type="button">
-      <div className={Styles["address-main-container"]}>
+    <button type="button" className={styles["address-button"]}>
+      <div className={styles["address-main-container"]}>
         <FaMapMarkerAlt className="flex-shrink-0 text-2xl text-red-500" />
-        <div className={Styles["address-info-container"]}>
+        <div className={styles["address-info-container"]}>
           <span>Enviar para Posto Ipiranga</span>
           <span>
             <b>BR-480, 3100D - Palmital, Chapecó - SC, 89801-973</b>

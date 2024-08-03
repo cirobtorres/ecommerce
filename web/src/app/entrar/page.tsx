@@ -1,8 +1,9 @@
 import SignInForm from "@/components/SignInForm";
+import Styles from "./Styles.module.css";
 
 export default function SignInPage() {
   return (
-    <main className="flex flex-col gap-4 min-h-screen items-center justify-center">
+    <main className={Styles["main-container"]}>
       <SignInForm />
     </main>
   );

@@ -3,12 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signUpWithEmail } from "@/lib/authenticationActions";
-import {
-  AppleLoginButton,
-  FacebookLoginButton,
-  GoogleLoginButton,
-  SignUpFormActionButton,
-} from "../Buttons";
+import { AppleSignIn, FacebookSignIn, GoogleSignIn, SignUp } from "../Buttons";
 import {
   DateInput,
   CNPJInput,
@@ -20,19 +15,18 @@ import {
   PasswordInput,
   PasswordRules,
 } from "../Inputs";
-import { FaCheck } from "react-icons/fa";
-import Styles from "./SignUpForm.module.css";
-import Radio from "./Radio.module.css";
-import Check from "./CheckBox.module.css";
 import zxcvbn from "zxcvbn";
+import Styles from "./Styles.module.css";
+import CheckBox from "../Inputs/CheckBox";
+import RadioInput from "../Inputs/RadioInput";
 
 export default function SignUpForm() {
   const [radioVal, setRadioVal] = useState<"PF" | "PJ">("PF");
   return (
     <div className={Styles["signup-outter-container"]}>
-      <div className={Styles["inner-container"]}>
-        <div className={Styles["heading-container"]}>
-          <h1 className={Styles["heading"]}>Criar Conta</h1>
+      <div className={Styles["signup-inner-container"]}>
+        <div className={Styles["signup-heading-container"]}>
+          <h1 className={Styles["signup-heading"]}>Criar Conta</h1>
         </div>
         <form className={Styles["signup-radio-container"]}>
           <RadioInput
@@ -41,7 +35,7 @@ export default function SignUpForm() {
             name="type"
             value="PF"
             setVal={setRadioVal}
-            defaultChecked
+            checked
           />
           <RadioInput
             id="signup-pj-radio-input"
@@ -74,8 +68,8 @@ const Person = () => {
     <>
       <form className={Styles["form-container"]}>
         <Credentials />
-        <div className={Styles["minor-heading-container"]}>
-          <h2 className={Styles["minor-heading"]}>Informações pessoais</h2>
+        <div className={Styles["form-heading-container"]}>
+          <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
         </div>
         <NameInput
           text="Nome"
@@ -107,12 +101,12 @@ const Person = () => {
           />
         </div>
         <Policies />
-        <SignUpFormActionButton text="Criar" formAction={signUpWithEmail} />
+        <SignUp text="Criar" formAction={signUpWithEmail} />
       </form>
       <div className={Styles["oauth-buttons-container"]}>
-        <GoogleLoginButton />
-        <FacebookLoginButton />
-        <AppleLoginButton />
+        <GoogleSignIn />
+        <FacebookSignIn />
+        <AppleSignIn />
       </div>
     </>
   );
@@ -127,8 +121,8 @@ const Company = () => {
   return (
     <form className={Styles["form-container"]}>
       <Credentials />
-      <div className={Styles["minor-heading-container"]}>
-        <h2 className={Styles["minor-heading"]}>Informações pessoais</h2>
+      <div className={Styles["form-heading-container"]}>
+        <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
       </div>
       <div className={Styles["signup-split-inputs"]}>
         <NameInput
@@ -165,7 +159,7 @@ const Company = () => {
         />
       </div>
       <Policies />
-      <SignUpFormActionButton text="Criar" formAction={signUpWithEmail} />
+      <SignUp text="Criar" formAction={signUpWithEmail} />
     </form>
   );
 };
@@ -198,8 +192,8 @@ const Credentials = () => {
 
   return (
     <>
-      <div className={Styles["minor-heading-container"]}>
-        <h2 className={Styles["minor-heading"]}>Credenciais de autenticação</h2>
+      <div className={Styles["form-heading-container"]}>
+        <h2 className={Styles["form-heading"]}>Credenciais de autenticação</h2>
       </div>
       <EmailInput
         text="E-mail"
@@ -207,26 +201,28 @@ const Credentials = () => {
         value={email}
         setValue={setEmail}
       />
-      <div className={Styles["signup-split-inputs"]}>
-        <PasswordInput
-          value={pass1}
-          setValue={handleProgressBar}
-          text="Senha"
-          placeholder=""
-        />
-        <PasswordInput
-          value={pass2}
-          setValue={setPass2}
-          text="Confirmar Senha"
-          placeholder=""
+      <div>
+        <div className={`${Styles["signup-split-inputs"]} mb-3`}>
+          <PasswordInput
+            value={pass1}
+            setValue={handleProgressBar}
+            text="Senha"
+            placeholder=""
+          />
+          <PasswordInput
+            value={pass2}
+            setValue={setPass2}
+            text="Confirmar Senha"
+            placeholder=""
+          />
+        </div>
+        <PasswordRules
+          message={message}
+          progress={progress}
+          pass1={pass1}
+          pass2={pass2}
         />
       </div>
-      <PasswordRules
-        message={message}
-        progress={progress}
-        pass1={pass1}
-        pass2={pass2}
-      />
     </>
   );
 };
@@ -244,74 +240,12 @@ const Policies = () => {
           Concordo com as{" "}
           <Link
             href="/"
-            className="text-[#1d4f91] underline hover:text-[#171c8f] outline-offset-2 outline-[#14b8a6]"
+            className="text-[#1d4f91] underline hover:text-[#34619c] outline-offset-2 outline-[#14b8a6]"
           >
             Políticas de Privacidade da Refrigel
           </Link>
         </p>
       </CheckBox>
-    </div>
-  );
-};
-
-const RadioInput = ({
-  id,
-  name,
-  label,
-  defaultChecked,
-  value,
-  setVal,
-}: {
-  id: string;
-  name: string;
-  label?: string;
-  defaultChecked?: boolean;
-  value: "PF" | "PJ";
-  setVal: (radioVal: "PF" | "PJ") => void;
-}) => {
-  return (
-    <label htmlFor={id} className={Radio["radio-label-container"]}>
-      <input
-        type="radio"
-        id={id}
-        name={name}
-        value={value}
-        className="hidden"
-        defaultChecked={defaultChecked}
-        onClick={() => setVal(value)}
-      />
-      <div className={Radio["radio-container"]}>
-        <div className={Radio["radio-toggle-element"]} />
-      </div>
-      {label}
-    </label>
-  );
-};
-
-const CheckBox = ({
-  children,
-  id,
-  value,
-}: {
-  children: React.ReactNode;
-  id: string;
-  value: string;
-}) => {
-  return (
-    <div className={Check["checkbox-main-container"]}>
-      <input
-        id={id}
-        name={id}
-        value={value}
-        type="checkbox"
-        className="hidden"
-      />
-      <label htmlFor={id} className={Check["checkbox-label-container"]}>
-        <div className={Check["checkbox-container"]} tabIndex={0}>
-          <FaCheck className={Check["checkbox-element"]} />
-        </div>
-        {children}
-      </label>
     </div>
   );
 };

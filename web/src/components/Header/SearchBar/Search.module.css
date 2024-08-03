@@ -1,7 +1,7 @@
 .form-container {
   position: relative;
   background: white;
-  height: 50px;
+  height: 40px;
   border-radius: 4px;
   outline: 2px solid var(--text-01);
   outline-offset: 2px;

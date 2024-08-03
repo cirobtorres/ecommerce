@@ -21,20 +21,28 @@
   outline-offset: 1px;
 }
 
-.button-color-1 {
-  background-color: var(--refrigel-theme-02);
+.signin-button-color {
+  background: var(--refrigel-theme-05);
 }
 
-.button-color-1:hover {
-  background-color: var(--refrigel-theme-01);
+/* .signin-button-color-pending {
+  background: var(--refrigel-theme-06);
+} */
+
+.signin-button-color:hover {
+  background: var(--refrigel-theme-06);
 }
 
-.button-color-2 {
-  background-color: var(--refrigel-theme-12);
+.magiclink-button-color {
+  background: var(--refrigel-theme-11);
 }
 
-.button-color-2-pending {
-  background-color: var(--refrigel-theme-11);
+/* .magiclink-button-color-pending {
+  background: var(--refrigel-theme-12);
+} */
+
+.magiclink-button-color:hover {
+  background: var(--refrigel-theme-12);
 }
 
 .google-button-element,
@@ -44,28 +52,24 @@
   gap: 3px;
   justify-content: center;
   align-items: center;
-  background-color: #cfd5d6;
-  /* box-shadow: 0px 0px 5px 2px rgb(173, 173, 173, 0.5); */
+  background: #cfd5d6;
   transition-duration: 200ms;
 }
 
 .google-button-element:hover,
 .facebook-button-element:hover,
 .apple-button-element:hover {
-  background-color: #c9cfd1;
+  background: #c9cfd1;
 }
 
 .google-button-element {
   color: #ea4335;
-  /* border: 1px solid #ea4335; */
 }
 
 .facebook-button-element {
   color: #1877f2;
-  /* border: 1px solid #1877f2; */
 }
 
 .apple-button-element {
   color: #333333;
-  /* border: 1px solid #333333; */
 }
