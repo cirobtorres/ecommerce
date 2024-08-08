@@ -1,5 +1,6 @@
 .body-main-container {
   display: flex;
+  min-height: 100svh;
   flex-direction: column;
   justify-content: space-between;
 }

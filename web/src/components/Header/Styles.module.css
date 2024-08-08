@@ -1,18 +1,48 @@
 .header-submenu {
-  height: 32px;
-  background: var(--refrigel-theme-01);
+  height: 25px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: var(--text-01);
+  /* background: var(--gradient-03-radial); */
+  background: linear-gradient(
+    90deg,
+    var(--refrigel-theme-21) 0%,
+    var(--refrigel-theme-22) 100%
+  );
 }
 
+.header-submenu .positioning-container {
+  height: 100%;
+}
+
+.header-submenu-item {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  font-weight: 500;
+}
+
+/*--------------------------------------------------------------------------------*/
 .positioning-container {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
 .header-outter-container {
+  z-index: 3;
   width: 100%;
-  background: var(--gradient-03-radial);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  /* background: var(--gradient-03-radial); */
+  background: linear-gradient(
+    90deg,
+    var(--refrigel-theme-21) 0%,
+    var(--refrigel-theme-22) 100%
+  );
+  /* background: var(--gradient-09-radial); */
 }
 
 .header-authentication-container {
@@ -26,6 +56,34 @@
   display: grid;
   align-items: center;
   height: 70px;
-  gap: 15px;
-  grid-template-columns: 55px 55px 200px auto 350px;
+  gap: 10px;
+  grid-template-columns: 30px 170px minmax(auto, 180px) auto minmax(auto, 400px);
+}
+
+.header-refrigel-logo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.header-refrigel-logo-auth {
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+
+.header-refrigel-logo-image {
+  position: absolute;
+  object-fit: contain;
+}
+
+/*--------------------------------------------------------------------------------*/
+.auth-header-container {
+  width: 100%;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-03-radial);
+  /* background: var(--gradient-09-radial); */
 }

@@ -1,13 +1,38 @@
-import Header from "../Header/index";
+import Header, { AuthHeader } from "../Header/index";
 import Footer from "../Footer";
 import Styles from "./Styles.module.css";
+import { User } from "@supabase/supabase-js";
+import { MegaMenuContextProvider } from "../../contexts/MegaMenuContext";
+import MegaMenu from "../Header/MegaMenu";
+import ProductSection from "../Header/ProductSection";
 
-export default function Body({ children }: { children: React.ReactNode }) {
+export default function Body({
+  children,
+  user,
+}: {
+  children: React.ReactNode;
+  user: User | null;
+}) {
   return (
     <div className={Styles["body-main-container"]}>
-      <Header />
-      {children}
-      <Footer />
+      <MegaMenuContextProvider>
+        <Header user={user} />
+        {children}
+        <Footer />
+      </MegaMenuContextProvider>
+    </div>
+  );
+}
+
+export function AuthBody({ children }: { children: React.ReactNode }) {
+  // To be used for SignIn (entrar) and SignUp (cadastrar) pages
+  return (
+    <div className={Styles["body-main-container"]}>
+      <MegaMenuContextProvider>
+        <AuthHeader />
+        {children}
+        <Footer />
+      </MegaMenuContextProvider>
     </div>
   );
 }

@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import Styles from "./Styles.module.css";
+import useMegaMenu from "../../../hooks/useMegaMenu";
 
 const HamburgerMenu = () => {
-  const [active, isActive] = useState<boolean>(false);
+  const { isOpen, setIsOpen } = useMegaMenu();
 
   return (
     <div
       className={Styles["hamb-menu-container"]}
-      onClick={() => isActive(!active)}
+      onClick={() => setIsOpen(!isOpen)}
     >
       <div className={Styles["hamb-menu-wrapper"]}>
         <div
-          className={`${Styles["hamb-menu"]} ${active ? Styles["animate"] : ""}`}
+          className={`${Styles["hamb-menu"]} ${isOpen ? Styles["animate"] : ""}`}
         />
       </div>
     </div>

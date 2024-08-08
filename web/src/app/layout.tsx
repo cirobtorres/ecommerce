@@ -22,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt">
-      <body className={`${inter.className} h-svh`}>{children}</body>
+      <body id="body" className={`${inter.className}`}>
+        {children}
+      </body>
     </html>
   );
 }

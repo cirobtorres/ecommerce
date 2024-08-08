@@ -1,11 +1,14 @@
 import Body from "../components/Body";
-import RefrigelLogo from "../icons/logo";
+import { createClient } from "../utils/supabase/server";
 
 export default async function RefrigelHomePage() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+
   return (
-    <Body>
-      <main className="flex min-h-screen items-center justify-center">
-        <RefrigelLogo size="720" color="#dadada" />
+    <Body user={data.user}>
+      <main className="flex items-center justify-center">
+        {/* <RefrigelLogo size="720" color="#dadada" /> */}
       </main>
     </Body>
   );

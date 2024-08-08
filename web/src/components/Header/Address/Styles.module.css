@@ -8,15 +8,8 @@
   padding: 4px;
   gap: 8px;
   height: 45px;
-  border: 1px solid var(--refrigel-theme-05);
-  outline: 2px solid var(--refrigel-theme-05);
   outline-offset: 2px;
   border-radius: 4px;
-  background: linear-gradient(
-    270deg,
-    var(--refrigel-theme-06) 0%,
-    var(--refrigel-theme-05) 100%
-  );
 }
 
 .address-info-container {

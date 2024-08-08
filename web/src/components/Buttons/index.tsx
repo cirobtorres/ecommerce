@@ -4,6 +4,7 @@ import { useFormStatus } from "react-dom";
 import { FaApple, FaFacebook, FaFacebookF, FaGoogle } from "react-icons/fa";
 import { SquareLoader } from "../Loaders/SquareLoader";
 import {
+  handleSignOut,
   signInWithApple,
   signInWithFacebook,
   signInWithGoogle,
@@ -49,18 +50,12 @@ export function SignInMagicLink({
   );
 }
 
-export function SignUp({
-  text,
-  formAction,
-}: {
-  text: string;
-  formAction: (formData: FormData) => void;
-}) {
+export function SignUpButton({ text }: { text: string }) {
   const { pending: signUpPending } = useFormStatus();
   return (
     <button
+      type="submit"
       disabled={signUpPending}
-      formAction={formAction}
       className={`${Styles["button-element"]} ${Styles["signin-button-color"]} ${signUpPending ? Styles["signin-button-color-pending"] : null}`}
     >
       {signUpPending ? <SquareLoader /> : text}
@@ -71,7 +66,7 @@ export function SignUp({
 export function GoogleSignIn() {
   const { pending } = useFormStatus();
   return (
-    <form className={Styles["form-container"]}>
+    <div className={Styles["form-container"]}>
       <button
         disabled={pending}
         formAction={signInWithGoogle}
@@ -80,13 +75,13 @@ export function GoogleSignIn() {
         {/* <FaGoogle /> Google */}
         <FcGoogle className="text-2xl" /> Continuar com o Google
       </button>
-    </form>
+    </div>
   );
 }
 export function FacebookSignIn() {
   const { pending } = useFormStatus();
   return (
-    <form className={Styles["form-container"]}>
+    <div className={Styles["form-container"]}>
       <button
         disabled={pending}
         formAction={signInWithFacebook}
@@ -95,7 +90,7 @@ export function FacebookSignIn() {
         <FaFacebook className="text-2xl text-[#1877f2]" /> Continuar com o
         Facebook
       </button>
-    </form>
+    </div>
   );
 }
 export function AppleSignIn() {
@@ -113,10 +108,10 @@ export function AppleSignIn() {
   );
 }
 
-export function LogoutButton({ formAction }: { formAction: () => void }) {
+export function SignOut({ styles }: { styles?: string | undefined }) {
   return (
-    <form>
-      <button formAction={formAction}>Sair</button>
+    <form className={styles}>
+      <button formAction={handleSignOut}>Sair</button>
     </form>
   );
 }

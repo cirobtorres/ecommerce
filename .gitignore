@@ -53,6 +53,7 @@ uploads
 .env.test.local
 **router**.http
 placeholders
-todo.txt
 temp.js
 *storybook.log
+public-schema.md
+todo.txt

@@ -1,0 +1,27 @@
+.mega-menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 400px;
+  background: #eee;
+  z-index: 3;
+  transition: all 150ms;
+  transform: translateX(Calc(-100% - 3px));
+}
+
+.mega-menu-animation-enter {
+  transform: translateX(0%);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 3px;
+}
+
+.mega-menu-enter::after {
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+}

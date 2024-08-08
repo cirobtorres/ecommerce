@@ -213,7 +213,6 @@ const GenderInput = () => {
         dropdown.current &&
         !dropdown.current.contains(event.target as Node)
       ) {
-        console.log("SIM");
         setIsOpen(false);
       }
     }
@@ -234,7 +233,7 @@ const GenderInput = () => {
       className={Styles["outter-container"]}
       // tabIndex={0}
     >
-      <input type="hidden" value={option} />
+      <input type="hidden" name="gender" value={option} />
       <div
         className={Styles["gender-select-container"]}
         onClick={() => setIsOpen(!isOpen)}
@@ -267,11 +266,13 @@ const GenderInput = () => {
 const PasswordInput = ({
   value,
   setValue,
+  id,
   text,
   placeholder,
 }: {
   value: string;
   setValue: (value: string) => void;
+  id: string;
   text: string;
   placeholder: string;
 }) => {
@@ -301,8 +302,8 @@ const PasswordInput = ({
     >
       <input
         ref={inputRef}
-        id="password"
-        name="password"
+        id={id}
+        name={id}
         type={type}
         autoComplete="new-password"
         value={value}
