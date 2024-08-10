@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { IsCNPJ } from "../../utils/custom-validation/cnpj.validation";
 import { IsDate } from "../../utils/custom-validation/date.validation";
+import { TaxInfo } from "../enums/tax-info.enum";
 
 export class UpdateCompanyDTO {
   @IsOptional()
@@ -18,6 +19,11 @@ export class UpdateCompanyDTO {
   @IsString()
   @IsCNPJ()
   cnpj?: string;
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsEnum(TaxInfo)
+  tax_info?: number;
 
   @IsOptional()
   @IsNotEmpty()

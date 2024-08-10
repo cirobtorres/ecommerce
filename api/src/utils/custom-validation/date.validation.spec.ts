@@ -1,6 +1,6 @@
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { UpdateUserDTO } from "../../user/dtos/user-update.dto";
+import { UpdateUserDTO } from "../../user/dtos/person-update.dto";
 
 describe("Birth-date class-validator", () => {
   it("UpdateUserDTO raises error for invalid birth_dates", async () => {

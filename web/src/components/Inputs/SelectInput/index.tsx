@@ -4,14 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import Styles from "../Styles.module.css";
 
-type OptionType = string;
+type OptionType = string | number;
 
 interface BaseProps<T extends OptionType> {
-  name: string;
+  id: string;
   option: T;
   options: T[];
   setOption: (selectOption: T) => void;
-  parser: (value: T) => string;
+  parser: (value: T) => OptionType;
 }
 
 interface ErrorProps {
@@ -42,7 +42,7 @@ type SelectInputProps<T extends OptionType> = BaseProps<T> &
 
 // "options": list of every user interface options (long sentence, not the enum version)
 const SelectInput = <T extends OptionType>({
-  name,
+  id,
   option,
   options,
   setOption,
@@ -80,7 +80,7 @@ const SelectInput = <T extends OptionType>({
         className={`${Styles["inner-container"]} ${error && option === placeholder && Styles["inner-container-error"]}`}
         // tabIndex={0}
       >
-        <input type="hidden" name={name} value={parser(option)} />
+        <input type="hidden" id={id} name={id} value={parser(option)} />
         <div
           className={Styles["select-select-container"]}
           onClick={() => setIsOpen(!isOpen)}

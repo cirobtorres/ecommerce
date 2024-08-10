@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { UserPersonService } from "src/user/user-person.service";
-import { CreatePersonDTO } from "../user/dtos/person-create.dto";
 import { AuthLoginDTO } from "./dtos/auth-login.dto";
 import { UpdateUserDTO } from "../user/dtos/person-update.dto";
+import { UserCompanyService } from "../user/user-company.service";
+import { CreateCompanyDTO } from "../user/dtos/company-create.dto";
 
 @Injectable()
-export class AuthPersonService {
-  constructor(private readonly userPersonService: UserPersonService) {}
+export class AuthCompanyService {
+  constructor(private readonly userCompanyService: UserCompanyService) {}
 
-  async signUp(body: CreatePersonDTO) {
-    return this.userPersonService.create(body);
+  async signUp(body: CreateCompanyDTO) {
+    return this.userCompanyService.create(body);
   }
 
   async login(body: AuthLoginDTO) {}
@@ -26,7 +26,7 @@ export class AuthPersonService {
   //   return this.userPersonService.emailExists(email);
   // }
 
-  async cpfExists(cpf: string) {
-    return this.userPersonService.cpfExists(cpf);
+  async cnpjExists(cnpj: string) {
+    return this.userCompanyService.cnpjExists(cnpj);
   }
 }

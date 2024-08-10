@@ -1,6 +1,6 @@
 import { plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
-import { UpdateUserDTO } from "../../user/dtos/user-update.dto";
+import { UpdateUserDTO } from "../../user/dtos/person-update.dto";
 
 describe("CPF class-validator", () => {
   it("UpdateUserDTO raises error for invalid CPF", async () => {

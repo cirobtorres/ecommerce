@@ -1,4 +1,4 @@
-interface CreateUserDTO {
+interface CreatePersonDTO {
   email: string;
   phone: string;
   password: string;
@@ -11,7 +11,7 @@ interface CreateUserDTO {
   agreed_data_policies?: boolean; // default = true
 }
 
-const fetchSignUp = async (body: CreateUserDTO) => {
+const fetchPersonSignUp = async (body: CreatePersonDTO) => {
   const signUpResponse = await fetch(
     "http://localhost:8000/api/auth/person/sign-up",
     {
@@ -26,4 +26,4 @@ const fetchSignUp = async (body: CreateUserDTO) => {
   return await signUpResponse.json();
 };
 
-export { fetchSignUp };
+export { fetchPersonSignUp };

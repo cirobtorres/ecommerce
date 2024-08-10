@@ -101,7 +101,7 @@ const PasswordInputWithRules = ({
         <p className="text-xs px-2 mt-1 text-red-500">Senhas não conferem</p>
       )}
       {passwordBlankError && !value && (
-        <p className="text-xs px-2 mt-1 text-red-500">Senha é obrigatório</p>
+        <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>
       )}
       {passwordMinError && (
         <p className="text-xs px-2 mt-1 text-red-500">Ao menos 8 caracteres</p>
@@ -255,10 +255,6 @@ const PasswordSignUp = ({ state }: { state: State }) => {
     setProgress(`${passwordMeter.score * 25}%`);
     setMessage(strength);
   };
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   return (
     <>

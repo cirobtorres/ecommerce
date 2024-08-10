@@ -1,8 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { IsCNPJ } from "../../utils/custom-validation/cnpj.validation";
 import { IsDate } from "../../utils/custom-validation/date.validation";
+import { CreateUserDTO } from "./user-create.dto";
+import { TaxInfo } from "../enums/tax-info.enum";
 
-export class CreateCompanyDTO {
+export class CreateCompanyDTO extends CreateUserDTO {
   @IsNotEmpty()
   @IsString()
   legal_name: string;
@@ -17,8 +19,12 @@ export class CreateCompanyDTO {
   cnpj: string;
 
   @IsNotEmpty()
+  @IsEnum(TaxInfo)
+  tax_info: number;
+
+  @IsNotEmpty()
   @IsString()
-  ie: string;
+  ie?: string;
 
   @IsOptional()
   @IsString()

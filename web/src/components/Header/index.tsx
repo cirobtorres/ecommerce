@@ -1,13 +1,11 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import RefrigelLogo from "../../icons/logo";
 import HamburgerMenu from "./HamburgerMenu";
 import { FaWhatsapp } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import Address from "./Address";
 import UserSection from "./UserSection";
 import Styles from "./Styles.module.css";
-import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import ProductSection from "./ProductSection";
 import MegaMenu from "./MegaMenu";
@@ -33,7 +31,8 @@ export default async function Header({ user }: { user: RefrigelUser | null }) {
                 src="/images/refrigel/logo/refrigel-logo-transparente-1.png"
                 alt="Logo da Refrigel"
                 fill
-                sizes="15vw"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 className={Styles["header-refrigel-logo-image"]}
               />
             </Link>
@@ -55,9 +54,6 @@ export function AuthHeader() {
   // This header to be used on "entrar" and "cadastrar" pages
   return (
     <header className={Styles["auth-header-container"]}>
-      {/* <Link href="/">
-        <RefrigelLogo color="#e2e8f0" size="40" />
-      </Link> */}
       <Link href="/" className={Styles["header-refrigel-logo-auth"]}>
         <Image
           src="/images/refrigel/logo/refrigel-logo-transparente-1.png"

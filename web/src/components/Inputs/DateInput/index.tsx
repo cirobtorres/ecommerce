@@ -1,12 +1,14 @@
 import Styles from "../Styles.module.css";
 
 const DateInput = ({
+  id,
   value,
   setValue,
   text,
   placeholder,
   state,
 }: {
+  id: string;
   value: string;
   setValue: (value: string) => void;
   text: string;
@@ -37,31 +39,29 @@ const DateInput = ({
         className={`
           ${Styles["inner-container"]} 
           ${
-            ((state?.errors?.birthDateBlankError && !value) ||
-              state?.errors?.birthDateInvalidError) &&
+            ((state?.errors?.dateBlankError && !value) ||
+              state?.errors?.dateInvalidError) &&
             Styles["inner-container-error"]
           }
           `}
       >
         <input
-          id="birth-date"
-          name="birth-date"
+          id={id}
+          name={id}
           type="text"
           value={value}
           onChange={handleOnChange}
           className={`${Styles["input-element"]} ${Styles["input-padding"]}`}
           placeholder={placeholder}
         />
-        <label htmlFor="birth-date" className={Styles["label-element"]}>
+        <label htmlFor={id} className={Styles["label-element"]}>
           {text}
         </label>
       </div>
-      {state?.errors?.birthDateBlankError && !value && (
-        <p className="text-xs px-2 mt-1 text-red-500">
-          Nos diga sua data de nascimento
-        </p>
+      {state?.errors?.dateBlankError && !value && (
+        <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>
       )}
-      {state?.errors?.birthDateInvalidError && (
+      {state?.errors?.dateInvalidError && (
         <p className="text-xs px-2 mt-1 text-red-500">Data inválida</p>
       )}
     </div>

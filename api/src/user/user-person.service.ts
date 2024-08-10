@@ -1,13 +1,13 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { SUPABASE_CLIENT } from "../utils/constants/supabase.constants";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { CreateUserDTO } from "./dtos/user-create.dto";
+import { CreatePersonDTO } from "./dtos/person-create.dto";
 import { UserPrivileges } from "./enums/privileges.enum";
 import { UserType } from "./enums/user-types.enum";
 import { Gender } from "./enums/gender.enum";
-import { UpdateUserDTO } from "./dtos/user-update.dto";
+import { UpdateUserDTO } from "./dtos/person-update.dto";
 import enumParser from "../utils/enum-parse";
-import { CPFValidator } from "src/utils/docValidator";
+import { CPFValidator } from "../utils/docValidator";
 
 @Injectable()
 export class UserPersonService {
@@ -49,7 +49,7 @@ export class UserPersonService {
     }
   }
 
-  async create(body: CreateUserDTO) {
+  async create(body: CreatePersonDTO) {
     const {
       email,
       password,

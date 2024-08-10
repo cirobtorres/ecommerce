@@ -5,6 +5,8 @@ import { UserModule } from "src/user/user.module";
 import { AvatarModule } from "src/avatar/avatar.module";
 import { MulterModule } from "@nestjs/platform-express";
 import { AddressModule } from "src/address/address.module";
+import { AuthCompanyController } from "./auth-company.controller";
+import { AuthCompanyService } from "./auth-company.service";
 
 @Module({
   imports: [
@@ -16,8 +18,8 @@ import { AddressModule } from "src/address/address.module";
       dest: "./uploads",
     }),
   ],
-  controllers: [AuthPersonController],
-  providers: [AuthPersonService],
-  exports: [AuthPersonService],
+  controllers: [AuthPersonController, AuthCompanyController],
+  providers: [AuthPersonService, AuthCompanyService],
+  exports: [AuthPersonService, AuthCompanyService],
 })
 export class AuthModule {}

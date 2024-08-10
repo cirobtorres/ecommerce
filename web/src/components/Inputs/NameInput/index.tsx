@@ -1,17 +1,19 @@
 import Styles from "../Styles.module.css";
 
 const NameInput = ({
+  id,
   value,
   setValue,
   text,
   placeholder,
   state,
 }: {
+  id: string;
   value: string;
   setValue: (value: string) => void;
-  state?: State;
   text: string;
   placeholder: string;
+  state?: { blankError: boolean };
 }) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -20,11 +22,11 @@ const NameInput = ({
   return (
     <div className={Styles["outter-container"]}>
       <div
-        className={`${Styles["inner-container"]} ${state?.errors?.nameBlankError && !value && Styles["inner-container-error"]}`}
+        className={`${Styles["inner-container"]} ${state?.blankError && !value && Styles["inner-container-error"]}`}
       >
         <input
-          id="name"
-          name="name"
+          id={id}
+          name={id}
           type="text"
           value={value}
           onChange={handleOnChange}
@@ -35,8 +37,8 @@ const NameInput = ({
           {text}
         </label>
       </div>
-      {state?.errors?.nameBlankError && !value && (
-        <p className="text-xs px-2 mt-1 text-red-500">Nome é obrigatório</p>
+      {state?.blankError && !value && (
+        <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>
       )}
     </div>
   );

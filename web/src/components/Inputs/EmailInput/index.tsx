@@ -1,12 +1,14 @@
 import Styles from "../Styles.module.css";
 
 const EmailInput = ({
+  id,
   value,
   setValue,
   text,
   placeholder,
   state,
 }: {
+  id: string;
   value: string;
   setValue: (value: string) => void;
   text: string;
@@ -28,8 +30,8 @@ const EmailInput = ({
         `}
       >
         <input
-          id="email"
-          name="email"
+          id={id}
+          name={id}
           type="email"
           // autoComplete="off"
           // aria-autocomplete="none"
@@ -38,12 +40,12 @@ const EmailInput = ({
           className={`${Styles["input-element"]} ${Styles["input-padding"]}`}
           placeholder={placeholder}
         />
-        <label htmlFor="email" className={Styles["label-element"]}>
+        <label htmlFor={id} className={Styles["label-element"]}>
           {text}
         </label>
       </div>
       {state?.errors?.emailBlankError && !value && (
-        <p className="text-xs px-2 mt-1 text-red-500">E-mail é obrigatório</p>
+        <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>
       )}
       {state?.errors?.emailExistError && (
         <p className="text-xs px-2 mt-1 text-red-500">E-mail já cadastrado</p>

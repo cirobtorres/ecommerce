@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useFormState } from "react-dom";
-import { signUpWithEmail } from "@/lib/authenticationActions";
+import { signUpWithEmail } from "../../lib/authentication/signUpWithEmail";
 import {
   AppleSignIn,
   FacebookSignIn,
@@ -19,8 +19,9 @@ import CpfInput from "../Inputs/CpfInput";
 import EmailInput from "../Inputs/EmailInput";
 import DateInput from "../Inputs/DateInput";
 import PhoneInput from "../Inputs/PhoneInput";
-import GenderInput from "../Inputs/SelectInput";
+import SelectInput from "../Inputs/SelectInput";
 import CNPJInput from "../Inputs/CnpjInput";
+import DisableInput from "../Inputs/DisableInput";
 
 export default function SignUpForm() {
   const [radioVal, setRadioVal] = useState<"PF" | "PJ">("PF");
@@ -83,7 +84,7 @@ const Person = ({ state }: { state: State }) => {
   // Gender setup ------------------------------------------------------------
   const genderPlaceholder = "Não especificado";
   const [gender, setGender] = useState(genderPlaceholder);
-  const genderOptions = [genderPlaceholder, "Feminino", "Masculino", "Outro"];
+  const genderOptions = ["Feminino", "Masculino", "Outro"];
   function enumParser(gender: string) {
     switch (gender) {
       case "Feminino":
@@ -104,9 +105,10 @@ const Person = ({ state }: { state: State }) => {
         <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
       </div>
       <NameInput
+        id="name"
         text="Nome Completo"
         placeholder="John Doe"
-        state={state}
+        state={{ blankError: state?.errors?.nameBlankError || false }}
         value={name}
         setValue={setName}
       />
@@ -119,6 +121,7 @@ const Person = ({ state }: { state: State }) => {
           setValue={setCpf}
         />
         <DateInput
+          id="date"
           text="Data de Nascimento"
           placeholder="01/06/2002"
           state={state}
@@ -127,17 +130,18 @@ const Person = ({ state }: { state: State }) => {
         />
       </div>
       <div className={Styles["signup-split-inputs"]}>
-        <GenderInput
-          name="gender"
+        <SelectInput
+          id="gender"
           option={gender}
           options={genderOptions}
           setOption={setGender}
           parser={enumParser}
           error={state.errors?.genderNotSpecifiedError || false}
+          errorText="Opção inválida"
           placeholder={genderPlaceholder}
-          errorText="Selecione seu gênero"
         />
         <PhoneInput
+          id="phone"
           text="Telefone"
           placeholder="(11) 99985-1234"
           state={state}
@@ -157,49 +161,105 @@ const Person = ({ state }: { state: State }) => {
 };
 
 const Company = ({ state }: { state: State }) => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cnpj, setCnpj] = useState("");
   const [brandName, setBrandName] = useState("");
   const [legalName, setLegalName] = useState("");
-  const [cnpj, setCnpj] = useState("");
   const [stablishmentAt, setStablishmentAt] = useState("");
-  const [phone, setPhone] = useState("");
+  // Tax info (situação tributária) ------------------------------------------------------------
+  const taxInfoPlaceholder = "Situação tributária";
+  const [ie, setIe] = useState("");
+  const [taxInfo, setTaxInfo] = useState(taxInfoPlaceholder);
+  const taxInfoOptions = ["Contribuinte do ICMS", "Isento de ICMS"];
+
+  function enumParser(taxInfo: string) {
+    switch (taxInfo) {
+      case "Contribuinte do ICMS":
+        return 1;
+      case "Isento de ICMS":
+        return 2;
+      default:
+        return 3;
+    }
+  }
+
   return (
     <>
       <Credentials state={state} />
       <div className={Styles["form-heading-container"]}>
-        <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
+        <h2 className={Styles["form-heading"]}>Informações da empresa</h2>
       </div>
+      <NameInput
+        id="legal-name"
+        text="Razão Social"
+        placeholder=""
+        state={{ blankError: state?.errors?.legalNameBlankError || false }}
+        value={legalName}
+        setValue={setLegalName}
+      />
       <div className={Styles["signup-split-inputs"]}>
         <NameInput
+          id="brand-name"
           text="Nome Fantasia"
           placeholder=""
+          state={{ blankError: state?.errors?.brandNameBlankError || false }}
           value={brandName}
           setValue={setBrandName}
         />
         <CNPJInput
           text="CNPJ"
           placeholder="12.345.678/0001-00"
+          state={state}
           value={cnpj}
           setValue={setCnpj}
         />
       </div>
       <NameInput
-        text="Razão Social"
-        placeholder=""
-        value={legalName}
-        setValue={setLegalName}
+        id="name"
+        text="Nome Completo"
+        placeholder="John Doe"
+        state={{ blankError: state?.errors?.nameBlankError || false }}
+        value={name}
+        setValue={setName}
       />
       <div className={Styles["signup-split-inputs"]}>
+        <SelectInput
+          id="tax-info"
+          option={taxInfo}
+          options={taxInfoOptions}
+          setOption={setTaxInfo}
+          parser={enumParser}
+          error={state.errors?.taxInfoInvalidError || false}
+          errorText="Opção inválida"
+          placeholder={taxInfoPlaceholder}
+        />
+        <DisableInput
+          id="ie"
+          text="Inscrição Estadual"
+          placeholder=""
+          state={{ blankError: state?.errors?.ieBlankError || false }}
+          value={ie}
+          setValue={setIe}
+          disable={taxInfo === taxInfoOptions[1]}
+        />
+      </div>
+      <div className={Styles["signup-split-inputs"]}>
         <PhoneInput
+          id="phone"
           text="Telefone"
-          placeholder="(11) 99985-1234"
+          placeholder="(11)99999-1234"
+          state={state}
           value={stablishmentAt}
           setValue={setStablishmentAt}
         />
         <DateInput
+          id="date"
           text="Data de Constituição"
           placeholder="01/06/2002"
           value={phone}
           setValue={setPhone}
+          state={state}
         />
       </div>
       <Policies state={state} />
@@ -217,6 +277,7 @@ const Credentials = ({ state }: { state: State }) => {
         <h2 className={Styles["form-heading"]}>Credenciais de autenticação</h2>
       </div>
       <EmailInput
+        id="email"
         text="E-mail"
         placeholder="meu.contato@email.com"
         state={state}
@@ -231,15 +292,18 @@ const Credentials = ({ state }: { state: State }) => {
 const Policies = ({ state }: { state: State }) => {
   return (
     <div className={Styles["signup-checkbox-container"]}>
-      <CheckBox id="refrigel-newsletter" value="refrigel-newsletter">
+      <CheckBox
+        id="refrigel-newsletter"
+        value="refrigel-newsletter"
+        checked={true}
+      >
         <p className="text-sm">
-          Desejo receber novidades e promoções da Refrigel
+          Aceito receber novidades e ofertas da Refrigel
         </p>
       </CheckBox>
       <CheckBox
         id="refrigel-privacy-policies"
         value="refrigel-policies"
-        checked={true}
         error={state.errors?.agreedDataPolicies}
       >
         <p className="text-sm">
