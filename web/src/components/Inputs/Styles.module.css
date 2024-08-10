@@ -86,6 +86,10 @@
   color: #ef4444;
 }
 
+.inner-container-error .select-label {
+  color: #ef4444;
+}
+
 .inner-container.inner-container-error {
   border: 1px solid #ef4444;
 }
@@ -103,7 +107,7 @@
 }
 
 /*----------------------------------------Gender----------------------------------------*/
-.gender-select-container {
+.select-select-container {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -115,7 +119,7 @@
   cursor: pointer;
 }
 
-.gender-label {
+.select-label {
   font-size: 14px;
   max-width: 160px;
   overflow: hidden;
@@ -124,7 +128,7 @@
   pointer-events: none;
 }
 
-.gender-dropdown {
+.select-dropdown {
   overflow: hidden;
   cursor: pointer;
   font-size: 14px;
@@ -137,16 +141,16 @@
   background: #f0f0f0;
 }
 
-.gender-arrow {
+.select-arrow {
   outline: none;
   transition: all 150ms;
 }
 
-.gender-dropdown li {
+.select-dropdown li {
   padding: 4px 8px;
 }
 
-.gender-dropdown li:hover {
+.select-dropdown li:hover {
   width: 100%;
   background: #e2e2e2;
 }

@@ -10,7 +10,6 @@ import {
   GoogleSignIn,
   SignUpButton,
 } from "../Buttons";
-import zxcvbn from "zxcvbn";
 import Styles from "./Styles.module.css";
 import CheckBox from "../Inputs/CheckBox";
 import RadioInput from "../Inputs/RadioInput";
@@ -20,7 +19,7 @@ import CpfInput from "../Inputs/CpfInput";
 import EmailInput from "../Inputs/EmailInput";
 import DateInput from "../Inputs/DateInput";
 import PhoneInput from "../Inputs/PhoneInput";
-import GenderInput from "../Inputs/GenderInput";
+import GenderInput from "../Inputs/SelectInput";
 import CNPJInput from "../Inputs/CnpjInput";
 
 export default function SignUpForm() {
@@ -81,6 +80,23 @@ const Person = ({ state }: { state: State }) => {
   const [cpf, setCpf] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phone, setPhone] = useState("");
+  // Gender setup ------------------------------------------------------------
+  const genderPlaceholder = "Não especificado";
+  const [gender, setGender] = useState(genderPlaceholder);
+  const genderOptions = [genderPlaceholder, "Feminino", "Masculino", "Outro"];
+  function enumParser(gender: string) {
+    switch (gender) {
+      case "Feminino":
+        return "F";
+      case "Masculino":
+        return "M";
+      case "Outro":
+        return "O";
+      default:
+        return "N"; // Não especificado / Not specified
+    }
+  }
+
   return (
     <>
       <Credentials state={state} />
@@ -111,7 +127,16 @@ const Person = ({ state }: { state: State }) => {
         />
       </div>
       <div className={Styles["signup-split-inputs"]}>
-        <GenderInput />
+        <GenderInput
+          name="gender"
+          option={gender}
+          options={genderOptions}
+          setOption={setGender}
+          parser={enumParser}
+          error={state.errors?.genderNotSpecifiedError || false}
+          placeholder={genderPlaceholder}
+          errorText="Selecione seu gênero"
+        />
         <PhoneInput
           text="Telefone"
           placeholder="(11) 99985-1234"
@@ -122,7 +147,6 @@ const Person = ({ state }: { state: State }) => {
       </div>
       <Policies state={state} />
       <SignUpButton text="Criar" />
-      {/* <SignUp text="Criar" formAction={signUpWithEmail} /> */}
       <div className={Styles["oauth-buttons-container"]}>
         <GoogleSignIn />
         <FacebookSignIn />
@@ -186,29 +210,6 @@ const Company = ({ state }: { state: State }) => {
 
 const Credentials = ({ state }: { state: State }) => {
   const [email, setEmail] = useState("");
-  const [pass1, setPass1] = useState("");
-  const [pass2, setPass2] = useState("");
-  const [progress, setProgress] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleProgressBar = (pass: string) => {
-    const passwordMeter = zxcvbn(pass);
-
-    let strength =
-      passwordMeter.score >= 4
-        ? "muito forte"
-        : passwordMeter.score >= 3
-          ? "forte"
-          : passwordMeter.score >= 2
-            ? "médio"
-            : passwordMeter.score >= 1
-              ? "fraco"
-              : "muito fraco";
-
-    setPass1(pass);
-    setProgress(`${passwordMeter.score * 25}%`);
-    setMessage(strength);
-  };
 
   return (
     <>

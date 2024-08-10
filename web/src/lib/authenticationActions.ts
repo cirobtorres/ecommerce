@@ -78,6 +78,7 @@ const signUpWithEmail = async (
       passwordBlankError: false,
       passwordsNotMatchError: false,
       nameBlankError: false,
+      genderNotSpecifiedError: false,
       cpfBlankError: false,
       cpfInvalidError: false,
       cpfExistError: false,
@@ -99,19 +100,19 @@ const signUpWithEmail = async (
       // Email --------------------------------------------------
       invalidDatas.emailBlankError = true;
     } else {
-      const doesEmailExists = await fetch(
-        "http://localhost:8000/api/auth/person/exists/email",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
-      if (!doesEmailExists.ok) {
-        invalidDatas.emailExistError = true;
-      }
+      // const doesEmailExists = await fetch(
+      //   "http://localhost:8000/api/auth/person/exists/email",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ email }),
+      //   }
+      // );
+      // if (!doesEmailExists.ok) {
+      //   invalidDatas.emailExistError = true;
+      // }
     }
 
     // CPF --------------------------------------------------
@@ -138,12 +139,18 @@ const signUpWithEmail = async (
       }
     }
 
+    // Name --------------------------------------------------
     if (!name) {
       invalidDatas.nameBlankError = true;
     }
 
-    // Birth date --------------------------------------------------
+    // Gender --------------------------------------------------
+    if (gender === "N") {
+      invalidDatas.genderNotSpecifiedError = true;
+    }
+
     if (!birthDate) {
+      // Birth date --------------------------------------------------
       invalidDatas.birthDateBlankError = true;
     } else {
       const dateRegex =
@@ -189,7 +196,7 @@ const signUpWithEmail = async (
 
     // const signUpResponse = await fetchSignUp(body);
 
-    // console.log(signUpResponse);
+    console.log(body);
   } else if (userType === "PJ") {
   } else {
     throw new Error("Something went wrong");

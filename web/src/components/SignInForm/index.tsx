@@ -55,7 +55,7 @@ export default function LoginForm() {
         <div className={Styles["signin-oauth-buttons-container"]}>
           <GoogleSignIn />
           <FacebookSignIn />
-          <AppleSignIn />
+          {/* <AppleSignIn /> */}
         </div>
         <div className={Styles["signin-link-container"]}>
           <Link href="/cadastrar" className={Styles["signin-link"]}>
