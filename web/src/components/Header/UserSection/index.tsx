@@ -9,8 +9,9 @@ import { IoHeart } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { handleSignOut } from "../../../lib/authenticationActions";
 import Styles from "./Styles.module.css";
+import { RefrigelUser } from "@/types/user-types";
 
-const UserSection = ({ user }: { user: User | null }) => {
+const UserSection = ({ user }: { user: RefrigelUser | null }) => {
   const [userMenu, setUserMenu] = useState(false);
 
   if (user) {
@@ -25,15 +26,18 @@ const UserSection = ({ user }: { user: User | null }) => {
             >
               <div className={Styles["user-nav-auth-container-signedin"]}>
                 <Image
-                  src={user.user_metadata.avatar_url}
-                  alt={`Imagem de perfil de ${user.user_metadata.full_name}`}
+                  src={
+                    user.refrigel_users.avatar_url ??
+                    "/images/user/user-placeholder.png"
+                  }
+                  alt={`Imagem de perfil${user && " de " + user.refrigel_users.person_data.display_name}`}
                   width={35}
                   height={35}
                   className={Styles["user-nav-auth-image"]}
                 />
                 <div className={Styles["user-nav-auth-signedin-subcontainer"]}>
                   <span className={Styles["user-nav-auth-displayname"]}>
-                    {user.user_metadata.name}
+                    {user.refrigel_users.person_data.display_name}
                   </span>
                   <IoIosArrowDown
                     className={Styles["user-nav-animation"]}
@@ -80,6 +84,19 @@ const UserSection = ({ user }: { user: User | null }) => {
           </div>
         </li>
         <li>
+          <Link href="/">
+            <FaTruck /> Compras
+          </Link>
+        </li>
+        <li>
+          <Link href="/">
+            <IoHeart /> Favoritos
+          </Link>
+        </li>
+        <li>
+          <FaBell />
+        </li>
+        <li>
           <FaShoppingCart />
         </li>
       </nav>
@@ -87,7 +104,7 @@ const UserSection = ({ user }: { user: User | null }) => {
   }
 };
 
-const Submenu = ({ user }: { user: User }) => {
+const Submenu = ({ user }: { user: RefrigelUser }) => {
   return (
     <div className={Styles["user-nav-floating-menu-container"]}>
       <div className={Styles["user-nav-floating-menu"]}>
@@ -96,15 +113,18 @@ const Submenu = ({ user }: { user: User }) => {
           className={`${Styles["user-nav-floating-menu-items"]} ${Styles["user-nav-floating-menu-profile-display"]}`}
         >
           <Image
-            src={user.user_metadata.avatar_url}
-            alt={`Imagem de perfil de ${user.user_metadata.full_name}`}
+            src={
+              user.refrigel_users.avatar_url ??
+              "/images/user/user-placeholder.png"
+            }
+            alt={`Imagem de perfil${user && " de " + user.refrigel_users.person_data.display_name}`}
             width={50}
             height={50}
             className={Styles["user-nav-auth-image"]}
           />
           <div className="flex flex-col">
             <span className="text-xl font-extrabold">
-              {user.user_metadata.name}
+              {user.refrigel_users.person_data.display_name}
             </span>
             <span className="text-sm">Perfil</span>
           </div>

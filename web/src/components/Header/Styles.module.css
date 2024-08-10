@@ -4,7 +4,6 @@
   display: flex;
   align-items: center;
   color: var(--text-01);
-  /* background: var(--gradient-03-radial); */
   background: linear-gradient(
     90deg,
     var(--refrigel-theme-21) 0%,
@@ -84,6 +83,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient-03-radial);
-  /* background: var(--gradient-09-radial); */
+  background: radial-gradient(
+    circle,
+    var(--refrigel-theme-21) 0%,
+    var(--refrigel-theme-22) 100%
+  );
 }

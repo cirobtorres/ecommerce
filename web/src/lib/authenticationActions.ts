@@ -4,8 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
+import { fetchSignUp } from "./fetchUserData";
 
-export async function signInWithEmail(formData: FormData) {
+const signInWithEmail = async (formData: FormData) => {
   const supabase = createClient();
 
   // type-casting here for convenience
@@ -23,41 +24,40 @@ export async function signInWithEmail(formData: FormData) {
 
   revalidatePath("/", "layout");
   redirect("/");
-}
+};
 
-export async function signInMagicLink(formData: FormData) {
+const signInMagicLink = async (formData: FormData) => {
   const supabase = createClient();
   // https://supabase.com/docs/guides/auth/auth-email-passwordless
-}
+};
 
-interface FormState {
-  errors: { [k: string]: boolean } | null;
-}
+const clearCpfMask = (cpf: string) => {
+  return cpf.replace(/\D/g, "");
+};
 
-export async function signUpWithEmail(
-  state: FormState,
+const formatDate = (date: string) => {
+  const dateTemplate = date.split("/");
+  return dateTemplate[2] + "/" + dateTemplate[1] + "/" + dateTemplate[0];
+};
+
+const clearPhoneMask = (phone: string) => {
+  return phone.replace(/\D/g, "");
+};
+
+const signUpWithEmail = async (
+  state: State,
   formData: FormData
-): Promise<FormState> {
-  const supabase = createClient();
-
-  const invalidDatas = {
-    email: false,
-    password: false,
-    passwordsNotMatch: false,
-    name: false,
-    cpf: false,
-    birthDate: false,
-    gender: false,
-    phone: false,
-    agreedDataPolicies: false,
-  };
-
+): Promise<State> => {
   const userType = formData.get("radio_type") as string;
 
   if (userType === "PF") {
+    // Get datas --------------------------------------------------
     const email = formData.get("email") as string;
     const password = formData.get("password1") as string;
     const passwordConfirmation = formData.get("password2") as string;
+    const passwordRules: PassErrorState = JSON.parse(
+      formData.get("password-rules") as string
+    );
     const name = formData.get("name") as string;
     const cpf = formData.get("cpf") as string;
     const birthDate = formData.get("birth-date") as string;
@@ -70,17 +70,102 @@ export async function signUpWithEmail(
       ? true
       : false; // Optional
 
-    if (!email) invalidDatas.password = true;
-    if (!password) invalidDatas.password = true;
-    if (password !== passwordConfirmation)
-      invalidDatas.passwordsNotMatch = true;
-    if (!name) invalidDatas.name = true;
-    if (!cpf) invalidDatas.cpf = true;
-    if (!birthDate) invalidDatas.birthDate = true;
-    if (gender === "Gênero") invalidDatas.gender = true;
-    if (!phone) invalidDatas.phone = true;
+    // Validations --------------------------------------------------
+    // A value of true means there is an error on the form
+    const invalidDatasInitialState = {
+      emailBlankError: false,
+      emailExistError: false,
+      passwordBlankError: false,
+      passwordsNotMatchError: false,
+      nameBlankError: false,
+      cpfBlankError: false,
+      cpfInvalidError: false,
+      cpfExistError: false,
+      birthDateBlankError: false,
+      birthDateInvalidError: false,
+      phoneBlankError: false,
+      agreedDataPolicies: false,
+    };
+
+    const invalidDatas = { ...invalidDatasInitialState, ...passwordRules };
+
+    // Password --------------------------------------------------
+    if (!password) invalidDatas.passwordBlankError = true;
+    if (password !== passwordConfirmation) {
+      invalidDatas.passwordsNotMatchError = true;
+    }
+
+    if (!email) {
+      // Email --------------------------------------------------
+      invalidDatas.emailBlankError = true;
+    } else {
+      const doesEmailExists = await fetch(
+        "http://localhost:8000/api/auth/person/exists/email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+      if (!doesEmailExists.ok) {
+        invalidDatas.emailExistError = true;
+      }
+    }
+
+    // CPF --------------------------------------------------
+    if (!cpf) {
+      invalidDatas.cpfBlankError = true;
+    } else {
+      const doesCpfExists = await fetch(
+        "http://localhost:8000/api/auth/person/exists/cpf",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ cpf: clearCpfMask(cpf) }),
+        }
+      );
+
+      if (!doesCpfExists.ok) {
+        await doesCpfExists.json().then((error) => {
+          if (error.message === "CPF invalid")
+            invalidDatas.cpfInvalidError = true;
+          if (error.message === "CPF exists") invalidDatas.cpfExistError = true;
+        });
+      }
+    }
+
+    if (!name) {
+      invalidDatas.nameBlankError = true;
+    }
+
+    // Birth date --------------------------------------------------
+    if (!birthDate) {
+      invalidDatas.birthDateBlankError = true;
+    } else {
+      const dateRegex =
+        /^(?:(?:(?:19|20)\d\d)[\-\/](?:(?:0[13578]|1[02])[\-\/](?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)[\-\/](?:0[1-9]|[12]\d|30)|02[\-\/](?:0[1-9]|1\d|2[0-8]))|(?:19|20)(?:[02468][048]|[13579][26])[\-\/]02[\-\/]29)$/;
+
+      // The backend only accepts date on these following formats: yyyy/mm/dd or yyyy-mm-dd
+      if (!dateRegex.test(formatDate(birthDate))) {
+        invalidDatas.birthDateInvalidError = true;
+      }
+    }
+
+    // Phone --------------------------------------------------
+    if (!phone) {
+      invalidDatas.phoneBlankError = true;
+    }
+
+    // Data Policies --------------------------------------------------
     if (!agreedDataPolicies) invalidDatas.agreedDataPolicies = true;
 
+    // Errors --------------------------------------------------
+    // Loop through invalidDatas object and filter for any true atribute
+    // rebuilding a new object called error and return it if any exists
     const errors = Object.fromEntries(
       Object.entries(invalidDatas).filter((attr) => {
         if (attr[1]) return attr;
@@ -89,64 +174,32 @@ export async function signUpWithEmail(
 
     if (Object.keys(errors).length !== 0) return { errors };
 
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    // Fetch --------------------------------------------------
+    const body = {
       email,
-      password: password,
-    });
+      password,
+      phone: clearPhoneMask(phone),
+      name,
+      cpf: clearCpfMask(cpf),
+      gender,
+      birth_date: formatDate(birthDate),
+      allow_email_newsletter: allowEmailNewsletter,
+      agreed_data_policies: agreedDataPolicies,
+    };
 
-    if (authError) {
-      redirect("/error");
-    }
+    // const signUpResponse = await fetchSignUp(body);
 
-    const authUserId = authData.user?.id;
-
-    const { data: refrigelUser, error: refrigelUserError } = await supabase
-      .from("refrigel_users")
-      .insert([
-        {
-          auth_user_id: authUserId,
-          user_type: "F",
-          privileges: 1,
-          allow_email_newsletter: allowEmailNewsletter,
-          agreed_data_policies: agreedDataPolicies,
-        },
-      ])
-      .select()
-      .single();
-
-    if (refrigelUserError) {
-      redirect("/error");
-    }
-
-    const refrigelUserId = refrigelUser.id;
-
-    const { error: personDataError } = await supabase
-      .from("person_data")
-      .insert([
-        {
-          user_id: refrigelUserId,
-          name,
-          cpf,
-          // rg,
-          birth_date: birthDate,
-          gender,
-        },
-      ]);
-
-    if (personDataError) {
-      redirect("/error");
-    }
+    // console.log(signUpResponse);
   } else if (userType === "PJ") {
   } else {
     throw new Error("Something went wrong");
   }
 
-  // return { errors: {} };
   revalidatePath("/", "layout");
   redirect("/");
-}
+};
 
-export async function signInWithGoogle() {
+const signInWithGoogle = async () => {
   const supabase = createClient();
 
   let { data, error } = await supabase.auth.signInWithOAuth({
@@ -163,9 +216,9 @@ export async function signInWithGoogle() {
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework
   }
-}
+};
 
-export async function signInWithFacebook() {
+const signInWithFacebook = async () => {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -178,9 +231,9 @@ export async function signInWithFacebook() {
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework
   }
-}
+};
 
-export async function signInWithApple() {
+const signInWithApple = async () => {
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -193,9 +246,9 @@ export async function signInWithApple() {
   if (data.url) {
     redirect(data.url); // use the redirect API for your server framework
   }
-}
+};
 
-export async function handleSignOut() {
+const handleSignOut = async () => {
   const supabase = createClient();
   let { error } = await supabase.auth.signOut();
 
@@ -205,4 +258,14 @@ export async function handleSignOut() {
 
   // revalidatePath("/", "layout");
   // redirect("/");
-}
+};
+
+export {
+  signInWithEmail,
+  signInMagicLink,
+  signUpWithEmail,
+  signInWithGoogle,
+  signInWithFacebook,
+  signInWithApple,
+  handleSignOut,
+};

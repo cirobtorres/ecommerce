@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
 import { signInMagicLink, signInWithEmail } from "@/lib/authenticationActions";
 import {
   SignIn,
@@ -10,7 +10,8 @@ import {
   GoogleSignIn,
   SignInMagicLink,
 } from "../Buttons";
-import { EmailInput, PasswordInput } from "../Inputs";
+import EmailInput from "../Inputs/EmailInput";
+import PasswordInput from "../Inputs/PasswordInput";
 import Styles from "./Styles.module.css";
 
 export default function LoginForm() {
@@ -33,6 +34,7 @@ export default function LoginForm() {
           <PasswordInput
             value={pass}
             setValue={setPass}
+            id="password"
             text="Senha"
             placeholder=""
           />

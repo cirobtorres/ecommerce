@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -54,4 +55,12 @@ export class CreateUserDTO {
   @IsString()
   @IsDate() // Custom validator! yyyy/mm/dd or yyyy-mm-dd
   birth_date?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  allow_email_newsletter?: boolean; // default = false
+
+  @IsNotEmpty()
+  @IsBoolean()
+  agreed_data_policies?: boolean; // default = true
 }

@@ -1,5 +1,5 @@
 export enum Gender {
-  NONE = "N", // Not specified
+  NONE = "N", // "Não especificado": Not specified
   MALE = "M",
   FEMALE = "F",
   OTHER = "O",

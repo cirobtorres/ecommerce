@@ -1,5 +1,9 @@
 .outter-container {
   width: 100%;
+}
+
+.inner-container {
+  width: 100%;
   position: relative;
   display: flex;
   flex-grow: 0;
@@ -14,7 +18,7 @@
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-.outter-container:has(.gender-arrow:focus-visible) {
+.inner-container:has(.gender-arrow:focus-visible) {
   outline: 2px solid var(--refrigel-theme-13);
   outline-offset: 2px;
 }
@@ -77,7 +81,28 @@
   background: none;
 }
 
-/*---------------------------------------------------------------------------------*/
+/*----------------------------------------Errors----------------------------------------*/
+.inner-container-error .label-element {
+  color: #ef4444;
+}
+
+.inner-container.inner-container-error {
+  border: 1px solid #ef4444;
+}
+
+.inner-container-error .input-element:placeholder-shown + .label-element {
+  color: #ef4444;
+}
+
+.inner-container-error .input-element:active + .label-element {
+  color: #ef4444;
+}
+
+.inner-container-error .input-element:focus + .label-element {
+  color: #ef4444;
+}
+
+/*----------------------------------------Gender----------------------------------------*/
 .gender-select-container {
   position: relative;
   display: flex;
@@ -126,7 +151,7 @@
   background: #e2e2e2;
 }
 
-/*---------------------------------------------------------------------------------*/
+/*----------------------------------------Password----------------------------------------*/
 .pass-input-padding {
   padding: 0 40px 0 10px;
 }
@@ -145,7 +170,7 @@
   color: rgb(133, 133, 133);
 }
 
-/*---------------------------------------------------------------------------------*/
+/*----------------------------------------Password-Rules----------------------------------------*/
 .pass-rules-container {
   width: 100%;
   display: grid;
@@ -167,7 +192,7 @@
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
-/*---------------------------------------------------------------------------------*/
+/*----------------------------------------Progress-Bar----------------------------------------*/
 .pass-progress-bar-container {
   display: flex;
   flex-direction: column;

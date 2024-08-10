@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useFormState } from "react-dom";
 import { signUpWithEmail } from "@/lib/authenticationActions";
 import {
   AppleSignIn,
@@ -9,26 +10,18 @@ import {
   GoogleSignIn,
   SignUpButton,
 } from "../Buttons";
-import {
-  DateInput,
-  CNPJInput,
-  CPFInput,
-  EmailInput,
-  NameInput,
-  PhoneInput,
-  GenderInput,
-  PasswordInput,
-  PasswordRules,
-} from "../Inputs";
 import zxcvbn from "zxcvbn";
 import Styles from "./Styles.module.css";
 import CheckBox from "../Inputs/CheckBox";
 import RadioInput from "../Inputs/RadioInput";
-import { useFormState, useFormStatus } from "react-dom";
-
-interface State {
-  errors: { [k: string]: boolean } | null;
-}
+import PasswordSignUp from "../Inputs/PasswordRules";
+import NameInput from "../Inputs/NameInput";
+import CpfInput from "../Inputs/CpfInput";
+import EmailInput from "../Inputs/EmailInput";
+import DateInput from "../Inputs/DateInput";
+import PhoneInput from "../Inputs/PhoneInput";
+import GenderInput from "../Inputs/GenderInput";
+import CNPJInput from "../Inputs/CnpjInput";
 
 export default function SignUpForm() {
   const [radioVal, setRadioVal] = useState<"PF" | "PJ">("PF");
@@ -41,7 +34,12 @@ export default function SignUpForm() {
         <div className={Styles["signup-heading-container"]}>
           <h1 className={Styles["signup-heading"]}>Criar Conta</h1>
         </div>
-        <form className={Styles["form-container"]} action={formAction}>
+        <form
+          // autoComplete="off"
+          // aria-autocomplete="none"
+          className={Styles["form-container"]}
+          action={formAction}
+        >
           <div className={Styles["signup-radio-container"]}>
             <RadioInput
               id="signup-pf-radio-input"
@@ -59,7 +57,11 @@ export default function SignUpForm() {
               setVal={setRadioVal}
             />
           </div>
-          {radioVal === "PF" ? <Person /> : <Company />}
+          {radioVal === "PF" ? (
+            <Person state={state} />
+          ) : (
+            <Company state={state} />
+          )}
         </form>
         <div className={Styles["signup-form-has-account-container"]}>
           <p className={Styles["signup-form-has-account-element"]}>
@@ -74,33 +76,36 @@ export default function SignUpForm() {
   );
 }
 
-const Person = () => {
+const Person = ({ state }: { state: State }) => {
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phone, setPhone] = useState("");
   return (
     <>
-      <Credentials />
+      <Credentials state={state} />
       <div className={Styles["form-heading-container"]}>
         <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
       </div>
       <NameInput
-        text="Nome"
+        text="Nome Completo"
         placeholder="John Doe"
+        state={state}
         value={name}
         setValue={setName}
       />
       <div className={Styles["signup-split-inputs"]}>
-        <CPFInput
+        <CpfInput
           text="CPF"
           placeholder="123.456.789-00"
+          state={state}
           value={cpf}
           setValue={setCpf}
         />
         <DateInput
           text="Data de Nascimento"
           placeholder="01/06/2002"
+          state={state}
           value={birthDate}
           setValue={setBirthDate}
         />
@@ -110,11 +115,12 @@ const Person = () => {
         <PhoneInput
           text="Telefone"
           placeholder="(11) 99985-1234"
+          state={state}
           value={phone}
           setValue={setPhone}
         />
       </div>
-      <Policies />
+      <Policies state={state} />
       <SignUpButton text="Criar" />
       {/* <SignUp text="Criar" formAction={signUpWithEmail} /> */}
       <div className={Styles["oauth-buttons-container"]}>
@@ -126,7 +132,7 @@ const Person = () => {
   );
 };
 
-const Company = () => {
+const Company = ({ state }: { state: State }) => {
   const [brandName, setBrandName] = useState("");
   const [legalName, setLegalName] = useState("");
   const [cnpj, setCnpj] = useState("");
@@ -134,7 +140,7 @@ const Company = () => {
   const [phone, setPhone] = useState("");
   return (
     <>
-      <Credentials />
+      <Credentials state={state} />
       <div className={Styles["form-heading-container"]}>
         <h2 className={Styles["form-heading"]}>Informações pessoais</h2>
       </div>
@@ -172,13 +178,13 @@ const Company = () => {
           setValue={setPhone}
         />
       </div>
-      <Policies />
+      <Policies state={state} />
       <SignUpButton text="Criar" />
     </>
   );
 };
 
-const Credentials = () => {
+const Credentials = ({ state }: { state: State }) => {
   const [email, setEmail] = useState("");
   const [pass1, setPass1] = useState("");
   const [pass2, setPass2] = useState("");
@@ -212,50 +218,34 @@ const Credentials = () => {
       <EmailInput
         text="E-mail"
         placeholder="meu.contato@email.com"
+        state={state}
         value={email}
         setValue={setEmail}
       />
-      <div>
-        <div className={`${Styles["signup-split-inputs"]} mb-3`}>
-          <PasswordInput
-            id="password1"
-            value={pass1}
-            setValue={handleProgressBar}
-            text="Senha"
-            placeholder=""
-          />
-          <PasswordInput
-            id="password2"
-            value={pass2}
-            setValue={setPass2}
-            text="Confirmar Senha"
-            placeholder=""
-          />
-        </div>
-        <PasswordRules
-          message={message}
-          progress={progress}
-          pass1={pass1}
-          pass2={pass2}
-        />
-      </div>
+      <PasswordSignUp state={state} />
     </>
   );
 };
 
-const Policies = () => {
+const Policies = ({ state }: { state: State }) => {
   return (
     <div className={Styles["signup-checkbox-container"]}>
       <CheckBox id="refrigel-newsletter" value="refrigel-newsletter">
         <p className="text-sm">
-          Desejo receber novidades e promoções de Refrigel
+          Desejo receber novidades e promoções da Refrigel
         </p>
       </CheckBox>
-      <CheckBox id="refrigel-privacy-policies" value="refrigel-policies">
+      <CheckBox
+        id="refrigel-privacy-policies"
+        value="refrigel-policies"
+        checked={true}
+        error={state.errors?.agreedDataPolicies}
+      >
         <p className="text-sm">
           Concordo com as{" "}
           <Link
-            href="/"
+            href="/politicas"
+            target="_blank"
             className="text-[#1d4f91] underline hover:text-[#34619c] outline-offset-2 outline-[#14b8a6]"
           >
             Políticas de Privacidade da Refrigel

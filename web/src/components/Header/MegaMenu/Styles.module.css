@@ -25,3 +25,65 @@
   width: 100%;
   background: rgba(0, 0, 0, 0.35);
 }
+
+/*--------------------------------------------------------------------------------*/
+.mega-menu-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mega-menu-user-greetings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mega-menu-authenticated-heading,
+.mega-menu-anonymous-heading {
+  max-width: 100%;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mega-menu-authenticated-heading {
+  font-size: 25px;
+}
+
+.mega-menu-anonymous-heading {
+  font-size: 25px;
+  line-height: 28px;
+}
+
+.mega-menu-user-profile-link,
+.mega-menu-user-anonymous-link {
+  font-weight: 900;
+}
+
+.mega-menu-user-profile-link:hover,
+.mega-menu-user-anonymous-link:hover {
+  text-decoration: underline;
+  color: var(--refrigel-theme-15);
+}
+
+.mega-menu-user-image {
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 9999px;
+}
+
+.mega-menu-user-section {
+  margin-bottom: 20px;
+}
+
+.mega-menu-product-section {
+  margin-bottom: 20px;
+}
+
+.mega-menu-product-section h2 {
+  font-size: 25px;
+  font-weight: 900;
+}

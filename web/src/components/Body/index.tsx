@@ -5,13 +5,14 @@ import { User } from "@supabase/supabase-js";
 import { MegaMenuContextProvider } from "../../contexts/MegaMenuContext";
 import MegaMenu from "../Header/MegaMenu";
 import ProductSection from "../Header/ProductSection";
+import { RefrigelUser } from "@/types/user-types";
 
 export default function Body({
   children,
   user,
 }: {
   children: React.ReactNode;
-  user: User | null;
+  user: RefrigelUser | null;
 }) {
   return (
     <div className={Styles["body-main-container"]}>

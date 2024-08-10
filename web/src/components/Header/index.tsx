@@ -11,8 +11,9 @@ import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import ProductSection from "./ProductSection";
 import MegaMenu from "./MegaMenu";
+import { RefrigelUser } from "@/types/user-types";
 
-export default async function Header({ user }: { user: User | null }) {
+export default async function Header({ user }: { user: RefrigelUser | null }) {
   return (
     <header className={Styles["header-outter-container"]}>
       <div className={Styles["header-submenu"]}>
@@ -36,7 +37,7 @@ export default async function Header({ user }: { user: User | null }) {
                 className={Styles["header-refrigel-logo-image"]}
               />
             </Link>
-            <Address />
+            <Address user={user} />
             <SearchBar />
             <Suspense>
               <UserSection user={user} />
@@ -45,7 +46,7 @@ export default async function Header({ user }: { user: User | null }) {
         </div>
       </nav>
       <ProductSection />
-      <MegaMenu />
+      <MegaMenu user={user} />
     </header>
   );
 }

@@ -7,6 +7,10 @@
   gap: 8px;
 }
 
+.checkbox-label-container.checkbox-label-container-error {
+  color: #ef4444;
+}
+
 .checkbox-container {
   position: relative;
   width: 20px;
@@ -20,6 +24,10 @@
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.checkbox-container.checkbox-container-error {
+  border: 1px solid #ef4444;
 }
 
 .checkbox-container:focus-visible {

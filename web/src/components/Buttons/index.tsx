@@ -11,6 +11,7 @@ import {
 } from "@/lib/authenticationActions";
 import { FcGoogle } from "react-icons/fc";
 import Styles from "./Styles.module.css";
+import Loader from "../Loaders";
 
 export function SignIn({
   text,
@@ -26,7 +27,7 @@ export function SignIn({
       formAction={formAction}
       className={`${Styles["button-element"]} ${Styles["signin-button-color"]}`}
     >
-      {pending ? <SquareLoader /> : text}
+      {text}
     </button>
   );
 }
@@ -45,7 +46,7 @@ export function SignInMagicLink({
       formAction={formAction}
       className={`${Styles["button-element"]} ${Styles["magiclink-button-color"]}`}
     >
-      {pending ? <SquareLoader /> : text}
+      {text}
     </button>
   );
 }
@@ -58,7 +59,7 @@ export function SignUpButton({ text }: { text: string }) {
       disabled={signUpPending}
       className={`${Styles["button-element"]} ${Styles["signin-button-color"]} ${signUpPending ? Styles["signin-button-color-pending"] : null}`}
     >
-      {signUpPending ? <SquareLoader /> : text}
+      {signUpPending ? <Loader size={30} /> : text}
     </button>
   );
 }

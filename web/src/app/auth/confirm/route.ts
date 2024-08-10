@@ -10,6 +10,13 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get("type") as EmailOtpType | null;
   const next = searchParams.get("next") ?? "/";
 
+  console.log(
+    "--------------------auth/confirm/route.ts",
+    token_hash,
+    type,
+    next
+  );
+
   if (token_hash && type) {
     const supabase = createClient();
 
