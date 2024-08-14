@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { TaxInfo } from "../enums/tax-info";
 
 interface CreateCompanyDTO {
@@ -25,6 +26,9 @@ const fetchCompanySignUp = async (body: CreateCompanyDTO) => {
     }
   );
   if (!signUpResponse.ok) {
+    if (signUpResponse.status === 500) {
+      redirect("/error");
+    }
     throw new Error(`${signUpResponse.status} ${signUpResponse.statusText}`);
   }
   return await signUpResponse.json();

@@ -44,13 +44,6 @@
   /* background: var(--gradient-09-radial); */
 }
 
-.header-authentication-container {
-  width: 100%;
-  height: 84px;
-  background: var(--gradient-03-radial);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-}
-
 .header-nav-grid {
   display: grid;
   align-items: center;
@@ -65,12 +58,6 @@
   height: 100%;
 }
 
-.header-refrigel-logo-auth {
-  position: relative;
-  width: 100%;
-  height: 60px;
-}
-
 .header-refrigel-logo-image {
   position: absolute;
   object-fit: contain;
@@ -79,7 +66,7 @@
 /*--------------------------------------------------------------------------------*/
 .auth-header-container {
   width: 100%;
-  height: 84px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,4 +75,10 @@
     var(--refrigel-theme-21) 0%,
     var(--refrigel-theme-22) 100%
   );
+}
+
+.auth-header-refrigel-logo {
+  position: relative;
+  width: 300px;
+  height: 65%;
 }

@@ -137,7 +137,6 @@ const signUpWithEmail = async (
     // Get specific person datas --------------------------------------------------
     const cpf = formData.get("cpf") as string;
     const gender = formData.get("gender") as string;
-    const birthDate = formData.get("person-date") as string;
 
     // CPF --------------------------------------------------
     if (!cpf) {
@@ -180,14 +179,16 @@ const signUpWithEmail = async (
       name,
       cpf: clearCpfMask(cpf),
       gender,
-      birth_date: formatDate(birthDate),
+      birth_date: formatDate(date),
       allow_email_newsletter: allowEmailNewsletter,
       agreed_data_policies: agreedDataPolicies,
     };
 
-    const signUpResponse = await fetchPersonSignUp(personBody);
+    const personSignUpResponse = await fetchPersonSignUp(personBody);
 
-    console.log("signUpResponse", signUpResponse);
+    if (!personSignUpResponse.ok) {
+      redirect("/error");
+    }
   } else if (userType === "PJ") {
     // Get specific company datas --------------------------------------------------
     const brandName = formData.get("brand-name") as string;
@@ -269,7 +270,9 @@ const signUpWithEmail = async (
 
     const companySignUpResponse = await fetchCompanySignUp(companyBody);
 
-    console.log("companySignUpResponse", companySignUpResponse);
+    if (!companySignUpResponse.ok) {
+      redirect("/error");
+    }
   } else {
     throw new Error("Something went wrong");
   }

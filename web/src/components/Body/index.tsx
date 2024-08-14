@@ -1,11 +1,8 @@
 import Header, { AuthHeader } from "../Header/index";
 import Footer from "../Footer";
-import Styles from "./Styles.module.css";
-import { User } from "@supabase/supabase-js";
 import { MegaMenuContextProvider } from "../../contexts/MegaMenuContext";
-import MegaMenu from "../Header/MegaMenu";
-import ProductSection from "../Header/ProductSection";
 import { RefrigelUser } from "@/types/user-types";
+import Styles from "./Styles.module.css";
 
 export default function Body({
   children,

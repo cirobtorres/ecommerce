@@ -7,10 +7,12 @@ import { MulterModule } from "@nestjs/platform-express";
 import { AddressModule } from "src/address/address.module";
 import { AuthCompanyController } from "./auth-company.controller";
 import { AuthCompanyService } from "./auth-company.service";
+import { EmailModule } from "src/mailer/mailer.module";
 
 @Module({
   imports: [
-    // SupabaseModule,
+    // SupabaseModule, // Global
+    EmailModule,
     forwardRef(() => UserModule),
     forwardRef(() => AvatarModule),
     forwardRef(() => AddressModule),

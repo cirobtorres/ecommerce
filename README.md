@@ -46,6 +46,16 @@
 
 <hr/>
 
+<h4 style="font-size:1.75rem;font-weight:900;">Email</h4>
+
+### [@nestjs-modules/mailer]()
+
+### [nodemailer]()
+
+### [handlebars]()
+
+<hr/>
+
 <h4 style="font-size:1.75rem;font-weight:900;">Image uploads</h4>
 
 ### [@nestjs/platform-express]()

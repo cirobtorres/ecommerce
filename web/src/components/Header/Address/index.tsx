@@ -31,11 +31,11 @@ const Address = ({ user }: { user: RefrigelUser | null }) => {
           </div>
         </div>
       )}
-      {!defaultAddress && (
+      {/* {!defaultAddress && (
         <div>
           <h2>Crie um endereço</h2>
         </div>
-      )}
+      )} */}
     </button>
   );
 };

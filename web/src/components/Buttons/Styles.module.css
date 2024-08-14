@@ -25,9 +25,9 @@
   background: var(--refrigel-theme-05);
 }
 
-/* .signin-button-color-pending {
-  background: var(--refrigel-theme-06);
-} */
+.signin-button-color-pending {
+  background: #1c457a;
+}
 
 .signin-button-color:hover {
   background: var(--refrigel-theme-06);
@@ -37,9 +37,9 @@
   background: var(--refrigel-theme-11);
 }
 
-/* .magiclink-button-color-pending {
+.magiclink-button-color-pending {
   background: var(--refrigel-theme-12);
-} */
+}
 
 .magiclink-button-color:hover {
   background: var(--refrigel-theme-12);

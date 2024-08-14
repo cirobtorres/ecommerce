@@ -24,7 +24,9 @@ const EmailInput = ({
       <div
         className={`${Styles["inner-container"]} ${
           ((state?.errors?.emailBlankError && !value) ||
-            state?.errors?.emailExistError) &&
+            state?.errors?.invalidCredentials ||
+            state?.errors?.emailExistError ||
+            state?.errors?.emailNotConfirmed) &&
           Styles["inner-container-error"]
         }
         `}
@@ -47,8 +49,16 @@ const EmailInput = ({
       {state?.errors?.emailBlankError && !value && (
         <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>
       )}
+      {state?.errors?.emailNotConfirmed && (
+        <p className="text-xs px-2 mt-1 text-red-500">Usuário não confirmado</p>
+      )}
       {state?.errors?.emailExistError && (
         <p className="text-xs px-2 mt-1 text-red-500">E-mail já cadastrado</p>
+      )}
+      {state?.errors?.invalidCredentials && (
+        <p className="text-xs px-2 mt-1 text-red-500">
+          E-mail ou senha inválidos
+        </p>
       )}
     </div>
   );

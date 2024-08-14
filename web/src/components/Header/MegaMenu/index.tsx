@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import useMegaMenu from "../../../hooks/useMegaMenu";
-import { IoIosClose } from "react-icons/io";
-import Styles from "./Styles.module.css";
-import { RefrigelUser } from "@/types/user-types";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { useRef } from "react";
+import { IoIosClose } from "react-icons/io";
+import { RefrigelUser } from "@/types/user-types";
+import useMegaMenu from "../../../hooks/useMegaMenu";
+import Styles from "./Styles.module.css";
+import { getDisplayName } from "@/lib/user-utils";
 
 export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
   const { isOpen, setIsOpen } = useMegaMenu();
@@ -37,7 +38,7 @@ export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
                   user?.refrigel_users.avatar_url ??
                   "/images/user/user-placeholder.png"
                 }
-                alt={`Imagem de perfil${user && " de " + user.refrigel_users.person_data.display_name}`}
+                alt={`Imagem de perfil${user && " de " + getDisplayName(user)}`}
                 width={40}
                 height={40}
                 className={Styles["mega-menu-user-image"]}
@@ -49,7 +50,7 @@ export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
                     href="/perfil"
                     className={Styles["mega-menu-user-profile-link"]}
                   >
-                    {user.refrigel_users.person_data.display_name}
+                    {getDisplayName(user)}
                   </Link>
                   !
                 </h2>

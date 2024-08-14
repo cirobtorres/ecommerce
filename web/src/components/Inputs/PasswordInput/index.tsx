@@ -10,12 +10,14 @@ const PasswordInput = ({
   id,
   text,
   placeholder,
+  state,
 }: {
   value: string;
   setValue: (value: string) => void;
   id: string;
   text: string;
   placeholder: string;
+  state: State;
 }) => {
   const [type, setType] = useState<"text" | "password">("password");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -38,7 +40,11 @@ const PasswordInput = ({
   return (
     <div className={Styles["outter-container"]}>
       <div
-        className={`${Styles["inner-container"]} ${Styles["pass-label-element-padding"]}`}
+        className={`${Styles["inner-container"]} ${Styles["pass-label-element-padding"]} ${
+          (state?.errors?.emailNotConfirmed ||
+            state?.errors?.invalidCredentials) &&
+          Styles["inner-container-error"]
+        }`}
       >
         <input
           ref={inputRef}
@@ -67,6 +73,14 @@ const PasswordInput = ({
           )}
         </button>
       </div>
+      {state?.errors?.invalidCredentials && (
+        <p className="text-xs px-2 mt-1 text-red-500">
+          E-mail ou senha inválidos
+        </p>
+      )}
+      {state?.errors?.emailNotConfirmed && (
+        <p className="text-xs px-2 mt-1 text-red-500">Usuário não confirmado</p>
+      )}
     </div>
   );
 };

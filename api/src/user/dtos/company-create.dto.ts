@@ -22,7 +22,7 @@ export class CreateCompanyDTO extends CreateUserDTO {
   @IsEnum(TaxInfo)
   tax_info: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   ie?: string;
 

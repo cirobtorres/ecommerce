@@ -63,6 +63,17 @@ export default function SignUpForm() {
             <Company state={state} />
           )}
         </form>
+        {radioVal === "PF" ? (
+          <div className={Styles["oauth-buttons-container"]}>
+            <form>
+              <GoogleSignIn />
+            </form>
+            <form>
+              <FacebookSignIn />
+            </form>
+            {/* <AppleSignIn /> */}
+          </div>
+        ) : null}
         <div className={Styles["signup-form-has-account-container"]}>
           <p className={Styles["signup-form-has-account-element"]}>
             Já possui cadastro?{" "}
@@ -151,11 +162,6 @@ const Person = ({ state }: { state: State }) => {
       </div>
       <Policies state={state} />
       <SignUpButton text="Criar" />
-      <div className={Styles["oauth-buttons-container"]}>
-        <GoogleSignIn />
-        <FacebookSignIn />
-        {/* <AppleSignIn /> */}
-      </div>
     </>
   );
 };

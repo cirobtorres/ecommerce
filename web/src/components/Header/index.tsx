@@ -54,7 +54,7 @@ export function AuthHeader() {
   // This header to be used on "entrar" and "cadastrar" pages
   return (
     <header className={Styles["auth-header-container"]}>
-      <Link href="/" className={Styles["header-refrigel-logo-auth"]}>
+      <Link href="/" className={Styles["auth-header-refrigel-logo"]}>
         <Image
           src="/images/refrigel/logo/refrigel-logo-transparente-1.png"
           alt="Logo da Refrigel"

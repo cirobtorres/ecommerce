@@ -1,7 +1,7 @@
 "use client";
 
-import Styles from "./Styles.module.css";
 import useMegaMenu from "../../../hooks/useMegaMenu";
+import Styles from "./Styles.module.css";
 
 const HamburgerMenu = () => {
   const { isOpen, setIsOpen } = useMegaMenu();

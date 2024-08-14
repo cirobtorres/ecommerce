@@ -3,13 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { User } from "@supabase/supabase-js";
 import { FaUser, FaTruck, FaBell, FaShoppingCart } from "react-icons/fa";
+import { handleSignOut } from "../../../lib/authentication/auth";
 import { IoHeart } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
-import { handleSignOut } from "../../../lib/authenticationActions";
-import Styles from "./Styles.module.css";
 import { RefrigelUser } from "@/types/user-types";
+import { getDisplayName } from "@/lib/user-utils";
+import Styles from "./Styles.module.css";
 
 const UserSection = ({ user }: { user: RefrigelUser | null }) => {
   const [userMenu, setUserMenu] = useState(false);
@@ -30,14 +30,14 @@ const UserSection = ({ user }: { user: RefrigelUser | null }) => {
                     user.refrigel_users.avatar_url ??
                     "/images/user/user-placeholder.png"
                   }
-                  alt={`Imagem de perfil${user && " de " + user.refrigel_users.person_data.display_name}`}
+                  alt={`Imagem de perfil${user && " de " + getDisplayName(user)}`}
                   width={35}
                   height={35}
                   className={Styles["user-nav-auth-image"]}
                 />
                 <div className={Styles["user-nav-auth-signedin-subcontainer"]}>
                   <span className={Styles["user-nav-auth-displayname"]}>
-                    {user.refrigel_users.person_data.display_name}
+                    {getDisplayName(user)}
                   </span>
                   <IoIosArrowDown
                     className={Styles["user-nav-animation"]}
@@ -117,14 +117,14 @@ const Submenu = ({ user }: { user: RefrigelUser }) => {
               user.refrigel_users.avatar_url ??
               "/images/user/user-placeholder.png"
             }
-            alt={`Imagem de perfil${user && " de " + user.refrigel_users.person_data.display_name}`}
+            alt={`Imagem de perfil${user && " de " + getDisplayName(user)}`}
             width={50}
             height={50}
             className={Styles["user-nav-auth-image"]}
           />
-          <div className="flex flex-col">
-            <span className="text-xl font-extrabold">
-              {user.refrigel_users.person_data.display_name}
+          <div className="flex flex-col overflow-hidden">
+            <span className="text-xl font-extrabold truncate">
+              {getDisplayName(user)}
             </span>
             <span className="text-sm">Perfil</span>
           </div>

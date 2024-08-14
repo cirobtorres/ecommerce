@@ -7,6 +7,9 @@
   padding-top: 20px;
   width: 400px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .signin-heading-container {
@@ -27,6 +30,7 @@
 }
 
 .signin-forgot-password {
+  text-align: center;
   color: #8b8b8b;
   font-weight: 500;
 }
@@ -80,4 +84,31 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/*----------------------------------------SignInWithMagicLinkWindow----------------------------------------*/
+.magic-link-main-container {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.magic-link-window-form-container {
+  position: absolute;
+  width: 500px;
+  padding: 32px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  top: 30%;
+  left: 50%;
+  background: #e2e8f0;
+  transition: all 300ms;
+  scale: 0;
+  transform: translate(-50%, -50%);
+}
+
+.magic-link-window-entrance-animation {
+  scale: 1;
 }

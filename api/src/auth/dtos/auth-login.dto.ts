@@ -33,5 +33,5 @@ export class AuthLoginDTO {
     minNumbers: 1,
     minSymbols: 1,
   })
-  password: string;
+  password?: string;
 }
