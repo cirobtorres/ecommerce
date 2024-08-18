@@ -4,7 +4,7 @@
   align-items: center;
   list-style: none;
   gap: 10px;
-  grid-template-columns: 120px auto auto 20px 20px;
+  grid-template-columns: 240px 30px 30px 30px 30px;
 }
 
 .user-nav-signedin-main-container li {
@@ -23,20 +23,13 @@
   gap: 8px;
 }
 
-.user-nav-signedin-main-container li a:first-child {
-  justify-content: flex-start;
+.user-nav-signedin-main-container li a:first-child,
+.user-nav-signedin-main-container li:first-child {
+  justify-content: left;
 }
 
-.user-nav-signedin-main-container li:nth-last-child(1) {
+.user-nav-signedin-main-container li:not(:first-child) {
   justify-content: flex-end;
-}
-
-.user-nav-auth-displayname {
-  max-width: 50px;
-  /* max-width: 45%; */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 /*----------------------------------------=====signed-out=====----------------------------------------*/
@@ -45,7 +38,7 @@
   align-items: center;
   list-style: none;
   gap: 10px;
-  grid-template-columns: 120px auto auto 20px 20px;
+  grid-template-columns: 240px 30px 30px 30px 30px;
 }
 
 .user-nav-signed-out-main-container li {
@@ -67,23 +60,58 @@
   justify-content: flex-start;
 }
 
-.user-nav-signed-out-main-container li:last-child {
+.user-nav-signed-out-main-container li:not(:first-child) {
   justify-content: flex-end;
 }
 
-/*----------------------------------------===== =====----------------------------------------*/
-
+/*----------------------------------------=====Submenu=====----------------------------------------*/
 .user-nav-auth {
   position: relative;
 }
+
+.user-nav-auth-displayname {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-user-dropdown-menu[type="checkbox"] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header-user-dropdown-menu + label {
+  cursor: pointer;
+}
+
+/*----------Outside-Click-Closing----------*/
+.header-user-dropdown-menu + label::before {
+  position: fixed;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  /* z-index: -1; */
+  cursor: auto;
+  pointer-events: none;
+}
+
+.header-user-dropdown-menu:checked + label::before {
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.25);
+}
+/*-----------------------------------------*/
 
 .user-nav-auth-container,
 .user-nav-auth-container-signedin {
   display: flex;
   align-items: center;
-  padding: 8px;
   gap: 8px;
-  border-radius: 4px;
+  transition: all 150ms;
 }
 
 .user-nav-auth-container-signedin {
@@ -93,6 +121,14 @@
 .user-nav-floating-menu-profile-display {
   display: flex;
   gap: 12px;
+}
+
+/* .header-user-dropdown-menu:checked + label {
+  background: #1d4f91;
+} */
+
+.header-user-dropdown-menu:checked + label .user-nav-animation {
+  transform: rotate(180deg);
 }
 
 .user-nav-animation {
@@ -114,6 +150,8 @@
 }
 
 .user-nav-auth-signedin-subcontainer {
+  /* border-radius: 9999px; */
+  padding: 8px;
   flex-direction: row;
   align-items: center;
 }
@@ -122,18 +160,26 @@
   text-decoration: underline;
 }
 
+.header-user-dropdown-menu:checked ~ .user-nav-floating-menu-container {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0%) scale(100%);
+}
+
 .user-nav-floating-menu-container {
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
-  top: 90%;
+  top: 125%;
   left: 50%;
-  transform: translateX(-50%);
+  z-index: 3;
+  transition: all 150ms ease-in-out;
+  transform: translate(-50%, -20%) scale(70%);
 }
 
 .user-nav-floating-menu {
-  padding: 8px 0;
   display: flex;
   flex-direction: column;
-  margin-top: 17px;
   width: 300px;
   border-radius: 4px;
   overflow: hidden;
@@ -141,18 +187,20 @@
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
-.user-nav-floating-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .user-nav-floating-menu-items {
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: var(--text-03);
   padding: 8px 20px;
+}
+
+.user-nav-floating-menu-items span {
+  width: 100%;
+  color: var(--text-03);
+}
+
+.user-nav-floating-menu-items form {
+  width: 100%;
 }
 
 .user-nav-floating-menu-items:hover {
@@ -174,7 +222,6 @@
 }
 
 .user-nav-floating-menu-form-item button {
-  text-align: left;
   width: 100%;
-  padding: 8px 20px;
+  text-align: left;
 }

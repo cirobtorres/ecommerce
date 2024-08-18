@@ -2,10 +2,6 @@
   position: relative;
 }
 
-.product-item-main-li-container:hover {
-  background: #eeeeee;
-}
-
 .product-item-link {
   display: flex;
   align-items: center;
@@ -20,8 +16,18 @@
 
 .product-item-floating-outter-container {
   position: absolute;
+  visibility: hidden;
+  pointer-events: none;
   top: 40px;
   left: 0%;
+  transition: all 200ms ease-in-out;
+  opacity: 0;
+}
+
+.product-item-floating-outter-container-entrance {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .product-item-floating-inner-container {

@@ -24,7 +24,7 @@ export class AuthLoginDTO {
   @IsEmail()
   email?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @IsStrongPassword({
     minLength: 8,

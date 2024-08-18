@@ -85,19 +85,19 @@ const signUpWithEmail = async (
     // Email --------------------------------------------------
     invalidDatas.emailBlankError = true;
   } else {
-    // const doesEmailExists = await fetch(
-    //   "http://localhost:8000/api/auth/person/exists/email",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email }),
-    //   }
-    // );
-    // if (!doesEmailExists.ok) {
-    //   invalidDatas.emailExistError = true;
-    // }
+    const doesEmailExists = await fetch(
+      "http://localhost:8000/api/auth/user/exists/email",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    );
+    if (!doesEmailExists) {
+      invalidDatas.emailExistError = true;
+    }
   }
 
   // Name --------------------------------------------------
@@ -143,7 +143,7 @@ const signUpWithEmail = async (
       invalidDatas.cpfBlankError = true;
     } else {
       const doesCpfExists = await fetch(
-        "http://localhost:8000/api/auth/person/exists/cpf",
+        "http://localhost:8000/api/auth/user/exists/cpf",
         {
           method: "POST",
           headers: {
@@ -212,7 +212,7 @@ const signUpWithEmail = async (
       invalidDatas.cnpjBlankError = true;
     } else {
       const doesCnpjExists = await fetch(
-        "http://localhost:8000/api/auth/person/exists/cnpj",
+        "http://localhost:8000/api/auth/user/exists/cnpj",
         {
           method: "POST",
           headers: {
@@ -270,7 +270,7 @@ const signUpWithEmail = async (
 
     const companySignUpResponse = await fetchCompanySignUp(companyBody);
 
-    if (!companySignUpResponse.ok) {
+    if (!companySignUpResponse) {
       redirect("/error");
     }
   } else {

@@ -1,9 +1,9 @@
 import { BadRequestException, Inject, Injectable } from "@nestjs/common";
 import { SUPABASE_CLIENT } from "../utils/constants/supabase.constants";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { CNPJValidator } from "../utils/docValidator";
 import { CreateCompanyDTO } from "./dtos/company-create.dto";
 import { UserPrivileges } from "./enums/privileges.enum";
+import { CNPJValidator } from "../utils/docValidator";
 import { UserType } from "./enums/user-types.enum";
 
 @Injectable()
@@ -12,6 +12,36 @@ export class UserCompanyService {
     @Inject(SUPABASE_CLIENT)
     private readonly supabaseClient: SupabaseClient
   ) {}
+
+  async retrieveEmailByCnpj(cnpj: string) {
+    const { data: companyUser, error: companyError } = await this.supabaseClient
+      .from("company_data")
+      .select("*")
+      .eq("cnpj", cnpj)
+      .single();
+
+    if (companyError) throw companyError;
+
+    const { data: refrigelUser, error: refrigelUserError } =
+      await this.supabaseClient
+        .from("refrigel_users")
+        .select("*")
+        .eq("id", companyUser.refrigel_user_id)
+        .single();
+
+    if (refrigelUserError) throw refrigelUserError;
+
+    const { data: authData, error: authError } =
+      await this.supabaseClient.auth.admin.getUserById(
+        refrigelUser.auth_user_id
+      );
+
+    if (authError) throw authError;
+
+    const { email } = authData.user;
+
+    return { email };
+  }
 
   async cnpjExists(cnpj: string) {
     if (!new CNPJValidator(cnpj).isValid) {
@@ -105,6 +135,6 @@ export class UserCompanyService {
       throw companyDataError;
     }
 
-    return { ok: true };
+    return true;
   }
 }

@@ -1,0 +1,19 @@
+.reset-password-main-container {
+  padding: 20px 0;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.reset-password-heading {
+  font-size: 25px;
+  font-weight: 900;
+  color: var(--refrigel-theme-05);
+}
+
+.reset-password-form {
+  padding: 10px 0;
+}
+
+.reset-password-button-container {
+  margin-top: 20px;
+}

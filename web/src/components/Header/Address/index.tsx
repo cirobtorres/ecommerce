@@ -11,12 +11,11 @@ const Address = ({ user }: { user: RefrigelUser | null }) => {
       {defaultAddress && (
         <div className={styles["address-main-container"]}>
           <GoogleMapsIcon />
-          {/* <FaMapMarkerAlt className="flex-shrink-0 text-2xl text-red-500" /> */}
           <div className={styles["address-info-container"]}>
             <span>
               Enviar para{" "}
               {user?.refrigel_users.user_type === "F"
-                ? user?.refrigel_users.person_data.display_name
+                ? user?.refrigel_users.display_name
                 : null}{" "}
               {/* user?.refrigel_users.company_data.brand_name */}
             </span>

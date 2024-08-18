@@ -35,20 +35,18 @@
 .header-outter-container {
   z-index: 3;
   width: 100%;
-  /* background: var(--gradient-03-radial); */
   background: linear-gradient(
     90deg,
     var(--refrigel-theme-21) 0%,
     var(--refrigel-theme-22) 100%
   );
-  /* background: var(--gradient-09-radial); */
 }
 
 .header-nav-grid {
   display: grid;
   align-items: center;
   height: 70px;
-  gap: 10px;
+  gap: 20px;
   grid-template-columns: 30px 170px minmax(auto, 180px) auto minmax(auto, 400px);
 }
 

@@ -10,19 +10,19 @@
 }
 
 .signup-inner-container,
-.form-container,
+.form-container {
+  display: flex;
+  gap: 8px;
+}
+
 .signup-split-inputs {
   display: flex;
-  gap: 4px;
+  gap: 6px;
 }
 
 .signup-inner-container,
 .form-container {
   flex-direction: column;
-}
-
-.form-container {
-  margin-bottom: 4px;
 }
 
 /* .signup-heading-container {} */
@@ -55,7 +55,6 @@
 }
 
 .oauth-buttons-container {
-  margin-top: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;

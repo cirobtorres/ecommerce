@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { signInWithEmail } from "../../lib/authentication/signInWithEmail";
-import { GenerateNewConfirmationLink } from "../../lib/authentication/auth";
+import { handleNewConfirmationLink } from "../../lib/authentication/auth";
 import {
   SignIn,
   FacebookSignIn,
@@ -24,6 +24,8 @@ export default function LoginForm() {
   const [state, formAction] = useFormState<State, FormData>(signInWithEmail, {
     errors: null,
   });
+  const [forgotPasswordWindow, setForgotPasswordWindow] = useState(false);
+  const [resendLinkWindow, setResendLinkWindow] = useState(false);
 
   return (
     <div className={Styles["signin-outter-container"]}>
@@ -59,7 +61,8 @@ export default function LoginForm() {
                 <button
                   className="font-extrabold hover:underline"
                   onClick={async () => {
-                    GenerateNewConfirmationLink({ email, password });
+                    setResendLinkWindow(true);
+                    // handleNewConfirmationLink({ email, password });
                   }}
                 >
                   AQUI
@@ -70,10 +73,21 @@ export default function LoginForm() {
           ) : null}
           <SignIn text="Login" />
         </form>
+        <ForgotPasswordWindow
+          window={forgotPasswordWindow}
+          toggleWindow={setForgotPasswordWindow}
+        />
+        <ResendAuthLinkWindow
+          window={resendLinkWindow}
+          toggleWindow={setResendLinkWindow}
+        />
         <SignInWithMagicLinkWindow />
-        <Link href="/" className={Styles["signin-forgot-password"]}>
+        <button
+          className={Styles["signin-forgot-password"]}
+          onClick={() => setForgotPasswordWindow(true)}
+        >
           Esqueci minha senha
-        </Link>
+        </button>
         <div className={Styles["signin-border-split"]}>
           <hr />
           <span>ou</span>
@@ -116,13 +130,13 @@ const SignInWithMagicLinkWindow = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (magicLinkWindow) {
-  //     document.body.style.position = "fixed";
-  //   } else {
-  //     document.body.style.position = "";
-  //   }
-  // }, [magicLinkWindow]);
+  useEffect(() => {
+    if (magicLinkWindow) {
+      document.body.classList.add("modal-shown");
+    } else {
+      document.body.classList.remove("modal-shown");
+    }
+  }, [magicLinkWindow]);
 
   return (
     <>
@@ -136,38 +150,204 @@ const SignInWithMagicLinkWindow = () => {
         Acesso único por e-mail
       </GenericButton>
       <>
-        <div
-          className={Styles["magic-link-main-container"]}
-          style={{ display: magicLinkWindow ? "block" : "none" }}
-          onClick={handleMagicLinkClose}
-        >
-          <form
-            className={`
+        {magicLinkWindow && (
+          <div
+            className={Styles["magic-link-main-container"]}
+            onClick={handleMagicLinkClose}
+          />
+        )}
+        <form
+          className={`
                 ${Styles["magic-link-window-form-container"]} 
                 ${magicLinkWindow ? Styles["magic-link-window-entrance-animation"] : ""}
               `}
-          >
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-extrabold text-[#1d4f91] truncate">
-                Receber acesso por e-mail
-              </h2>
-              <IoIosClose
-                className="flex-shrink-0 mb-auto mt-0 text-4xl cursor-pointer"
-                onClick={handleMagicLinkButton}
-              />
-            </div>
-            <EmailInput
-              id="magic-link-email"
-              value={magicLinkEmail}
-              setValue={setMagicLinkEmail}
-              state={state}
-              text="E-mail"
-              placeholder="johndoe@email.com"
+        >
+          <div className="flex justify-between items-center">
+            <h2 className="text-xl font-extrabold text-[#1d4f91] truncate">
+              Receber acesso por e-mail
+            </h2>
+            <IoIosClose
+              className="flex-shrink-0 mb-auto mt-0 text-4xl cursor-pointer"
+              onClick={handleMagicLinkButton}
             />
-            <SignInMagicLink text="Enviar" />
-          </form>
-        </div>
+          </div>
+          <p>Defina um e-mail para receber o link de autenticação.</p>
+          <EmailInput
+            id="magic-link-email"
+            value={magicLinkEmail}
+            setValue={setMagicLinkEmail}
+            state={state}
+            text="E-mail"
+            placeholder="johndoe@email.com"
+          />
+          <SignInMagicLink text="Enviar" />
+        </form>
       </>
+    </>
+  );
+};
+
+const ResendAuthLinkWindow = ({
+  window,
+  toggleWindow,
+}: {
+  window: boolean;
+  toggleWindow: (value: boolean) => void;
+}) => {
+  const [resendLinkEmail, setResendLinkEmail] = useState("");
+  const [state, formAction] = useFormState<State, FormData>(signInWithEmail, {
+    errors: null,
+  });
+
+  const handleMagicLinkButton = (event: React.MouseEvent) => {
+    event.preventDefault();
+    toggleWindow(!window);
+  };
+
+  const handleMagicLinkClose = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (event.target === event.currentTarget) {
+      toggleWindow(false);
+    }
+  };
+
+  useEffect(() => {
+    if (window) {
+      document.body.classList.add("modal-shown");
+    } else {
+      document.body.classList.remove("modal-shown");
+    }
+  }, [window]);
+
+  return (
+    <>
+      {window && (
+        <div
+          className={Styles["magic-link-main-container"]}
+          onClick={handleMagicLinkClose}
+        />
+      )}
+      <form
+        className={`
+                ${Styles["magic-link-window-form-container"]} 
+                ${window ? Styles["magic-link-window-entrance-animation"] : ""}
+              `}
+      >
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-extrabold text-[#1d4f91] truncate">
+            Receber acesso por e-mail
+          </h2>
+          <IoIosClose
+            className="flex-shrink-0 mb-auto mt-0 text-4xl cursor-pointer"
+            onClick={handleMagicLinkButton}
+          />
+        </div>
+        <EmailInput
+          id="resend-link-email"
+          value={resendLinkEmail}
+          setValue={setResendLinkEmail}
+          state={state}
+          text="E-mail"
+          placeholder="johndoe@email.com"
+        />
+        <SignInMagicLink text="Enviar" />
+      </form>
+    </>
+  );
+};
+
+const ForgotPasswordWindow = ({
+  window,
+  toggleWindow,
+}: {
+  window: boolean;
+  toggleWindow: (value: boolean) => void;
+}) => {
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
+  const [buttonActive, setButtonActive] = useState("");
+  const [state, formAction] = useFormState<State, FormData>(signInWithEmail, {
+    errors: null,
+  });
+
+  const handleForgotPasswordButton = (event: React.MouseEvent) => {
+    event.preventDefault();
+    toggleWindow(!window);
+  };
+
+  const handleForgotPasswordClose = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (event.target === event.currentTarget) {
+      toggleWindow(false);
+    }
+  };
+
+  useEffect(() => {
+    if (window) {
+      document.body.classList.add("modal-shown");
+    } else {
+      document.body.classList.remove("modal-shown");
+    }
+  }, [window]);
+
+  return (
+    <>
+      {window && (
+        <div
+          className={Styles["magic-link-main-container"]}
+          onClick={handleForgotPasswordClose}
+        />
+      )}
+      <form
+        className={`
+                ${Styles["magic-link-window-form-container"]} 
+                ${window ? Styles["magic-link-window-entrance-animation"] : ""}
+              `}
+      >
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-extrabold text-[#1d4f91] truncate uppercase">
+            Recuperação de senha
+          </h2>
+          <IoIosClose
+            className="flex-shrink-0 mb-auto mt-0 text-4xl cursor-pointer"
+            onClick={handleForgotPasswordButton}
+          />
+        </div>
+        <p>
+          Informe algum dado cadastral. Em seguida, selecione a forma que deseja
+          receber o link de recuperação.
+        </p>
+        <EmailInput
+          id="forgot-password-email"
+          value={forgotPasswordEmail}
+          setValue={setForgotPasswordEmail}
+          state={state}
+          text="E-mail, CPF ou CNPJ"
+          placeholder=""
+        />
+        <div className="flex gap-4 justify-center">
+          <button
+            className={`${Styles["forgot-password-button"]} ${buttonActive === "1" && Styles["forgot-password-button-active"]}`}
+            onClick={(event) => {
+              event.preventDefault();
+              setButtonActive("1");
+            }}
+          >
+            E-mail
+          </button>
+          <button
+            className={`${Styles["forgot-password-button"]} ${buttonActive === "2" && Styles["forgot-password-button-active"]}`}
+            onClick={(event) => {
+              event.preventDefault();
+              setButtonActive("2");
+            }}
+          >
+            SMS
+          </button>
+        </div>
+        <GenericButton setState={handleForgotPasswordButton}>
+          Enviar
+        </GenericButton>
+      </form>
     </>
   );
 };

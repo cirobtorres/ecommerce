@@ -13,7 +13,7 @@ interface CreatePersonDTO {
 
 const fetchPersonSignUp = async (body: CreatePersonDTO) => {
   const signUpResponse = await fetch(
-    "http://localhost:8000/api/auth/person/sign-up",
+    "http://localhost:8000/api/auth/user/person-data/sign-up",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

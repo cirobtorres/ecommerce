@@ -1,5 +1,3 @@
-"use client";
-
 import { RefrigelUser } from "@/types/user-types";
 
 export const getDisplayName = (user: RefrigelUser) => {

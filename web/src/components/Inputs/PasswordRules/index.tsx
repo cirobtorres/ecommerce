@@ -163,7 +163,7 @@ const reducer = (state: PassErrorState, action: ValidatePassAction) => {
   }
 };
 
-const PasswordSignUp = ({ state }: { state: State }) => {
+const PasswordRules = ({ state }: { state: State }) => {
   const [password1, setPassword1] = useState("");
   const [password2, setPassword2] = useState("");
   const [progress, setProgress] = useState("");
@@ -259,7 +259,7 @@ const PasswordSignUp = ({ state }: { state: State }) => {
   return (
     <>
       <div>
-        <div className="flex gap-1 mb-3">
+        <div className="flex gap-[6px] mb-3">
           <PasswordInputWithRules
             id="password1"
             value={password1}
@@ -379,4 +379,4 @@ const PasswordSignUp = ({ state }: { state: State }) => {
   );
 };
 
-export default PasswordSignUp;
+export default PasswordRules;

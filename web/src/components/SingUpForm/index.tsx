@@ -13,7 +13,7 @@ import {
 import Styles from "./Styles.module.css";
 import CheckBox from "../Inputs/CheckBox";
 import RadioInput from "../Inputs/RadioInput";
-import PasswordSignUp from "../Inputs/PasswordRules";
+import PasswordRules from "../Inputs/PasswordRules";
 import NameInput from "../Inputs/NameInput";
 import CpfInput from "../Inputs/CpfInput";
 import EmailInput from "../Inputs/EmailInput";
@@ -34,12 +34,7 @@ export default function SignUpForm() {
         <div className={Styles["signup-heading-container"]}>
           <h1 className={Styles["signup-heading"]}>Criar Conta</h1>
         </div>
-        <form
-          // autoComplete="off"
-          // aria-autocomplete="none"
-          className={Styles["form-container"]}
-          action={formAction}
-        >
+        <form className={Styles["form-container"]} action={formAction}>
           <div className={Styles["signup-radio-container"]}>
             <RadioInput
               id="signup-pf-radio-input"
@@ -71,7 +66,6 @@ export default function SignUpForm() {
             <form>
               <FacebookSignIn />
             </form>
-            {/* <AppleSignIn /> */}
           </div>
         ) : null}
         <div className={Styles["signup-form-has-account-container"]}>
@@ -290,7 +284,7 @@ const Credentials = ({ state }: { state: State }) => {
         value={email}
         setValue={setEmail}
       />
-      <PasswordSignUp state={state} />
+      <PasswordRules state={state} />
     </>
   );
 };

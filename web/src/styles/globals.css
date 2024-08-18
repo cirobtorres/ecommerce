@@ -120,3 +120,31 @@ select:-webkit-autofill:focus {
   /* -webkit-text-fill-color: color !important;
   -webkit-box-shadow: 0 0 0 30px color inset !important; */
 }
+
+.modal-shown {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 6px;
+    /* height: 10px; */
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f5f1;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #41689c;
+    border-radius: 100vh;
+    border: 1px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #34619c;
+  }
+}

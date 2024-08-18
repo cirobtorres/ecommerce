@@ -51,6 +51,33 @@ export function GenericButton({
   );
 }
 
+export function ResetPassworButton({
+  text,
+  options = {
+    backgroundColor: "#1d4f91",
+    pendingBackgroundColor: "#1c457a",
+  },
+}: {
+  text: string;
+  options?: ButtonColoring | ButtonNoColoring;
+}) {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className={`${Styles["button-element"]} hover:brightness-110`}
+      style={{
+        background: pending
+          ? options.pendingBackgroundColor
+          : options.backgroundColor,
+      }}
+    >
+      {pending ? <Loader size={30} /> : text}
+    </button>
+  );
+}
+
 // ------------------------------------------------------------------------------------------
 export function SignIn({ text }: { text: string }) {
   const { pending } = useFormStatus();
@@ -175,9 +202,10 @@ export function AppleSignIn() {
   );
 }
 
-export function SignOut({ styles }: { styles?: string | undefined }) {
+// ------------------------------------------------------------------------------------------
+export function SignOut() {
   return (
-    <form className={styles}>
+    <form>
       <button formAction={handleSignOut}>Sair</button>
     </form>
   );

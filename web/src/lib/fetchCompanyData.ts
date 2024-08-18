@@ -18,7 +18,7 @@ interface CreateCompanyDTO {
 
 const fetchCompanySignUp = async (body: CreateCompanyDTO) => {
   const signUpResponse = await fetch(
-    "http://localhost:8000/api/auth/company/sign-up",
+    "http://localhost:8000/api/auth/user/company-data/sign-up",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

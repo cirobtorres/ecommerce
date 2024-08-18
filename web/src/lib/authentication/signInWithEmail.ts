@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@/utils/supabase/server";
+import { handleNewConfirmationLink } from "./auth";
 
 const signInWithEmail = async (
   state: State,
@@ -23,6 +24,10 @@ const signInWithEmail = async (
   if (backendError) {
     if (backendError.status === 400)
       if (backendError.message === "Email not confirmed") {
+        // await handleNewConfirmationLink({
+        //   email: data.email,
+        //   password: data.password,
+        // });
         return {
           errors: {
             emailNotConfirmed: true,
