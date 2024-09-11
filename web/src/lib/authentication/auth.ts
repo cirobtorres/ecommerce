@@ -51,18 +51,27 @@ const handleNewConfirmationLink = async ({
   return newEmailLinkResponse.ok;
 };
 
-const handlePasswordResetLink = async ({ data }: { data: string }) => {
+const handlePasswordResetLink = async (state: State, formData: FormData) => {
+  const body = formData.get("forgot-password-data") as string;
   const newEmailLinkResponse = await fetch(
-    "http://localhost:8000/api/auth/person/reset-password",
+    "http://localhost:8000/api/auth/user/reset-password",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ body }),
     }
   );
+
+  if (!newEmailLinkResponse.ok) {
+    throw new Error(
+      `${newEmailLinkResponse.status} ${newEmailLinkResponse.statusText}`
+    );
+  }
+
+  return await newEmailLinkResponse.json();
 };
 
-const handlePasswordChange = async (state: State, formData: FormData) => {
+const handlePasswordUpdate = async (state: State, formData: FormData) => {
   function searchForAnyErrors(errorObj: { [key: string]: boolean }) {
     // Errors --------------------------------------------------
     // Loop through invalidDatas object and filter for any true atribute
@@ -123,6 +132,6 @@ const handlePasswordChange = async (state: State, formData: FormData) => {
 export {
   handleSignOut,
   handlePasswordResetLink,
-  handlePasswordChange,
+  handlePasswordUpdate,
   handleNewConfirmationLink,
 };

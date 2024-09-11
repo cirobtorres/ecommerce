@@ -4,19 +4,24 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { signInWithEmail } from "../../lib/authentication/signInWithEmail";
-import { handleNewConfirmationLink } from "../../lib/authentication/auth";
+import {
+  handleNewConfirmationLink,
+  handlePasswordResetLink,
+} from "../../lib/authentication/auth";
 import {
   SignIn,
   FacebookSignIn,
   GoogleSignIn,
   SignInMagicLink,
   GenericButton,
+  ResetPassworButton,
 } from "../Buttons";
 import { IoIosClose } from "react-icons/io";
 import EmailInput from "../Inputs/EmailInput";
 import PasswordInput from "../Inputs/PasswordInput";
 import FlashMessage from "../FlashMessage";
 import Styles from "./Styles.module.css";
+import LoginInput from "../Inputs/LoginInput";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -265,9 +270,12 @@ const ForgotPasswordWindow = ({
 }) => {
   const [forgotPasswordEmail, setForgotPasswordEmail] = useState("");
   const [buttonActive, setButtonActive] = useState("");
-  const [state, formAction] = useFormState<State, FormData>(signInWithEmail, {
-    errors: null,
-  });
+  const [state, formAction] = useFormState<State, FormData>(
+    handlePasswordResetLink,
+    {
+      errors: null,
+    }
+  );
 
   const handleForgotPasswordButton = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -298,6 +306,7 @@ const ForgotPasswordWindow = ({
         />
       )}
       <form
+        action={formAction}
         className={`
                 ${Styles["magic-link-window-form-container"]} 
                 ${window ? Styles["magic-link-window-entrance-animation"] : ""}
@@ -313,17 +322,22 @@ const ForgotPasswordWindow = ({
           />
         </div>
         <p>
-          Informe algum dado cadastral. Em seguida, selecione a forma que deseja
-          receber o link de recuperação.
+          Informe algum dado cadastral e a forma desejada para receber o link de
+          recuperação.
         </p>
-        <EmailInput
-          id="forgot-password-email"
+        <LoginInput
+          id="forgot-password-data" // CPF, CNPJ, E-mail
+          text="E-mail, CPF ou CNPJ"
+          placeholder=""
+        />
+        {/* <EmailInput
+          id="forgot-password-data"
           value={forgotPasswordEmail}
           setValue={setForgotPasswordEmail}
           state={state}
           text="E-mail, CPF ou CNPJ"
           placeholder=""
-        />
+        /> */}
         <div className="flex gap-4 justify-center">
           <button
             className={`${Styles["forgot-password-button"]} ${buttonActive === "1" && Styles["forgot-password-button-active"]}`}
@@ -344,9 +358,7 @@ const ForgotPasswordWindow = ({
             SMS
           </button>
         </div>
-        <GenericButton setState={handleForgotPasswordButton}>
-          Enviar
-        </GenericButton>
+        <ResetPassworButton text="Enviar" />
       </form>
     </>
   );

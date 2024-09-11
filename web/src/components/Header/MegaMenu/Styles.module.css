@@ -1,13 +1,12 @@
 .mega-menu-container {
   position: fixed;
-  /* overflow-y: auto; */
   top: 0;
   left: 0;
   bottom: 0;
   height: 100%;
   width: 400px;
-  background: #eee;
   z-index: 3;
+  background: #eee;
   transition: all 150ms;
   transform: translateX(Calc(-100% - 3px));
 }
@@ -76,12 +75,17 @@
   border-radius: 9999px;
 }
 
+.mega-menu-product-section {
+  margin-top: 20px;
+}
+
 .mega-menu-product-section h2 {
   font-size: 25px;
   font-weight: 900;
 }
 
 .mega-menu-overflow-section {
+  height: 100%;
   overflow: auto;
   padding: 0 2rem;
 }

@@ -8,10 +8,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "refrigel-blue-primary": "#1d4f91",
+        "refrigel-green-primary": "#16a34a",
+        "refrigel-green-secondary": "#22c55e",
+        "disabled-primary": "#969696",
+        "disabled-secondary": "#7a7a7a",
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "auth-header": "radial-gradient(circle, #41689c 0%, #34619c 100%)",
+      },
+      boxShadow: {
+        "user-section-submenu": "rgba(0, 0, 0, 0.15) 0px 3px 3px 0px",
       },
     },
   },

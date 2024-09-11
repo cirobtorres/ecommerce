@@ -31,63 +31,6 @@
   --text-02: #c0c4c9;
   --text-03: #26282b;
   --text-04: var(--refrigel-theme-05);
-
-  --gradient-01-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-02) 0%,
-    var(--refrigel-theme-01) 100%
-  );
-  --gradient-02-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-04) 0%,
-    var(--refrigel-theme-03) 100%
-  );
-  --gradient-03-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-06) 0%,
-    var(--refrigel-theme-05) 100%
-  );
-  --gradient-04-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-08) 0%,
-    var(--refrigel-theme-07) 100%
-  );
-  --gradient-05-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-10) 0%,
-    var(--refrigel-theme-09) 100%
-  );
-  --gradient-06-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-12) 0%,
-    var(--refrigel-theme-11) 100%
-  );
-  --gradient-07-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-14) 0%,
-    var(--refrigel-theme-13) 100%
-  );
-  --gradient-08-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-16) 0%,
-    var(--refrigel-theme-15) 100%
-  );
-  --gradient-09-radial: radial-gradient(
-    circle,
-    var(--refrigel-theme-18) 0%,
-    var(--refrigel-theme-17) 100%
-  );
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-body {
-  color: var(--text-03);
-  background: var(--refrigel-theme-17);
 }
 
 /* Get rid off reveal button (eye icon) from password input type */
@@ -128,6 +71,16 @@ select:-webkit-autofill:focus {
 }
 
 @layer utilities {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    color: var(--text-03);
+    background: var(--refrigel-theme-17);
+  }
   .scrollbar::-webkit-scrollbar {
     width: 6px;
     /* height: 10px; */

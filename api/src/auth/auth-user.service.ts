@@ -7,6 +7,8 @@ import {
 } from "@supabase/supabase-js";
 import { EmailService } from "src/mailer/mailer.provider";
 import { UserService } from "../user/user.service";
+import { AuthLoginDTO } from "./dtos/auth-login.dto";
+import { CNPJValidator, CPFValidator } from "src/utils/docValidator";
 
 @Injectable()
 export class AuthUserService {
@@ -70,5 +72,16 @@ export class AuthUserService {
     } catch (error) {
       throw error;
     }
+  }
+
+  async generatePasswordResetLinkByEmail(email: string) {
+    const { data, error } =
+      await this.supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: `http://localhost:3000/recuperar-senha?email=${email}`,
+      });
+
+    if (error) throw error;
+
+    return { ok: true };
   }
 }

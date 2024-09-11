@@ -20,17 +20,22 @@ export class AuthPersonService {
     return this.userPersonService.create(body);
   }
 
+  async retrieveEmailByCpf(cpf: string) {
+    const { email } = await this.userPersonService.retrieveEmailByCpf(cpf);
+
+    return { email };
+  }
+
   async generateEmailLinkByCpf(cpf: string, password: string) {
     try {
-      const { email: retrievedEmail } =
-        await this.userPersonService.retrieveEmailByCpf(cpf);
+      const { email } = await this.retrieveEmailByCpf(cpf);
 
       const {
         data: { properties, user },
         error,
       } = await this.supabaseClient.auth.admin.generateLink({
         type: "signup",
-        email: retrievedEmail,
+        email,
         password,
       });
 

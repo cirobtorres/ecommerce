@@ -1,3 +1,4 @@
+import { FaLock } from "react-icons/fa6";
 import Styles from "../Styles.module.css";
 
 const EmailInput = ({
@@ -7,6 +8,7 @@ const EmailInput = ({
   text,
   placeholder,
   state,
+  disable,
 }: {
   id: string;
   value: string;
@@ -14,6 +16,7 @@ const EmailInput = ({
   text: string;
   placeholder: string;
   state?: State;
+  disable?: boolean;
 }) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -29,6 +32,7 @@ const EmailInput = ({
             state?.errors?.emailNotConfirmed) &&
           Styles["inner-container-error"]
         }
+          ${disable && Styles["inner-container-disabled"]}
         `}
       >
         <input
@@ -37,12 +41,17 @@ const EmailInput = ({
           type="email"
           value={value}
           onChange={handleOnChange}
+          disabled={disable}
           className={`${Styles["input-element"]} ${Styles["input-padding"]}`}
           placeholder={placeholder}
         />
-        <label htmlFor={id} className={Styles["label-element"]}>
+        <label
+          htmlFor={id}
+          className={`${!disable && Styles["label-element"]} ${disable && Styles["label-element-disabled"]}`}
+        >
           {text}
         </label>
+        {disable && <FaLock className={Styles["disabled-icon-lock"]} />}
       </div>
       {state?.errors?.emailBlankError && !value && (
         <p className="text-xs px-2 mt-1 text-red-500">Campo obrigatório</p>

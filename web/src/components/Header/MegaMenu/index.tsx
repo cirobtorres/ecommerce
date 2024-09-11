@@ -2,8 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
-import { IoIosClose } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { IoIosArrowDown, IoIosClose } from "react-icons/io";
+import { TbAirConditioning } from "react-icons/tb";
+import { BiSolidWasher } from "react-icons/bi";
+import { PiOven } from "react-icons/pi";
+import { FaStar, FaUser, FaTruck, FaBell } from "react-icons/fa";
+import { IoTicket } from "react-icons/io5";
 import { handleSignOut as signOut } from "@/lib/authentication/auth";
 import { RefrigelUser } from "@/types/user-types";
 import { getDisplayName } from "@/lib/user-utils";
@@ -12,6 +17,7 @@ import Styles from "./Styles.module.css";
 
 export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
   const { isOpen, setIsOpen } = useMegaMenu();
+  const [productHover, setProductHover] = useState(false);
 
   const handleCloseMegaMenu = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -22,6 +28,7 @@ export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
 
   const handleSignOut = (event: React.MouseEvent) => {
     event.preventDefault();
+    setIsOpen(false);
     signOut();
   };
 
@@ -68,62 +75,11 @@ export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
               </h2>
             </div>
             <IoIosClose
-              className="text-5xl cursor-pointer"
+              className="text-5xl cursor-pointer transition-transform hover:rotate-90 rounded-full p-1 hover:bg-[#e4e4e4]"
               onClick={() => setIsOpen(false)}
             />
           </div>
-          <div className={`${Styles["mega-menu-overflow-section"]} scrollbar`}>
-            <ul className="text-xl">
-              <li>
-                <Link href="/">Perfil</Link>
-              </li>
-              <li>
-                <Link href="/">Compras</Link>
-              </li>
-              <li>
-                <Link href="/">Lista de desejos</Link>
-              </li>
-              <li>
-                <Link href="/">Avaliações</Link>
-              </li>
-              <li>
-                <Link href="/">Protocolos</Link>
-              </li>
-            </ul>
-            <hr className="mt-4 mb-3 border-[#dddfe0]" />
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-            <hr className="mt-4 mb-3 border-[#dddfe0]" />
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-            <hr className="mt-4 mb-3 border-[#dddfe0]" />
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-          </div>
+          <NavBody onHover={setProductHover} />
           <button
             onClick={handleSignOut}
             className="m-8 px-4 py-3 rounded text-xl uppercase font-extrabold transition-colors text-[#1d4f91] bg-[#cfd5d6] hover:bg-[#c9cfd1]"
@@ -143,90 +99,157 @@ export default function MegaMenu({ user }: { user: RefrigelUser | null }) {
         <nav
           className={`${Styles["mega-menu-container"]} ${isOpen ? Styles["mega-menu-animation-enter"] : ""} relative p-2 flex flex-col justify-between`}
         >
-          <div className={`${Styles["mega-menu-heading"]} p-8`}>
-            <div className={Styles["mega-menu-user-greetings"]}>
-              <Image
-                src={"/images/user/user-placeholder.png"}
-                alt={`Imagem de perfil de usuário anônimo`}
-                width={40}
-                height={40}
-                className={Styles["mega-menu-user-image"]}
-              />
-              <h2 className={Styles["mega-menu-anonymous-heading"]}>
-                Olá, visitante!
-                <br />
-                Faça seu{" "}
-                <Link
-                  href="/entrar"
-                  className={Styles["mega-menu-user-anonymous-link"]}
-                >
-                  login
-                </Link>
-                .
-              </h2>
-            </div>
-            <IoIosClose
-              className="text-5xl cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            />
-          </div>
-          <div className={Styles["overflow"]}>
-            <ul className="text-xl">
-              <li>
-                <Link href="/">Perfil</Link>
-              </li>
-              <li>
-                <Link href="/">Compras</Link>
-              </li>
-              <li>
-                <Link href="/">Lista de desejos</Link>
-              </li>
-              <li>
-                <Link href="/">Avaliações</Link>
-              </li>
-              <li>
-                <Link href="/">Protocolos</Link>
-              </li>
-            </ul>
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-            <div className={Styles["mega-menu-product-section"]}>
-              <h2>Produtos</h2>
-              <ul className="text-xl">
-                <li>Ar condicionado</li>
-                <li>Fogão</li>
-                <li>Lavadora</li>
-                <li>Kits de instalação</li>
-                <li>Peças</li>
-              </ul>
-            </div>
-          </div>
-          <Link
-            href="/entrar"
-            className="block m-8 px-4 py-3 rounded text-center uppercase font-extrabold transition-colors text-[#e2e8f0] bg-[#1d4f91] hover:bg-[#34619c]"
-          >
-            Entrar
-          </Link>
+          <NavHeader closeFunc={setIsOpen} />
+          <NavBody onHover={setProductHover} />
+          <SignedOutNavButtons />
         </nav>
+        <div
+          onMouseEnter={() => setProductHover(true)}
+          onMouseLeave={() => setProductHover(false)}
+          className={`text-nowrap overflow-hidden transition-all duration-75 fixed top-0 bottom-0 left-[400px] z-[3] bg-[#eee] ${productHover ? "w-[400px]" : "w-0"}`}
+        >
+          <ul
+            className={`${
+              productHover
+                ? "transition-all duration-75 delay-150 h-full"
+                : "h-0"
+            } w-full`}
+          >
+            {[...Array(10)].map((_, index: number) => (
+              <li key={index} className="text-3xl">
+                Hello World
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }
 }
+
+const NavHeader = ({ closeFunc }: { closeFunc: (value: boolean) => void }) => {
+  const { setIsOpen } = useMegaMenu();
+  return (
+    <div className={`${Styles["mega-menu-heading"]} p-8`}>
+      <div className={Styles["mega-menu-user-greetings"]}>
+        <Image
+          src={"/images/user/user-placeholder.png"}
+          alt={`Imagem de perfil de usuário anônimo`}
+          width={40}
+          height={40}
+          className={Styles["mega-menu-user-image"]}
+        />
+        <h2 className={Styles["mega-menu-anonymous-heading"]}>
+          Olá, visitante!
+          <br />
+          Faça seu{" "}
+          <Link
+            href="/entrar"
+            // onClick={() => setIsOpen(false)}
+            className={Styles["mega-menu-user-anonymous-link"]}
+          >
+            login
+          </Link>
+          .
+        </h2>
+      </div>
+      <IoIosClose
+        className="text-5xl cursor-pointer transition-transform hover:rotate-90 rounded-full p-0.5 hover:bg-[#e4e4e4]"
+        onClick={() => closeFunc(false)}
+      />
+    </div>
+  );
+};
+
+const NavBody = ({ onHover }: { onHover: (value: boolean) => void }) => {
+  return (
+    <div className={`${Styles["mega-menu-overflow-section"]} scrollbar`}>
+      <MegaMenuUserList />
+      <MegaMenuProductList onHover={onHover} />
+    </div>
+  );
+};
+
+const MegaMenuUserList = () => {
+  return (
+    <ul className="text-xl">
+      {[
+        { text: "Perfil", icon: <FaUser /> },
+        { text: "Compras", icon: <FaTruck /> },
+        { text: "Lista de Desejos", icon: <FaBell /> },
+        { text: "Avaliações", icon: <FaStar /> },
+        { text: "Protocolos", icon: <IoTicket /> },
+      ].map(({ text, icon }, index) => (
+        <li key={index} className="rounded hover:bg-[#e4e4e4] group">
+          <Link
+            href="/"
+            className="flex justify-between items-center px-2 py-1 group-hover:text-[#16a34a] transition-all group-hover:translate-x-1"
+          >
+            <span className="flex gap-3 items-center">
+              {icon}
+              {text}
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const MegaMenuProductList = ({
+  onHover,
+}: {
+  onHover: (value: boolean) => void;
+}) => {
+  return (
+    <div className={Styles["mega-menu-product-section"]}>
+      <h2>Produtos</h2>
+      <ul className="text-xl">
+        {[
+          { text: "Ar Condicionado" },
+          { text: "Lavadora" },
+          { text: "Fogão" },
+          { text: "Kit de Instalação" },
+          { text: "Peças" },
+        ].map(({ text }, index) => (
+          <li
+            key={index}
+            onMouseEnter={() => onHover(true)}
+            onMouseLeave={() => onHover(false)}
+            className="rounded hover:bg-[#e4e4e4] group"
+          >
+            <Link
+              href="/"
+              className="flex justify-between items-center px-2 py-1 group-hover:text-[#16a34a] transition-all group-hover:translate-x-1"
+            >
+              {text}
+              <IoIosArrowDown className="text-[#16a34a] -rotate-90 opacity-0 -translate-x-2 group-hover:-translate-x-1 group-hover:opacity-100" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+const SignedOutNavButtons = () => {
+  const { setIsOpen } = useMegaMenu();
+  return (
+    <div className="flex flex-col gap-3 p-8">
+      <Link
+        href="/entrar"
+        // onClick={() => setIsOpen(false)}
+        className="block px-4 py-3 rounded text-center uppercase font-extrabold transition-colors text-[#e2e8f0] bg-[#1d4f91] hover:bg-[#34619c]"
+      >
+        Entrar
+      </Link>
+      <Link
+        href="/cadastrar"
+        // onClick={() => setIsOpen(false)}
+        className="block px-4 py-3 rounded text-center uppercase font-extrabold transition-colors text-[#1d4f91] hover:text-[#34619c]"
+      >
+        Cadastrar
+      </Link>
+    </div>
+  );
+};

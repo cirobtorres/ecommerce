@@ -18,17 +18,21 @@ export class AuthCompanyService {
     return this.userCompanyService.create(body);
   }
 
+  async retrieveEmailByCnpj(cnpj: string) {
+    const { email } = await this.userCompanyService.retrieveEmailByCnpj(cnpj);
+    return { email };
+  }
+
   async generateEmailLinkByCnpj(cnpj: string, password: string) {
     try {
-      const { email: retrievedEmail } =
-        await this.userCompanyService.retrieveEmailByCnpj(cnpj);
+      const { email } = await this.retrieveEmailByCnpj(cnpj);
 
       const {
         data: { properties, user },
         error,
       } = await this.supabaseClient.auth.admin.generateLink({
         type: "signup",
-        email: retrievedEmail,
+        email,
         password,
       });
 

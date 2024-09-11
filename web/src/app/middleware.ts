@@ -1,14 +1,7 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
 
-/*
- * Explanation of this middleware
- * https://nextjs.org/docs/app/building-your-application/routing/middleware
- * https://supabase.com/docs/guides/auth/server-side/nextjs
- */
-
 export async function middleware(request: NextRequest) {
-  console.log("Middleware");
   return await updateSession(request);
 }
 

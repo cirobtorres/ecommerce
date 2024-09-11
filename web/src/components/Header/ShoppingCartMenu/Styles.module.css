@@ -1,0 +1,44 @@
+.shopping-cart-menu-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 400px;
+  z-index: 3;
+  background: #eee;
+  transition: all 150ms;
+  transform: translateX(100%);
+}
+
+.shopping-cart-animation-enter {
+  transform: translateX(0%);
+  box-shadow: rgba(0, 0, 0, 0.15) 3px 0px 3px 0px;
+}
+
+.shopping-cart-enter::after {
+  content: "";
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/**/
+.shopping-cart-menu-heading {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.shopping-cart-menu-heading h2 {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 25px;
+  line-height: 28px;
+}

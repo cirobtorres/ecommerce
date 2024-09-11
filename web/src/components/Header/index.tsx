@@ -11,6 +11,7 @@ import ProductSection from "./ProductSection";
 import MegaMenu from "./MegaMenu";
 import ProductSectionFocusBg from "./ProductSection/ProductSectionFocusBg";
 import Styles from "./Styles.module.css";
+import ShoppingCartMenu from "./ShoppingCartMenu";
 
 export default async function Header({ user }: { user: RefrigelUser | null }) {
   return (
@@ -48,6 +49,7 @@ export default async function Header({ user }: { user: RefrigelUser | null }) {
         </nav>
         <ProductSection />
         <MegaMenu user={user} />
+        <ShoppingCartMenu />
       </header>
       <ProductSectionFocusBg />
     </>
@@ -57,14 +59,14 @@ export default async function Header({ user }: { user: RefrigelUser | null }) {
 export function AuthHeader() {
   // This header is meant to be used on "entrar" and "cadastrar" pages
   return (
-    <header className={Styles["auth-header-container"]}>
-      <Link href="/" className={Styles["auth-header-refrigel-logo"]}>
+    <header className="w-full h-24 flex items-center justify-center bg-[#41689c]">
+      <Link href="/" className="relative w-80 h-2/3">
         <Image
           src="/images/refrigel/logo/refrigel-logo-transparente-1.png"
           alt="Logo da Refrigel"
           fill
-          sizes="15vw"
-          className={Styles["header-refrigel-logo-image"]}
+          sizes="300px"
+          className="absolute object-contain"
         />
       </Link>
     </header>

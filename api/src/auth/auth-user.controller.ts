@@ -1,4 +1,10 @@
-import { Body, Controller, HttpCode, Post } from "@nestjs/common";
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+} from "@nestjs/common";
 import { AuthPersonService } from "./auth-person.service";
 import { AddressPersonService } from "../address/address-person.service";
 import { AvatarPersonService } from "../avatar/avatar-person.service";
@@ -7,6 +13,7 @@ import { AuthLoginDTO } from "./dtos/auth-login.dto";
 import { AuthCompanyService } from "./auth-company.service";
 import { CreateCompanyDTO } from "../user/dtos/company-create.dto";
 import { AuthUserService } from "./auth-user.service";
+import { CNPJValidator, CPFValidator } from "src/utils/docValidator";
 
 @Controller("api/auth/user")
 export class AuthUserController {
@@ -55,6 +62,29 @@ export class AuthUserController {
     const { properties, user } =
       await this.authCompanyService.generateEmailLinkByCnpj(cnpj, password);
     return this.authUserService.sendAuthenticationEmail(properties, user);
+  }
+
+  @Post("reset-password")
+  @HttpCode(200)
+  async generatePasswordResetLink(@Body() { body }: { body: AuthLoginDTO }) {
+    const cpfData = new CPFValidator(body as string);
+    const cnpjData = new CNPJValidator(body as string);
+    const emailData = body as string;
+    if (cpfData.isValid) {
+      const { email } = await this.authPersonService.retrieveEmailByCpf(
+        cpfData.cpf
+      );
+      return this.authUserService.generatePasswordResetLinkByEmail(email);
+    } else if (cnpjData.isValid) {
+      const { email } = await this.authCompanyService.retrieveEmailByCnpj(
+        cnpjData.cnpj
+      );
+      return this.authUserService.generatePasswordResetLinkByEmail(email);
+    } else if (emailData.includes("@")) {
+      return this.authUserService.generatePasswordResetLinkByEmail(emailData);
+    } else {
+      throw new BadRequestException("Invalid credentials");
+    }
   }
 
   @Post("exists/cpf") // ok

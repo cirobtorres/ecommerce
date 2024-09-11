@@ -4,6 +4,7 @@ import { MegaMenuContextProvider } from "../../contexts/MegaMenuContext";
 import { RefrigelUser } from "@/types/user-types";
 import { ProductsMenuContextProvider } from "../../contexts/ProductsMenuContext";
 import Styles from "./Styles.module.css";
+import { ShoppingCartMenuContextProvider } from "@/contexts/ShoppingCartMenuContext";
 
 export default function Body({
   children,
@@ -15,11 +16,13 @@ export default function Body({
   return (
     <div className={Styles["body-main-container"]}>
       <MegaMenuContextProvider>
-        <ProductsMenuContextProvider>
-          <Header user={user} />
-          {children}
-          <Footer />
-        </ProductsMenuContextProvider>
+        <ShoppingCartMenuContextProvider>
+          <ProductsMenuContextProvider>
+            <Header user={user} />
+            {children}
+            <Footer />
+          </ProductsMenuContextProvider>
+        </ShoppingCartMenuContextProvider>
       </MegaMenuContextProvider>
     </div>
   );
@@ -30,11 +33,13 @@ export function AuthBody({ children }: { children: React.ReactNode }) {
   return (
     <div className={Styles["body-main-container"]}>
       <MegaMenuContextProvider>
-        <ProductsMenuContextProvider>
-          <AuthHeader />
-          {children}
-          <Footer />
-        </ProductsMenuContextProvider>
+        <ShoppingCartMenuContextProvider>
+          <ProductsMenuContextProvider>
+            <AuthHeader />
+            {children}
+            <Footer />
+          </ProductsMenuContextProvider>
+        </ShoppingCartMenuContextProvider>
       </MegaMenuContextProvider>
     </div>
   );

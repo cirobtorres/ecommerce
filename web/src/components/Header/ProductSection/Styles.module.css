@@ -3,7 +3,7 @@
   height: 40px;
   display: flex;
   justify-content: start;
-  background: var(--gradient-09-radial);
+  background: var(--refrigel-theme-17);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
   z-index: 1;
   margin-bottom: auto;
